@@ -1,0 +1,69 @@
+# ========================
+# WordPress theme: SKALUM
+# ========================
+
+# Node & build
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+package-lock.json
+.DS_Store
+*.tmp
+*.log
+
+# Gulp / build cache
+.cache/
+.tmp/
+dist/
+build/
+
+# System files
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+.idea/
+.vscode/
+*.sublime-workspace
+*.sublime-project
+
+# OS-specific
+*.bak
+*.swp
+*.swo
+
+# Sass / CSS cache
+.sass-cache/
+*.map
+
+# WordPress specific
+wp-content/uploads/
+wp-content/upgrade/
+wp-content/cache/
+wp-content/backups/
+wp-content/ai1wm-backups/
+wp-content/plugins/hello.php
+
+# ACF local JSON cache
+# acf-json/
+
+# Composer
+vendor/
+composer.lock
+
+# Local dev (Local by Flywheel / WAMP / etc.)
+*.sql
+*.sql.gz
+*.zip
+*.tar
+*.tar.gz
+.env
+.env.local
+.env.development
+.env.production
+
+# OS/Editor noise
+*.iml
+*.idea/
+.vscode/
+*.orig
