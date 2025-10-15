@@ -7,15 +7,13 @@ import cssnano from "cssnano";
 import terser from "gulp-terser";
 import rename from "gulp-rename";
 import plumber from "gulp-plumber";
-import path from "path";
 
 const sass = gulpSass(dartSass);
 
-// ---- Шляхи
 const paths = {
   scssGlobal: "assets/scss/**/*.scss",
   cssGlobalOut: "assets/css",
-  scssBlocks: "blocks/*/assets/scss/*.scss",
+  scssBlocks: ["blocks/*/assets/scss/*.scss", "!blocks/*/assets/scss/_*.scss"],
   jsBlocks: ["blocks/*/assets/js/*.js", "!blocks/*/assets/js/*.min.js"]
 };
 
@@ -28,16 +26,15 @@ export function stylesGlobal() {
 }
 
 export function stylesBlocks() {
-  return gulp.src(paths.scssBlocks, { sourcemaps: false })
+  return gulp.src(paths.scssBlocks, { base: "blocks", sourcemaps: false })
     .pipe(plumber())
     .pipe(sass.sync({ outputStyle: "expanded" }))
     .pipe(postcss([autoprefixer(), cssnano()]))
-    .pipe(gulp.dest((file) => {
-      // blocks/<slug>/assets/scss/foo.scss -> blocks/<slug>/assets/css/
-      const baseDir = path.dirname(file.path);
-      const cssDir = baseDir.replace(path.sep + "scss", path.sep + "css");
-      return cssDir;
-    }));
+    .pipe(rename(p => {
+      // sky-block/assets/scss  →  sky-block/assets/css
+      p.dirname = p.dirname.replace(/assets[\/\\]scss$/, "assets/css");
+    }))
+    .pipe(gulp.dest("blocks"));
 }
 
 export function scriptsBlocks() {
@@ -45,7 +42,7 @@ export function scriptsBlocks() {
     .pipe(plumber())
     .pipe(terser())
     .pipe(rename({ suffix: ".min" }))
-    .pipe(gulp.dest((file) => path.dirname(file.path)));
+    .pipe(gulp.dest(file => file.base));
 }
 
 export function watch() {

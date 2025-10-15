@@ -6,6 +6,7 @@ $inc = [
     '/inc/helpers.php', 
     '/inc/ajax.php',
     '/inc/blocks.php',
+    '/inc/fields/page-settings.php'
 ];
 
 foreach ($inc as $rel) {
