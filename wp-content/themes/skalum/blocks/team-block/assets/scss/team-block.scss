@@ -1,0 +1,224 @@
+// palette
+$bg: #0e1117;
+$text: #e6ebef;
+$muted: #c8ced6;
+$card-bg: rgba(255, 255, 255, 0.05);
+$border: rgba(255, 255, 255, 0.08);
+$shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+$accent1: #ed8b35;
+
+.team-block {
+  color: $text;
+
+  &__inner {
+    position: relative;
+  }
+
+  &__header {
+    margin-bottom: 28px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    text-align: center;
+    &::before {
+      content: "";
+      display: block;
+      width: 200px;
+      height: 200px;
+      background-color: #7ec3f4;
+      border-radius: 50%;
+      filter: blur(150px);
+      position: absolute;
+      z-index: 0;
+      top: 10%;
+      left: 30%;
+    }
+  }
+
+  &__title {
+    max-width: 900px;
+    h2,
+    h1,
+    .h1,
+    .h2 {
+      margin: 0;
+    }
+    position: relative;
+    z-index: 2;
+  }
+  .container {
+    position: relative;
+    z-index: 2;
+    max-width: 369px;
+    margin: 0 auto;
+
+    @media screen and (min-width: 1025px) {
+      max-width: 1240px;
+      width: 100%;
+    }
+
+    @media screen and (min-width: 816px) {
+      max-width: 1240px;
+      padding: 0 15px;
+    }
+
+    &__badge {
+      font-size: 13px;
+      line-height: 1;
+      padding: 6px 12px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.12);
+      color: rgba(255, 255, 255, 0.85);
+      width: fit-content;
+    }
+
+    .team-block__name {
+      display: flex;
+      width: fit-content;
+      background-color: rgba(255, 255, 255, 0.2);
+      border-radius: 30px;
+      font-size: 14px;
+      color: rgba(255, 255, 255, 0.8);
+      padding: 2px 10px;
+      margin-bottom: 16px;
+    }
+
+    /* grid of members */
+    .team-grid {
+      --gap: 22px;
+      list-style: none;
+      margin: 36px 0 40px;
+      padding: 0;
+      display: grid;
+      grid-template-columns: repeat(6, minmax(156px, 1fr));
+      gap: var(--gap);
+
+      @media (max-width: 1200px) {
+        grid-template-columns: repeat(4, minmax(160px, 1fr));
+      }
+      @media (max-width: 900px) {
+        grid-template-columns: repeat(3, minmax(150px, 1fr));
+      }
+      @media (max-width: 640px) {
+        grid-template-columns: repeat(2, minmax(140px, 1fr));
+      }
+    }
+
+    .team-card {
+      position: relative;
+      &__figure {
+        margin: 0;
+      }
+
+      &__image {
+        position: relative;
+        border-radius: 6px;
+        overflow: hidden;
+        background: $card-bg;
+        border: 1px solid $border;
+        box-shadow: $shadow;
+
+        aspect-ratio: 5 / 6;
+        display: block;
+
+        /* subtle vignette */
+        &::after {
+          content: "";
+          position: absolute;
+          inset: 0;
+          background: radial-gradient(
+            100% 100% at 50% 10%,
+            transparent 0,
+            rgba(0, 0, 0, 0.42) 62%,
+            rgba(0, 0, 0, 0.95) 100%
+          );
+          pointer-events: none;
+        }
+      }
+
+      &__img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        filter: saturate(0) contrast(1.05) brightness(0.95);
+        transition: transform 0.35s ease, filter 0.35s ease;
+        display: block;
+      }
+
+      &:hover .team-card__img {
+        transform: scale(1.03);
+        filter: saturate(0.05) contrast(1.08) brightness(1);
+      }
+
+      &__placeholder {
+        position: absolute;
+        inset: 0;
+        display: grid;
+        place-items: center;
+        background: linear-gradient(
+          180deg,
+          rgba(255, 255, 255, 0.06),
+          rgba(255, 255, 255, 0.02)
+        );
+        color: rgba(255, 255, 255, 0.9);
+        font-weight: 700;
+        font-size: 28px;
+      }
+
+      &__caption {
+        padding: 10px 6px 0;
+        bottom: 0px;
+        position: absolute;
+      }
+      &__name {
+        margin: 8px 0 2px;
+        font-size: 18px;
+        font-weight: 700;
+      }
+      &__role {
+        margin: 0 0 8px;
+        color: $muted;
+        font-size: 12px;
+      }
+    }
+
+    /* bottom descriptions */
+    .team-desc {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 28px;
+      margin-top: 28px;
+
+      &__left {
+        p {
+          font-size: 24px;
+          line-height: 1.35;
+          margin: 0;
+        }
+        strong,
+        b {
+          color: #fff;
+        }
+      }
+      &__right {
+        color: $muted;
+        p {
+          margin: 0 0 10px;
+          font-size: 16px;
+          font-weight: 200;
+        }
+      }
+
+      @media (max-width: 900px) {
+        grid-template-columns: 1fr;
+        &__right {
+          order: 2;
+        }
+        &__left {
+          order: 1;
+        }
+      }
+    }
+  }
+}
