@@ -5,15 +5,35 @@
     {
       "key": "tab_sky_content",
       "label": "Content",
+      "name": "",
+      "aria-label": "",
       "type": "tab",
-      "placement": "top"
+      "instructions": "",
+      "required": 0,
+      "conditional_logic": false,
+      "wrapper": {
+        "width": "",
+        "class": "",
+        "id": ""
+      },
+      "placement": "top",
+      "endpoint": 0,
+      "selected": 0
     },
     {
       "key": "field_sky-block_title",
       "label": "Title",
       "name": "sky-block_title",
+      "aria-label": "",
       "type": "wysiwyg",
-      "wrapper": { "width": "50" },
+      "instructions": "",
+      "required": false,
+      "conditional_logic": false,
+      "wrapper": {
+        "width": "50",
+        "class": "",
+        "id": ""
+      },
       "tabs": "all",
       "toolbar": "full",
       "media_upload": 1,
@@ -24,8 +44,16 @@
       "key": "field_sky-block_text",
       "label": "Text",
       "name": "sky-block_text",
+      "aria-label": "",
       "type": "wysiwyg",
-      "wrapper": { "width": "50" },
+      "instructions": "",
+      "required": false,
+      "conditional_logic": false,
+      "wrapper": {
+        "width": "50",
+        "class": "",
+        "id": ""
+      },
       "tabs": "all",
       "toolbar": "basic",
       "media_upload": 0,
@@ -36,66 +64,159 @@
       "key": "field_sky-block_cta_group",
       "label": "Button",
       "name": "sky-block_cta",
+      "aria-label": "",
       "type": "group",
+      "instructions": "",
+      "required": false,
+      "conditional_logic": false,
+      "wrapper": {
+        "width": "",
+        "class": "",
+        "id": ""
+      },
       "layout": "block",
       "sub_fields": [
         {
           "key": "field_sky-block_cta_label",
           "label": "Label",
           "name": "sky-block_cta_label",
+          "aria-label": "",
           "type": "text",
+          "instructions": "",
+          "required": false,
+          "conditional_logic": false,
+          "wrapper": {
+            "width": "",
+            "class": "",
+            "id": ""
+          },
           "default_value": "",
-          "placeholder": "Learn more"
+          "placeholder": "Learn more",
+          "maxlength": "",
+          "prepend": "",
+          "append": ""
         },
         {
           "key": "field_sky-block_cta_url",
           "label": "URL",
           "name": "sky-block_cta_url",
+          "aria-label": "",
           "type": "url",
-          "placeholder": "https://example.com"
+          "instructions": "",
+          "required": false,
+          "conditional_logic": false,
+          "wrapper": {
+            "width": "",
+            "class": "",
+            "id": ""
+          },
+          "placeholder": "https:\/\/example.com",
+          "default_value": ""
         },
         {
           "key": "field_sky-block_cta_target",
           "label": "Open in new tab?",
           "name": "sky-block_cta_target",
+          "aria-label": "",
           "type": "true_false",
+          "instructions": "",
+          "required": false,
+          "conditional_logic": false,
+          "wrapper": {
+            "width": "",
+            "class": "",
+            "id": ""
+          },
           "ui": 1,
-          "default_value": 0
+          "default_value": 0,
+          "message": "",
+          "ui_on_text": "",
+          "ui_off_text": ""
         }
       ]
     },
-
     {
       "key": "tab_sky_bg",
       "label": "Background",
+      "name": "",
+      "aria-label": "",
       "type": "tab",
-      "placement": "top"
+      "instructions": "",
+      "required": 0,
+      "conditional_logic": false,
+      "wrapper": {
+        "width": "",
+        "class": "",
+        "id": ""
+      },
+      "placement": "top",
+      "endpoint": 0,
+      "selected": 0
     },
     {
       "key": "field_sky_bg_desktop",
       "label": "Background — Desktop",
       "name": "bg_desktop",
+      "aria-label": "",
       "type": "image",
+      "instructions": "",
+      "required": false,
+      "conditional_logic": false,
+      "wrapper": {
+        "width": "50",
+        "class": "",
+        "id": ""
+      },
       "return_format": "id",
       "preview_size": "medium",
       "mime_types": "jpg,jpeg,png,webp",
-      "wrapper": { "width": "50" }
+      "library": "all",
+      "min_width": 0,
+      "min_height": 0,
+      "min_size": 0,
+      "max_width": 0,
+      "max_height": 0,
+      "max_size": 0
     },
     {
       "key": "field_sky_bg_mobile",
       "label": "Background — Mobile",
       "name": "bg_mobile",
+      "aria-label": "",
       "type": "image",
+      "instructions": "",
+      "required": false,
+      "conditional_logic": false,
+      "wrapper": {
+        "width": "50",
+        "class": "",
+        "id": ""
+      },
       "return_format": "id",
       "preview_size": "medium",
       "mime_types": "jpg,jpeg,png,webp",
-      "wrapper": { "width": "50" }
+      "library": "all",
+      "min_width": 0,
+      "min_height": 0,
+      "min_size": 0,
+      "max_width": 0,
+      "max_height": 0,
+      "max_size": 0
     },
     {
       "key": "field_sky_bg_position",
       "label": "Background position",
       "name": "bg_position",
+      "aria-label": "",
       "type": "select",
+      "instructions": "",
+      "required": false,
+      "conditional_logic": false,
+      "wrapper": {
+        "width": "50",
+        "class": "",
+        "id": ""
+      },
       "choices": {
         "center center": "Center",
         "top center": "Top",
@@ -105,25 +226,61 @@
       },
       "default_value": "center center",
       "ui": 1,
-      "wrapper": { "width": "50" }
+      "multiple": 0,
+      "allow_null": 0,
+      "ajax": 0,
+      "placeholder": "",
+      "return_format": "value",
+      "create_options": 0,
+      "save_options": 0
     },
     {
       "key": "field_sky_bg_size",
       "label": "Background size",
       "name": "bg_size",
+      "aria-label": "",
       "type": "select",
-      "choices": { "cover": "Cover", "contain": "Contain" },
+      "instructions": "",
+      "required": false,
+      "conditional_logic": false,
+      "wrapper": {
+        "width": "50",
+        "class": "",
+        "id": ""
+      },
+      "choices": {
+        "cover": "Cover",
+        "contain": "Contain"
+      },
       "default_value": "cover",
       "ui": 1,
-      "wrapper": { "width": "50" }
+      "multiple": 0,
+      "allow_null": 0,
+      "ajax": 0,
+      "placeholder": "",
+      "return_format": "value",
+      "create_options": 0,
+      "save_options": 0
     },
     {
       "key": "field_sky_bg_alt",
       "label": "Image alt (for <picture> variant)",
       "name": "bg_alt",
+      "aria-label": "",
       "type": "text",
       "instructions": "Потрібно лише якщо використовуєш варіант із <picture> (змістовне зображення).",
-      "default_value": ""
+      "required": false,
+      "conditional_logic": false,
+      "wrapper": {
+        "width": "",
+        "class": "",
+        "id": ""
+      },
+      "default_value": "",
+      "maxlength": "",
+      "placeholder": "",
+      "prepend": "",
+      "append": ""
     }
   ],
   "location": [
@@ -131,7 +288,7 @@
       {
         "param": "block",
         "operator": "==",
-        "value": "acf/skalum-sky-block"
+        "value": "acf\/skalum-sky-block"
       }
     ]
   ],

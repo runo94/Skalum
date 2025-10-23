@@ -30,7 +30,6 @@ h6 {
   font-family: "DM Sans", sans-serif;
   font-weight: 600;
   line-height: 120%;
-  margin: 0 0 0.5em;
   color: #fff;
 }
 
@@ -67,14 +66,14 @@ p {
 
 /* ---------- Links ---------- */
 a {
-  color: #0070f3;
+  color: #ED8B35;
   text-decoration: none;
   transition: color 0.2s ease;
 }
 a:hover,
 a:focus {
-  color: #0056b3;
-  text-decoration: underline;
+  color: #ed8b35d7;
+  text-decoration: none;
 }
 
 /* ---------- Lists ---------- */
