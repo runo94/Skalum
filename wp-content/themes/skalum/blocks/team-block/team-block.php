@@ -11,6 +11,10 @@ $class = 'team-block'
   . (!empty($block['className']) ? ' ' . $block['className'] : '')
   . (!empty($block['align']) ? ' align' . $block['align'] : '');
 
+$hide_on_mobile = (bool) get_field('hide_on_mobile'); // у контексті шаблона
+$class .= $hide_on_mobile ? ' u-hide-mobile' : '';
+
+
 /** Fields */
 $title        = get_field('title');              // WYSIWYG
 $block_name   = get_field('block_name');         // text (бейдж угорі)

@@ -13,6 +13,10 @@ $class = 'timeline-block'
   . (!empty($block['className']) ? ' ' . $block['className'] : '')
   . (!empty($block['align']) ? ' align' . $block['align'] : '');
 
+$hide_on_mobile = (bool) get_field('hide_on_mobile'); // у контексті шаблона
+$class .= $hide_on_mobile ? ' u-hide-mobile' : '';
+
+
 /** ACF fields (JSON уже налаштований під цей ключ блоку) */
 $block_name = get_field('block_name');
 $title = get_field('title');

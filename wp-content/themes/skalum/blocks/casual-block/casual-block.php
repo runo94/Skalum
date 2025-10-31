@@ -24,6 +24,8 @@ $card = get_field('card') ?: [];
 $card_icon = $card['icon'] ?? null;                 // image (array|id)
 $card_title = $card['title'] ?? '';                  // text
 $card_desc = $card['card-description'] ?? '';       // wysiwyg (name з дефісом)
+$hide_on_mobile = (bool) get_field('hide_on_mobile'); // у контексті шаблона
+$class .= $hide_on_mobile ? ' u-hide-mobile' : '';
 
 /** Helpers */
 $has_header = !empty($title) || !empty($description);

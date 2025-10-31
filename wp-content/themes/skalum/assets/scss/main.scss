@@ -102,3 +102,7 @@ small {
   background: #0070f3;
   color: #fff;
 }
+
+@media (max-width: 767.98px) {
+  .u-hide-mobile { display: none !important; }
+}

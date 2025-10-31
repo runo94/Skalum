@@ -8,6 +8,9 @@ $class = 'sky-block'
     . (!empty($block['className']) ? ' ' . $block['className'] : '') 
     . (!empty($block['align']) ? ' align' . $block['align'] : '');
 
+$hide_on_mobile = (bool) get_field('hide_on_mobile'); // у контексті шаблона
+$class .= $hide_on_mobile ? ' u-hide-mobile' : '';
+
 $title   = get_field('sky-block_title');
 $text    = get_field('sky-block_text');
 $image   = get_field('sky-block_image');

@@ -12,6 +12,10 @@ $class = 'animation-block'
   . (!empty($block['className']) ? ' ' . $block['className'] : '')
   . (!empty($block['align']) ? ' align' . $block['align'] : '');
 
+$hide_on_mobile = (bool) get_field('hide_on_mobile'); // у контексті шаблона
+$class .= $hide_on_mobile ? ' u-hide-mobile' : '';
+
+
 /** ACF */
 $start = get_field('start') ?: [];
 $finish = get_field('finish') ?: [];
