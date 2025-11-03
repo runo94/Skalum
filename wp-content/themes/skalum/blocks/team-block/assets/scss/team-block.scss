@@ -182,6 +182,10 @@ $accent1: #ed8b35;
         color: $muted;
         font-size: 12px;
       }
+
+      &::before {
+        content: none;
+      }
     }
 
     /* bottom descriptions */

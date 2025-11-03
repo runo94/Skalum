@@ -3,6 +3,22 @@
   width: 100%;
   margin-top: 100px;
   padding: 0 16px;
+  position: relative;
+
+  &::after {
+    content: "";
+    background-color: #7ec3f4;
+    border-radius: 50%;
+    display: block;
+    filter: blur(145px);
+    height: 15%;
+    left: 43%;
+    position: absolute;
+    bottom: 180px;
+    width: 19%;
+    z-index: 0;
+    transform: translate(-28%, 0);
+  }
 
   @media screen and (min-width: 1024px) {
     padding: 0;
@@ -40,20 +56,6 @@
       top: -44%;
       width: 74%;
       position: absolute;
-      z-index: 0;
-    }
-
-    &::after {
-      content: "";
-      background-color: #7ec3f4;
-      border-radius: 50%;
-      display: block;
-      filter: blur(145px);
-      height: 15%;
-      left: 43%;
-      position: absolute;
-      bottom: 178px;
-      width: 19%;
       z-index: 0;
     }
 
@@ -208,6 +210,7 @@
 
         .casual-block__card-title {
           font-size: 24px;
+          margin-bottom: 16px;
         }
 
         p {

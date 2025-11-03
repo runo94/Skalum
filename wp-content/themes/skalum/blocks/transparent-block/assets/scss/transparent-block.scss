@@ -1,11 +1,11 @@
 .transparent-block {
-  padding: 186px auto 106px;
+  padding: 186px 0 106px;
+  position: relative;
 
   @media screen and (min-width: 1025px) {
     padding: 186px 0 106px;
   }
 
-  position: relative;
   .container {
     position: relative;
     z-index: 2;
@@ -91,9 +91,10 @@
         }
 
         p {
-          color: rgba($color: #fff, $alpha: 0.6);
+          color: #fff;
           text-align: center;
           font-size: 20px;
+          font-weight: 300;
         }
       }
 

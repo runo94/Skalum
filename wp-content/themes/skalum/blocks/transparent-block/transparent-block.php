@@ -21,7 +21,7 @@ $block_name = get_field('block_name');
 $bg_d_id = get_field('bg_desktop');
 $bg_m_id = get_field('bg_mobile');
 $bg_pos  = get_field('bg_position') ?: 'center center';
-$bg_size = get_field('bg_size') ?: 'cover';
+$bg_size = get_field('bg_size') ?: 'inherit';
 
 $bg_d = $bg_d_id ? wp_get_attachment_image_url($bg_d_id, 'full') : '';
 $bg_m = $bg_m_id ? wp_get_attachment_image_url($bg_m_id, 'full') : '';

@@ -82,7 +82,6 @@ $has_card = !empty($card_icon) || !empty($card_title) || !empty($card_desc);
             <?php if (!empty($card_desc)): ?>
               <div class="casual-block__card-desc">
                 <?php
-                // card-description — WYSIWYG
                 echo wp_kses_post($card_desc);
                 ?>
               </div>
