@@ -4,8 +4,9 @@
   .container {
     position: relative;
     z-index: 2;
-    max-width: 369px;
     margin: 0 auto;
+    width: 100%;
+    padding: 0 15px;
 
     @media screen and (min-width: 1025px) {
       max-width: 1240px;
@@ -14,13 +15,12 @@
 
     @media screen and (min-width: 816px) {
       max-width: 1240px;
-      padding: 0 15px;
     }
 
     .phone-block__inner {
       display: flex;
       flex-flow: row wrap;
-      justify-content: space-between;
+      justify-content: center;
       align-items: flex-start;
 
       @media screen and (min-width: 816px) {
@@ -89,7 +89,7 @@
         }
 
         .phone-block__title {
-          max-width: 368px;
+          width: 100%;
           margin: 0 auto 42px;
           z-index: 1;
 
@@ -103,7 +103,7 @@
         }
 
         .phone-block__text {
-          max-width: 368px;
+          width: 100%;
           margin: 0 auto;
           z-index: 1;
 
@@ -120,7 +120,7 @@
           list-style: none;
           padding: 0;
           margin: 48px auto 0;
-          max-width: 368px;
+          width: 100%;
           z-index: 1;
 
           @media screen and (min-width: 1025px) {

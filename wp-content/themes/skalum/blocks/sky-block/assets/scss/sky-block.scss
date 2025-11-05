@@ -1,5 +1,5 @@
 .sky-block {
-  padding-top: 64px;
+  padding-top: 164px;
 
   @media screen and (min-width: 1025px) {
     padding-top: 164px;
@@ -9,7 +9,8 @@
     position: relative;
     z-index: 2;
     .sky-block__title {
-      max-width: 368px;
+      max-width: 846px;
+      width: 100%;
       margin: 0 auto 72px;
 
       @media screen and (min-width: 1025px) {

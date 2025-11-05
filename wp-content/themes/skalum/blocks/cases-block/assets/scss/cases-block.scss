@@ -4,15 +4,15 @@
   overflow: hidden;
 
   .container {
-    max-width: 369px;
     margin: 0 auto;
     position: relative;
     z-index: 2;
 
-    @media (min-width: 816px) {
+    @media (min-width: 566px) {
       max-width: 1240px;
       padding: 0 15px;
     }
+    
     @media (min-width: 1025px) {
       max-width: 1240px;
       width: 100%;

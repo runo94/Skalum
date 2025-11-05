@@ -2,7 +2,7 @@
 /**
  * Block: FAQ
  */
-$id = $block['anchor'] ?? '我会faq-' . $block['id'];
+$id = $block['anchor'] ?? 'faq-' . $block['id'];
 $class = 'faq-block' . (!empty($block['className']) ? ' ' . $block['className'] : '');
 
 $block_name = get_field('block_name') ?: 'FAQ';

@@ -13,7 +13,6 @@
   .container {
     position: relative;
     z-index: 2;
-    max-width: 369px;
     margin: 0 auto;
     gap: 12px;
 
@@ -23,7 +22,7 @@
       gap: 12px;
     }
 
-    @media screen and (min-width: 816px) {
+    @media screen and (min-width: 566px) {
       max-width: 1240px;
       padding: 0 15px;
     }
@@ -39,7 +38,7 @@
 
       .animation_part {
         position: relative;
-        max-width: 570px;
+        max-width: 100%;
         padding: 37px 18px 21px 27px;
         border-radius: 12px;
         border: 1px solid rgba(255, 255, 255, 0.1);
@@ -109,10 +108,9 @@
       }
 
       .animation-block__animation {
-        max-width: 570px;
         width: 100%;
 
-        @media screen and (min-width: 1024px) {
+        @media screen and (min-width: 800px) {
           max-width: 48%;
           width: 100%;
         }
@@ -407,9 +405,10 @@
         }
       }
       .animation-block__content {
-        max-width: 608px;
+          width: 100%;
 
-        @media screen and (min-width: 1024px) {
+
+        @media screen and (min-width: 800px) {
           max-width: 48%;
           width: 100%;
         }

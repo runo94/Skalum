@@ -28,7 +28,7 @@ $image_position = get_field('image_position');
     <div class="phone-block__inner <?php echo $image_position ?>">
 
       <div class="phone-block__image">
-        <canvas id="pushes" width="404" height="621" style="width:404px;height:621px;display:block"></canvas>
+        <canvas id="pushes" width="404" height="541" style="width:404px;height:541px;display:block"></canvas>
         <div id="phone_time"></div>
         <div id="phone_date"></div>
       </div>

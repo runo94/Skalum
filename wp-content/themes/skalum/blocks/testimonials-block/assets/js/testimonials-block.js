@@ -14,6 +14,7 @@
         centerPadding: "240px",
         slidesToShow: 1,
         dots: true,
+        arrows: false,
         responsive: [
           {
             breakpoint: 768,
