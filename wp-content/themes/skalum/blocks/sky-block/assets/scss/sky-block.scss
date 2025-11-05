@@ -1,5 +1,9 @@
 .sky-block {
   padding-top: 64px;
+
+  @media screen and (min-width: 1025px) {
+    padding-top: 164px;
+  }
   position: relative;
   .container {
     position: relative;

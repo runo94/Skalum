@@ -11,7 +11,7 @@ particlesJS("particles-js", {
       "value": "#ffffff"
     },
     "shape": {
-      "type": "star",
+      "type": "circle",
       "stroke": {
         "width": 0,
         "color": "#000000"
@@ -30,7 +30,7 @@ particlesJS("particles-js", {
       "random": false,
       "anim": {
         "enable": true,
-        "speed": 0.25,
+        "speed": 1,
         "opacity_min": 0,
         "sync": false
       }
@@ -54,7 +54,7 @@ particlesJS("particles-js", {
     },
     "move": {
       "enable": true,
-      "speed": 0.1,
+      "speed": 1,
       "direction": "none",
       "random": true,
       "straight": false,

@@ -24,6 +24,17 @@ const TIMING = {
   TICK_MS: 1500,         // ⏸ тривалість тік-паузи
 };
 
+const FRAME_RATE = 60;
+const FRAME_MS = 1000 / FRAME_RATE;
+const PUSH_ACCEL = TIMING.pushPxPerMs * 2000; // px/s²
+const DAMPING_RATE = -Math.log(1 - TIMING.damping) / (2 / FRAME_RATE); // /s
+const PAUSE_DAMPING_RATE = -Math.log(0.85) / (1 / FRAME_RATE); // /s
+const GROW_RATE = TIMING.growSpeed * 2000; // /s
+const INITIAL_KICK = TIMING.pushPxPerMs * FRAME_MS * FRAME_RATE; // px/s (converted from px/frame * fps)
+const SETTLE_VY_FRAME = 0.02; // original px/frame
+const SETTLE_VY = SETTLE_VY_FRAME * FRAME_RATE; // px/s
+const ROWS_OK_VY = 0.04 * FRAME_RATE; // px/s
+
 // ---------- DPR ----------
 function fitDPR() {
   const dpr = Math.max(1, window.devicePixelRatio || 1);
@@ -91,7 +102,7 @@ const load = (src) => new Promise((resolve) => {
     if (seqActive || cards.length === 0) return;
     seqActive = true;
     resetTickGate();
-    cards[0].vy += TIMING.pushPxPerMs * 16; // стартовий імпульс
+    cards[0].vy += INITIAL_KICK; // стартовий імпульс
   }
 
   // вставка нового зверху, коли перша пройшла нижче слота 1
@@ -113,9 +124,11 @@ const load = (src) => new Promise((resolve) => {
   function updateGrow(dt) {
     const top = cards[0];
     if (!top || !top.__growing) return;
+    const dt_s = dt / 1000;
     const target = (top.s < 1 + TIMING.growOvershoot) ? (1 + TIMING.growOvershoot) : 1;
-    top.s += (target - top.s) * (TIMING.growSpeed * dt);
-    top.a += (1 - top.a) * (TIMING.growSpeed * dt * 0.9);
+    const grow_k = 1 - Math.exp(-GROW_RATE * dt_s);
+    top.s += (target - top.s) * grow_k;
+    top.a += (1 - top.a) * grow_k * 0.9;
     if (Math.abs(top.s - 1) < 0.01) { top.s = 1; top.a = 1; top.__growing = false; }
   }
 
@@ -139,7 +152,7 @@ const load = (src) => new Promise((resolve) => {
   // видалення лише коли картка повністю нижче екрану
   function cullOut() {
     const rowsOK = cards.slice(0, LAYOUT.rows).every((c, i) =>
-      Math.abs(c.y - slotY(i)) < G.cardH * 0.08 && Math.abs(c.vy) < 0.04
+      Math.abs(c.y - slotY(i)) < G.cardH * 0.08 && Math.abs(c.vy) < ROWS_OK_VY
     );
     if (!rowsOK) return;
 
@@ -152,7 +165,7 @@ const load = (src) => new Promise((resolve) => {
 
     if (!removed && cards.length <= LAYOUT.rows) {
       const allSettled = cards.slice(0, LAYOUT.rows).every((c, i) =>
-        Math.abs(c.y - slotY(i)) < TIMING.settlePx && Math.abs(c.vy) < 0.02 && !c.__growing
+        Math.abs(c.y - slotY(i)) < TIMING.settlePx && Math.abs(c.vy) < SETTLE_VY && !c.__growing
       );
       if (allSettled) { seqActive = false; resetTickGate(); }
     }
@@ -160,8 +173,14 @@ const load = (src) => new Promise((resolve) => {
 
   // рендер із примусовим alpha=1 для картки, найближчої до слота-0
   function render() {
-    ctx.clearRect(0, 0, cvs.width, cvs.height);
+    ctx.clearRect(0, 0, G.W, G.H);
     ctx.drawImage(bg, 0, 0, bg.naturalWidth, bg.naturalHeight, 0, 0, G.W, G.H);
+
+    // Кліпінг для карток, щоб не малювати нижче screenBottom
+    ctx.save();
+    ctx.beginPath();
+    ctx.rect(0, 0, G.W, G.screenBottom);
+    ctx.clip();
 
     let primary = null, best = Infinity;
     for (const c of cards) {
@@ -180,13 +199,17 @@ const load = (src) => new Promise((resolve) => {
     }
     ctx.globalAlpha = 1;
 
+    ctx.restore();
+
     // нижня тінь
     const fadeH = G.H * 0.5;
-    const grad = ctx.createLinearGradient(0, G.H - fadeH, 0, G.H);
+    const shadowShift = 2; // пікселі вниз
+    const startY = G.H - fadeH + shadowShift;
+    const grad = ctx.createLinearGradient(0, startY, 0, G.H);
     grad.addColorStop(0, "rgba(0,0,0,0)");
     grad.addColorStop(1, "rgba(0,0,0,0.9)");
     ctx.fillStyle = grad;
-    ctx.fillRect(0, G.H - fadeH, G.W, fadeH);
+    ctx.fillRect(0, startY, G.W, fadeH - shadowShift);
   }
 
   // ---------- LOOP ----------
@@ -194,6 +217,7 @@ const load = (src) => new Promise((resolve) => {
   function tick(now) {
     const dt = Math.min(50, now - prev);
     prev = now;
+    const dt_s = dt / 1000;
 
     // автозапуск нової послідовності
     if (!seqActive && now - lastPushAt >= TIMING.arrivalEveryMs) {
@@ -205,15 +229,17 @@ const load = (src) => new Promise((resolve) => {
       const paused = now < pauseUntil;
 
       if (!paused) {
-        cards[0].vy += TIMING.pushPxPerMs * dt;
-      } else {
-        for (const c of cards) c.vy *= 0.85; // пригашуємо під час паузи
+        cards[0].vy += PUSH_ACCEL * dt_s;
+      }
+
+      if (paused) {
+        for (const c of cards) c.vy *= Math.exp(-PAUSE_DAMPING_RATE * dt_s);
       }
 
       // інтеграція
       for (const c of cards) {
-        c.y += c.vy;
-        c.vy *= 1 - TIMING.damping;
+        c.y += c.vy * dt_s;
+        c.vy *= Math.exp(-DAMPING_RATE * dt_s);
       }
 
       // обмеження
@@ -252,7 +278,7 @@ const load = (src) => new Promise((resolve) => {
 
   // Налаштування: 12/24-годинний формат і локаль для назв днів/місяців
   const USE_12H = true;               // true = 12-hour без am/pm; false = 24-hour
-  const LOCALE  = 'en-GB';            // дає порядок "Tuesday, 23 June" (як у прикладі)
+  const LOCALE  = 'uk-UA';            // для українського користувача
 
   const fmtWeekday = new Intl.DateTimeFormat(LOCALE, { weekday: 'long' });
   const fmtMonth   = new Intl.DateTimeFormat(LOCALE, { month: 'long' });
@@ -265,10 +291,10 @@ const load = (src) => new Promise((resolve) => {
   }
 
   function fmtDate(d) {
-    const wd = fmtWeekday.format(d);    // Tuesday
+    const wd = fmtWeekday.format(d);    // Вівторок
     const day = d.getDate();            // 23
-    const mo = fmtMonth.format(d);      // June
-    return `${wd}, ${day} ${mo}`;       // "Tuesday, 23 June"
+    const mo = fmtMonth.format(d);      // червня
+    return `${wd}, ${day} ${mo}`;       // "Вівторок, 23 червня"
   }
 
   function update() {
