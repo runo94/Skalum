@@ -179,6 +179,7 @@
       display: flex;
       gap: 60px;
       align-items: flex-start;
+      padding: 0 18px;
 
       @media (max-width: 1024px) {
         flex-direction: column;
@@ -190,7 +191,14 @@
   // ЛІВИЙ БЛОК — список
   .case-slide__list {
     flex: 1;
-    max-width: 500px;
+    max-width: 100%;
+
+    @media (min-width: 1025px) {
+      max-width: 500px;
+      .case-slide__detail {
+        display: none !important;
+      }
+    }
   }
 
   .case-item {
@@ -236,13 +244,32 @@
       font-size: 16px;
     }
   }
-  .case-item {
-    &.active {
-      .case-item__title {
-        color: #ff8c00;
-      }
-      .case-item__desc {
-        display: block;
+
+  .case-slide__list {
+    .case-item {
+      &.active {
+        .case-item__title {
+          color: #ff8c00;
+        }
+        .case-item__desc {
+          display: block;
+        }
+
+        .case-slide__detail {
+          display: flex;
+          margin-top: 30px;
+          .case-detail {
+            padding: 0;
+
+            .case-detail__label {
+              margin: 16px 10px;
+            }
+
+            .case-detail__metrics {
+              margin-top: 0;
+            }
+          }
+        }
       }
     }
   }
@@ -266,9 +293,14 @@
   // ПРАВИЙ БЛОК — деталі
   .case-slide__detail {
     flex: 1;
-    max-width: 660px;
-    display: flex;
+    max-width: 100%;
     height: -webkit-fill-available;
+    display: none;
+
+    @media (min-width: 1025px) {
+      display: flex;
+      max-width: 660px;
+    }
   }
 
   .case-detail {
@@ -277,6 +309,8 @@
     border-radius: 24px;
     padding: 32px;
     backdrop-filter: blur(12px);
+    width: 100%;
+
   }
 
   .case-detail__label {
