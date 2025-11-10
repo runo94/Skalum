@@ -27,10 +27,13 @@ $tl-node-size: 12px;
 .timeline-block {
   color: $tl-text;
   position: relative;
-  margin-bottom: 196px;
+  margin-bottom: 50px;
+  padding: 18px;
 
   @media screen and (min-width: 1024px) {
     margin-top: 100px;
+    margin-bottom: 196px;
+    padding: 0;
   }
 
   /* ==================== ХЕДЕР ==================== */
@@ -140,7 +143,9 @@ $tl-node-size: 12px;
       gap: 24px;
       margin: $tl-gap-y 0;
 
-      &::before { content: none; }
+      &::before {
+        content: none;
+      }
 
       .tl-gap {
         grid-column: 2;
@@ -168,7 +173,9 @@ $tl-node-size: 12px;
         position: relative;
         z-index: 3;
 
-        &.tl-node--hidden { display: none; }
+        &.tl-node--hidden {
+          display: none;
+        }
       }
 
       .tl-card {
@@ -185,23 +192,46 @@ $tl-node-size: 12px;
         transition: transform 0.35s ease, opacity 0.35s ease;
         z-index: 5;
 
-        &__icon  { margin-bottom: 32px; max-width: 64px; max-height: 64px; }
-        &__title { margin-bottom: 16px; }
-        &__desc  { color: $tl-sub; p { font-size: 16px; } }
+        &__icon {
+          margin-bottom: 32px;
+          max-width: 64px;
+          max-height: 64px;
+        }
+        &__title {
+          margin-bottom: 16px;
+        }
+        &__desc {
+          color: $tl-sub;
+          p {
+            font-size: 16px;
+          }
+        }
       }
 
-      &--left  .tl-card { grid-column: 1; justify-self: end; transform: translateY(35%); }
-      &--right .tl-card { grid-column: 3; justify-self: start; transform: translateY(45%); }
+      &--left .tl-card {
+        grid-column: 1;
+        justify-self: end;
+        transform: translateY(35%);
+      }
+      &--right .tl-card {
+        grid-column: 3;
+        justify-self: start;
+        transform: translateY(45%);
+      }
 
       &.is-in-view {
         .tl-node {
           transform: scale(1);
           box-shadow: 0 0 15px 14px rgba($tl-line-progress, 0.345);
         }
-        .tl-card { opacity: 1; }
+        .tl-card {
+          opacity: 1;
+        }
       }
 
-      &.tl-item--first .tl-gap { display: none; }
+      &.tl-item--first .tl-gap {
+        display: none;
+      }
     }
   }
 
@@ -211,7 +241,9 @@ $tl-node-size: 12px;
     .tl-line,
     .tl-node,
     .tl-gap,
-    .tl-line_shadow { display: none !important; }
+    .tl-line_shadow {
+      display: none !important;
+    }
 
     .tl-list {
       list-style: none;
@@ -232,7 +264,9 @@ $tl-node-size: 12px;
       display: flex;
       min-width: 0; // ← КЛЮЧОВО: дозволяє стискати flex-елементи
 
-      &::before { content: none; }
+      &::before {
+        content: none;
+      }
     }
 
     .tl-card {
@@ -285,7 +319,7 @@ $tl-node-size: 12px;
       grid-template-columns: 12px 28px 1fr;
     }
     .tl-item {
-      &--left  .tl-card,
+      &--left .tl-card,
       &--right .tl-card {
         grid-column: 3;
         justify-self: stretch;

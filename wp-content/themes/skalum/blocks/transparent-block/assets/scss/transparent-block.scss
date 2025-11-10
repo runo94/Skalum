@@ -1,5 +1,5 @@
 .transparent-block {
-  padding: 186px 0 106px;
+  padding: 186px 0 25px;
   position: relative;
 
   @media screen and (min-width: 1025px) {
@@ -85,6 +85,7 @@
         max-width: 368px;
         margin: 0 auto;
         z-index: 1;
+        margin-bottom: 32px;
 
         @media screen and (min-width: 1025px) {
           max-width: 764px;

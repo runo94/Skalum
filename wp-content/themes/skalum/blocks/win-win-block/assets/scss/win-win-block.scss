@@ -1,7 +1,11 @@
 .win-win-block {
   display: inline-block;
   width: 100%;
-  margin-top: 100px;
+  margin-top: 50px;
+
+  @media screen and (min-width: 1025px) {
+    margin-top: 100px;
+  }
 
   .container {
     position: relative;
@@ -39,30 +43,79 @@
     }
 
     .win-win-block__inner {
-      display: flex;
-      flex-flow: row wrap;
-      justify-content: space-between;
-      align-items: flex-start;
+      display: grid;
+      grid-template-columns: 1fr;
       margin: 0 auto;
       position: relative;
       z-index: 3;
+      padding: 32px;
+      grid-template-areas:
+        "content"
+        "media"
+        "action";
 
-      @media screen and (min-width: 1024px) {
+      @media (min-width: 1024px) {
+        grid-template-columns: minmax(320px, 360px) 1fr;
+        column-gap: 48px;
+        row-gap: 20px;
+        align-items: flex-start;
         padding: 64px;
+
+        grid-template-areas:
+          "media content"
+          "media action";
+      }
+
+      > .win-win-block__media {
+        grid-area: media;
+      }
+      > .win-win-block__content {
+        grid-area: content;
+      }
+      > .win-win-block__actions {
+        grid-area: action;
       }
 
       .win-win-block__media {
+        display: flex;
+        flex-flow: row-reverse nowrap;
+        justify-content: space-between;
+        align-items: center;
         max-width: 300px;
         width: 100%;
+
+        @media (min-width: 1024px) {
+          flex-flow: column nowrap;
+          justify-content: flex-start;
+          align-items: flex-start;
+        }
+
+        img {
+          max-width: 150px;
+          width: 100%;
+
+          @media (min-width: 1024px) {
+            max-width: 100%;
+          }
+        }
+
         .win-win-block__caption {
           margin-top: 24px;
           .win-win-block__name {
-            font-size: 24px;
+            font-size: 16px;
             font-weight: 600;
+
+            @media (min-width: 1024px) {
+              font-size: 24px;
+            }
           }
           .win-win-block__position {
-            font-size: 16px;
-            font-weight: 300;
+            font-size: 12px;
+            font-weight: 200;
+
+            @media (min-width: 1024px) {
+              font-size: 16px;
+            }
           }
         }
       }
@@ -78,7 +131,10 @@
             margin: 32px 0;
           }
         }
+      }
 
+      .win-win-block__actions {
+        margin-top: 32px;
         .btn {
           display: inline-flex;
           align-items: center;
