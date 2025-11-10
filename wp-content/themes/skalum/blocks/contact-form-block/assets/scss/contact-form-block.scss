@@ -24,6 +24,10 @@
       align-items: flex-start;
       margin: 0 auto;
       position: relative;
+      
+      .selected-plan-wrapper {
+        display: none !important;
+      }
 
       .contact-form-block__planet-item {
         display: flex;
@@ -50,9 +54,9 @@
           display: inline-block;
         }
 
-          .nf-before-form-content {
-            margin-bottom: 24px;
-          }
+        .nf-before-form-content {
+          margin-bottom: 24px;
+        }
 
         .textbox-container {
           width: 100%;

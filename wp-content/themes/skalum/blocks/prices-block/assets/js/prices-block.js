@@ -18,13 +18,13 @@
   }
 
   function setSelected(root, planId) {
-    // 1) записати на CTA
     const cta = qs('[data-choose-plan]', root);
     if (cta) cta.dataset.plan = planId;
 
-    // 2) оновити hidden у формі
-    const inputSel = root.getAttribute('data-target-input') || '#selected-plan-input';
+    const inputSel = root.getAttribute('data-target-input') || '.selected-plan-input';
+
     const hidden = document.querySelector(inputSel);
+    
     if (hidden) hidden.value = planId;
   }
 
@@ -36,7 +36,6 @@
 
    
 
-    // фічі
     (plan.features || []).forEach(f => {
       const li = document.createElement('li');
       li.className = 'features-list__item';
@@ -134,7 +133,6 @@
       rePlace();
     });
 
-    // підстраховка на клік по CTA (наприклад, якщо відкриває модалку)
     const cta = qs('[data-choose-plan]', root);
     if (cta) {
       cta.addEventListener('click', () => {

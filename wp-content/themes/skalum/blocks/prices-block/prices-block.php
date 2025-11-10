@@ -84,7 +84,7 @@ $first_features = $first_plan['features'] ?? [];
         <div class="prices-block__grid"
              data-prices
              data-plans-json="<?php echo esc_attr($plans_json); ?>"
-             data-target-input="#selected-plan-input"><!-- селектор hidden-поля форми -->
+             data-target-input=".selected-plan-input">
 
           <!-- LEFT SIDE -->
           <div class="prices-block__left" data-plans>
