@@ -70,7 +70,7 @@ $cta_target = is_array($cta) && !empty($cta['target']) ? $cta['target'] : '_self
 
 <?php if ($bg_d || $bg_m): ?>
   <style>
-    #<?php echo esc_js(text: $id); ?> {
+    #<?php echo esc_attr( $id ); ?> {
       <?php if ($bg_d): ?>
         background-image: url('<?php echo esc_url($bg_d); ?>');
       <?php endif; ?>

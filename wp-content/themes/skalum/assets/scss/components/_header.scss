@@ -136,7 +136,7 @@ $shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
 }
 
 .cta-btn {
-  display: flex;
+  display: none;
   align-items: center;
   gap: 8px;
   padding: 12px 24px;
@@ -173,6 +173,10 @@ $shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
     /* drop shadow 1 */ 0 0 0 1px rgba(105, 87, 186, 0.25); /* drop shadow 2 */
 
   transition: all 0.3s ease;
+
+  @media (min-width: 1025px) {
+    display: flex;
+  }
 
   &:hover {
     background: radial-gradient(
