@@ -209,7 +209,8 @@
             "choices": {
                 "circles_and_bars": "Circles and bars",
                 "static_image": "Static image",
-                "google_list": "Google list"
+                "google_list": "Google list",
+                "roi": "Roi"
             },
             "default_value": "circles_and_bars",
             "return_format": "value",
@@ -329,5 +330,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1761148055
+    "modified": 1762867221
 }

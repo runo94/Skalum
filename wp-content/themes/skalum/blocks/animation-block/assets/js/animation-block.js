@@ -152,8 +152,9 @@
   });
 })();
 
-
 (() => {
+  if (!document.querySelector(".animation-block__inner .google_list_card"))
+    return;
   console.log("work");
 
   const cnv = document.getElementById("c");
@@ -163,10 +164,9 @@
   if (!cnv) return;
   const block = cnv.closest(".animation-block__inner") || cnv;
 
-const BASE =
-  (window.SkalumAnimatedBlock && window.SkalumAnimatedBlock.imgBase) ||
-  "/wp-content/themes/skalum/blocks/animation-block/assets/images/";
-
+  const BASE =
+    (window.SkalumAnimatedBlock && window.SkalumAnimatedBlock.imgBase) ||
+    "/wp-content/themes/skalum/blocks/animation-block/assets/images/";
 
   const imgA = new Image();
   const imgB = new Image();
@@ -251,4 +251,320 @@ const BASE =
         }
       })
   );
+})();
+
+(() => {
+  // ------------------ CONFIG ------------------
+
+  const BASE =
+    (window.SkalumAnimatedBlock && window.SkalumAnimatedBlock.imgBase) ||
+    "/wp-content/themes/skalum/blocks/animation-block/assets/images/";
+  const DATA = [
+    { day: "Day 1", sales: 300, spend: 200, roi: 28 },
+    { day: "Day 2", sales: 320, spend: 250, roi: 36 },
+    { day: "Day 3", sales: 350, spend: 270, roi: 23 },
+    { day: "Day 4", sales: 400, spend: 280, roi: 70 },
+    { day: "Day 5", sales: 500, spend: 300, roi: 90 },
+    { day: "Day 6", sales: 650, spend: 320, roi: 120 },
+    { day: "Day 7", sales: 700, spend: 350, roi: 130 },
+    { day: "Day 8", sales: 750, spend: 300, roi: 150 },
+    { day: "Day 9", sales: 850, spend: 320, roi: 180 },
+    { day: "Day 10", sales: 900, spend: 350, roi: 190 },
+  ];
+
+  class RoiCanvas {
+    constructor(canvas, opts = {}) {
+      this.cvs =
+        typeof canvas === "string" ? document.querySelector(canvas) : canvas;
+      this.ctx = this.cvs.getContext("2d");
+      // layout
+      this.CARD = { x: 110, y: 30, w: 290, h: 340, r: 8 };
+      this.HEADER_H = 50;
+      this.ROW_H = 40;
+      this.RIBBON = {
+        y: this.CARD.y + this.HEADER_H + this.ROW_H * 3.5 - this.ROW_H / 2,
+        startX: 52,
+        endX: 30,
+        label: "skalum",
+      };
+      this.DURATION = 900;
+
+      // state
+      this.t = 0; // 0..1  (A->B)
+      this.t0 = 0;
+      this.dir = 0; // 1 forward, -1 back
+      this.tStart = 0;
+      this.raf = 0;
+      
+      this.block = this.cvs.closest(".animation-block__inner") || this.cvs;
+
+      this._fitDPR();
+      window.addEventListener("resize", () => {
+        this._fitDPR();
+        this.renderScene(this.t);
+      });
+
+      // hover → animate
+      this.block.addEventListener("mouseenter", () => this.toB());
+      this.block.addEventListener("mouseleave", () => this.toA());
+
+      this.icons = {};
+      this._loadIcons({
+        shopify: BASE + "/shopy.svg", // шлях з кореня
+        ads: BASE + "/google_ads.svg", // пробіл → %20
+      }).then(() => this.renderScene(0));
+      // first paint
+      this.renderScene(0);
+    }
+
+    _loadIcons(map) {
+      const tasks = Object.entries(map).map(
+        ([key, src]) =>
+          new Promise((res) => {
+            const im = new Image();
+            im.onload = () => {
+              this.icons[key] = im;
+              res();
+            };
+            im.src = src;
+          })
+      );
+      return Promise.all(tasks);
+    }
+
+    // --------------- LOW-LEVEL UTILS ---------------
+    _fitDPR() {
+      const dpr = Math.max(1, window.devicePixelRatio || 1);
+      const rect = this.cvs.getBoundingClientRect();
+      if (rect.width && rect.height) {
+        this.cvs.width = Math.round(rect.width * dpr);
+        this.cvs.height = Math.round(rect.height * dpr);
+      } else {
+        this.cvs.width = Math.round(this.cvs.width * dpr);
+        this.cvs.height = Math.round(this.cvs.height * dpr);
+      }
+      this.ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    }
+
+    ease(k) {
+      return k < 0.5 ? 4 * k * k * k : 1 - Math.pow(-2 * k + 2, 3) / 2;
+    }
+    lerp(a, b, k) {
+      return a + (b - a) * k;
+    }
+    roiColor(v) {
+      const cl = Math.max(0, Math.min(130, v)) / 130;
+      const r = Math.round(255 * (1 - cl));
+      const g = Math.round(30 + 180 * cl);
+      const b = Math.round(30 + 30 * cl);
+      return `rgb(${r},${g},${b})`;
+    }
+    roundTopRectPath(x, y, w, h, r) {
+      // тільки верхні кути заокруглені
+      const rr = Math.min(r, w / 2);
+      const ctx = this.ctx;
+      ctx.beginPath();
+      ctx.moveTo(x, y + h);
+      ctx.lineTo(x, y + rr);
+      ctx.quadraticCurveTo(x, y, x + rr, y);
+      ctx.lineTo(x + w - rr, y);
+      ctx.quadraticCurveTo(x + w, y, x + w, y + rr);
+      ctx.lineTo(x + w, y + h);
+      ctx.closePath();
+    }
+    roundRectPath(x, y, w, h, r) {
+      const rr = Math.min(r, w / 2, h / 2);
+      const ctx = this.ctx;
+      ctx.beginPath();
+      ctx.moveTo(x + rr, y);
+      ctx.arcTo(x + w, y, x + w, y + h, rr);
+      ctx.arcTo(x + w, y + h, x, y + h, rr);
+      ctx.arcTo(x, y + h, x, y, rr);
+      ctx.arcTo(x, y, x + w, y, rr);
+      ctx.closePath();
+    }
+
+    // --------------- RENDER PARTS ---------------
+    renderScene(tt) {
+      const ctx = this.ctx;
+      const k = this.ease(tt);
+
+      // BG
+      ctx.clearRect(0, 0, this.cvs.width, this.cvs.height);
+      ctx.fillStyle = "transparent";
+      ctx.fillRect(0, 0, this.cvs.width, this.cvs.height);
+
+
+      // card
+      this.renderCard(k);
+
+      // badge (фон + текст)
+      this.renderBadge(k);
+
+      // stripe — суцільна поверх усього
+      this.renderStripe(k);
+
+      // крайова крапка
+      ctx.beginPath();
+      ctx.arc(this.CARD.x + this.CARD.w + 6, this.RIBBON.y, 4, 0, Math.PI * 2);
+      ctx.fillStyle = "#ffa000";
+      ctx.fill();
+    }
+
+    renderCard(k) {
+      const ctx = this.ctx;
+      const C = this.CARD;
+      // оболонка картки
+      ctx.save();
+      this.roundRectPath(C.x, C.y, C.w, C.h, C.r);
+      ctx.fillStyle = "rgba(16,24,32,.88)";
+      ctx.fill();
+      ctx.strokeStyle = "rgba(255,255,255,0.06)";
+      ctx.stroke();
+      ctx.clip();
+
+      // таблиця всередині
+      this.renderTable(k);
+
+      ctx.restore();
+    }
+
+    renderTable(k) {
+      const ctx = this.ctx;
+      const C = this.CARD,
+        H = this.HEADER_H,
+        RH = this.ROW_H;
+
+      // «скрол» на ~2.4 рядка вгору
+      const scrollY = this.lerp(0, -RH * 3, k);
+
+      // rows
+      let ry = C.y + H + scrollY;
+      ctx.font = "12px Inter, system-ui, -apple-system, Segoe UI, Roboto";
+      DATA.forEach((r, i) => {
+        ctx.fillStyle =
+          i % 2 ? "rgba(255,255,255,0.02)" : "rgba(255,255,255,0.05)";
+        ctx.fillRect(C.x, ry, C.w, RH);
+        ctx.fillStyle = "rgba(255,255,255,.06)";
+        ctx.fillRect(C.x, ry + RH - 1, C.w, 1);
+
+        ctx.fillStyle = "rgba(233,237,241,.85)";
+        ctx.fillText(r.day, C.x + 10, ry + RH / 2);
+        ctx.fillText(r.sales, C.x + 176, ry + RH / 2);
+        ctx.fillText(r.spend, C.x + 104, ry + RH / 2);
+
+        ctx.textAlign = "right";
+        ctx.fillStyle = this.roiColor(r.roi);
+        ctx.fillText(r.roi + "%", C.x + C.w - 10, ry + RH / 2);
+        ctx.textAlign = "left";
+
+        // header
+        ctx.fillStyle = "rgba(16,24,32,1";
+        ctx.fillRect(C.x, C.y, C.w, H);
+
+        // іконки (18×18) + підписи
+        const icoY = C.y + 10; // верх іконки
+        const txtY = C.y + H - 10; // підпис під іконкою
+
+        if (this.icons.shopify)
+          ctx.drawImage(this.icons.shopify, C.x + 105, icoY, 18, 18);
+        if (this.icons.ads)
+          ctx.drawImage(this.icons.ads, C.x + 178, icoY, 18, 18);
+
+        ctx.font = "600 12px Inter, system-ui, -apple-system, Segoe UI, Roboto";
+        ctx.textBaseline = "middle";
+        ctx.fillStyle = "rgba(154,163,173,.75)";
+        ctx.fillText("Sales", C.x + 100, txtY);
+        ctx.fillText("Spend", C.x + 170, txtY);
+        ctx.fillStyle = "rgba(233,237,241,.92)";
+        ctx.fillText("ROI", C.x + C.w - 32, txtY);
+        ry += RH;
+      });
+
+      // легкий red→green градієнт-оверлей
+      const grd = ctx.createLinearGradient(C.x, C.y, C.x, C.y + C.h);
+      grd.addColorStop(0, `rgba(255,0,0,${0.1 * k})`);
+      grd.addColorStop(1, `rgba(0,200,0,${0.16 * k})`);
+      ctx.fillStyle = grd;
+      ctx.fillRect(C.x, C.y, C.w, C.h);
+    }
+
+    renderBadge(k) {
+      const ctx = this.ctx;
+      const x = this.lerp(this.RIBBON.startX, this.RIBBON.endX, k);
+      const y = this.RIBBON.y;
+      const padX = 10,
+        h = 22,
+        r = 6;
+
+      // фон бейджа (скруглення лише зверху)
+      this.roundTopRectPath(x, y - h / 1, this.badgeWidth(ctx), h, r);
+      ctx.fillStyle = "#ffb300";
+      ctx.fill();
+
+      // текст поверх
+      ctx.font = "12px Inter, system-ui, -apple-system, Segoe UI, Roboto";
+      ctx.textBaseline = "middle";
+      ctx.fillStyle = "#1b1b1b";
+      ctx.fillText(this.RIBBON.label, x + padX, y - h / 2.2);
+    }
+
+    renderStripe(k) {
+      const ctx = this.ctx;
+      const x = this.lerp(this.RIBBON.startX, this.RIBBON.endX, k);
+      const y = this.RIBBON.y;
+
+      // суцільна горизонтальна лінія через весь канвас
+      ctx.beginPath();
+      ctx.moveTo(this.CARD.x, y + 1);
+      ctx.lineTo(this.CARD.x + this.CARD.w + 6, y + 1);
+      ctx.lineWidth = 2;
+      ctx.strokeStyle = "#ffa000";
+      ctx.stroke();
+
+      // маленький "хвостик" від правого краю бейджа до картки — не обов'язковий,
+      // бо смуга вже суцільна, але залишимо легкий акцент
+      const bx = x + this.badgeWidth(ctx);
+      ctx.beginPath();
+      ctx.moveTo(bx - 58, y + 1);
+      ctx.lineTo(this.CARD.x - 0, y + 1);
+      ctx.lineWidth = 2;
+      ctx.strokeStyle = "#ffa000";
+      ctx.stroke();
+    }
+
+    badgeWidth(ctx) {
+      ctx.save();
+      ctx.font = "12px Inter, system-ui, -apple-system, Segoe UI, Roboto";
+      const w = Math.ceil(ctx.measureText(this.RIBBON.label).width) + 20; // 2*padX
+      ctx.restore();
+      return w;
+    }
+
+    // --------------- ANIMATION CTRL ---------------
+    toB() {
+      this._play(1);
+    }
+    toA() {
+      this._play(-1);
+    }
+    _play(dir) {
+      this.dir = dir;
+      this.t0 = this.t;
+      this.tStart = performance.now();
+      cancelAnimationFrame(this.raf);
+      const loop = (now) => {
+        const dt = Math.min(1, (now - this.tStart) / this.DURATION);
+        this.t =
+          dir === 1 ? Math.min(1, this.t0 + dt) : Math.max(0, this.t0 - dt);
+        this.renderScene(this.t);
+        if ((dir === 1 && this.t < 1) || (dir === -1 && this.t > 0))
+          this.raf = requestAnimationFrame(loop);
+      };
+      this.raf = requestAnimationFrame(loop);
+    }
+  }
+
+  // --------------- BOOT ---------------
+  new RoiCanvas("#roi-canvas");
 })();
