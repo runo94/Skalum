@@ -17,7 +17,7 @@
       max-width: 1240px;
       padding: 0 15px;
     }
-    
+
     @media (min-width: 1025px) {
       max-width: 1240px;
       width: 100%;
@@ -47,13 +47,13 @@
   }
 
   &__label {
-    background: rgba(255, 255, 255, 0.2);
+    background: rgba(255, 255, 255, 0.15);
     color: rgba(255, 255, 255, 0.8);
     font-size: 14px;
     padding: 6px 16px;
     border-radius: 30px;
     backdrop-filter: blur(4px);
-    margin-bottom: 16px;
+    margin-bottom: 8px;
   }
 
   &__title {
@@ -115,6 +115,7 @@
       left: -5px;
       width: 20px;
       height: 9px;
+      background-image: url("../images/arrow.svg");
       background-position: center;
       background-repeat: no-repeat;
       transition: all 0.3s ease;
@@ -270,7 +271,7 @@
 
         .case-slide__detail {
           display: flex;
-          margin-top: 30px;
+          margin-top: 20px;
           .case-detail {
             padding: 0;
 
@@ -303,7 +304,6 @@
     border-radius: 2px;
   }
 
-  // ПРАВИЙ БЛОК — деталі
   .case-slide__detail {
     flex: 1;
     max-width: 100%;
@@ -320,18 +320,17 @@
     background: rgba(255, 255, 255, 0.05);
     border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 24px;
-    padding: 32px;
+    padding: 20px;
     backdrop-filter: blur(12px);
     width: 100%;
-
   }
 
   .case-detail__label {
     display: flex;
     align-items: center;
     gap: 12px;
-    color: #ff8c00;
-    font-weight: 600;
+    color: #fff;
+    font-weight: 400;
     margin-bottom: 24px;
 
     .dot {

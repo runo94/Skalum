@@ -164,8 +164,7 @@ $render_animation = function () use ($animation_type, $id, $images, $theme_ver, 
         </div>
       <?php elseif ($animation_type === 'roi'): ?>
         <div class="roi_list_card">
-          <canvas id="roi-canvas" width="420" height="390"
-            style="max-width:420px;width:100%;display:block;margin:auto"></canvas>
+          <canvas id="roi-canvas"></canvas>
         </div>
       <?php elseif ($animation_type === 'static_image'): ?>
         <?php if (!empty($inside_image) && is_array($inside_image)): ?>

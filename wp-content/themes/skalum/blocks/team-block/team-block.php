@@ -22,11 +22,17 @@ $members_rep  = get_field('team_membres');       // repeater
 $descriptions = get_field('descriptions');       // group: large(textarea), small(wysiwyg)
 
 /** helper: initials for placeholder */
-function skalum_initials($name) {
-  $parts = preg_split('/\s+/u', trim((string)$name));
-  $ini = '';
-  foreach ($parts as $p) { if ($p !== '') { $ini .= mb_strtoupper(mb_substr($p,0,1)); } }
-  return mb_substr($ini, 0, 2);
+if (!function_exists('skalum_initials')) {
+    function skalum_initials($name) {
+        $parts = preg_split('/\s+/u', trim((string)$name));
+        $ini = '';
+        foreach ($parts as $p) { 
+            if ($p !== '') { 
+                $ini .= mb_strtoupper(mb_substr($p, 0, 1)); 
+            } 
+        }
+        return mb_substr($ini, 0, 2);
+    }
 }
 ?>
 <section id="<?php echo esc_attr($id); ?>" class="<?php echo esc_attr($class); ?>" data-block="<?php echo esc_attr($block_name ?: 'Team'); ?>">

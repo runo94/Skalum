@@ -1,8 +1,10 @@
 .sky-block {
-  padding-top: 164px;
-
-  @media screen and (min-width: 1025px) {
+  .sky-bg {
     padding-top: 164px;
+
+    @media screen and (min-width: 1025px) {
+      padding-top: 164px;
+    }
   }
   position: relative;
   .container {
@@ -17,7 +19,8 @@
         max-width: 846px;
       }
 
-      h2 {
+      h2,
+      h1 {
         text-align: center;
         font-weight: 500;
       }

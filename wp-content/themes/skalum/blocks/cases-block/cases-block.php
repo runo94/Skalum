@@ -27,7 +27,7 @@ $cases = get_field('cases');
 
           <?php if ($cta): ?>
             <a href="<?= esc_url($cta['url']) ?>" class="cases-block__cta" <?= $cta['target'] ? 'target="_blank"' : '' ?>>
-              <?= esc_html($cta['title']) ?: 'View All Cases' ?> →
+               <?= esc_html($cta['title']) ?: 'View All Cases' ?>
             </a>
           <?php endif; ?>
         </div>

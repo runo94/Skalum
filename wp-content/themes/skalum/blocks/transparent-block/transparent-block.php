@@ -81,7 +81,7 @@ $cta_target = is_array($cta) && !empty($cta['target']) ? $cta['target'] : '_self
 
     <?php if ($bg_m): ?>
     @media (max-width: 767px) {
-      #<?php echo esc_js($id); ?> {
+      #<?php echo esc_attr( $id ); ?> {
         background-image: url('<?php echo esc_url($bg_m); ?>');
       }
     }

@@ -93,6 +93,22 @@
           pointer-events: none;
           max-width: 300px;
         }
+
+        .roi_list_card {
+          #roi-canvas {
+            display: block;
+            width: 100%;
+            height: auto; 
+            max-width: 380px;
+          }
+          canvas {
+            max-width: 100%;
+
+            @media (min-width: 1025px) {
+              max-width: 420px;
+            }
+          }
+        }
       }
       &:hover {
         .animation_part {
@@ -405,8 +421,7 @@
         }
       }
       .animation-block__content {
-          width: 100%;
-
+        width: 100%;
 
         @media screen and (min-width: 800px) {
           max-width: 48%;

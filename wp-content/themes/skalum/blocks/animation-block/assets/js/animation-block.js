@@ -295,7 +295,7 @@
       this.dir = 0; // 1 forward, -1 back
       this.tStart = 0;
       this.raf = 0;
-      
+
       this.block = this.cvs.closest(".animation-block__inner") || this.cvs;
 
       this._fitDPR();
@@ -333,17 +333,32 @@
     }
 
     // --------------- LOW-LEVEL UTILS ---------------
+
     _fitDPR() {
+      const BASE_WIDTH = 420;
+      const BASE_HEIGHT = 460;
       const dpr = Math.max(1, window.devicePixelRatio || 1);
+
+      // фактична ширина блока, в якому лежить canvas
       const rect = this.cvs.getBoundingClientRect();
-      if (rect.width && rect.height) {
-        this.cvs.width = Math.round(rect.width * dpr);
-        this.cvs.height = Math.round(rect.height * dpr);
-      } else {
-        this.cvs.width = Math.round(this.cvs.width * dpr);
-        this.cvs.height = Math.round(this.cvs.height * dpr);
-      }
-      this.ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      const containerWidth = rect.width || BASE_WIDTH;
+
+      // масштаб відносно базового макета
+      // якщо не хочеш, щоб на десктопі канвас ставав більшим за макет —
+      // використовуй Math.min(1, containerWidth / BASE_WIDTH)
+      const scale = containerWidth / BASE_WIDTH;
+
+      // задаємо реальні піксельні розміри canvas
+      this.cvs.width = containerWidth * dpr;
+      this.cvs.height = BASE_HEIGHT * scale * dpr;
+
+      // щоб браузер висотою не розтягнув/стиснув div — явно ставимо CSS-висоту
+      this.cvs.style.height = BASE_HEIGHT * scale + "px";
+
+      // Нова система координат:
+      // логічно ми як і раніше малюємо в 360×320,
+      // але все це ще множиться на scale і dpr.
+      this.ctx.setTransform(dpr * scale, 0, 0, dpr * scale, 0, 0);
     }
 
     ease(k) {
@@ -393,7 +408,6 @@
       ctx.clearRect(0, 0, this.cvs.width, this.cvs.height);
       ctx.fillStyle = "transparent";
       ctx.fillRect(0, 0, this.cvs.width, this.cvs.height);
-
 
       // card
       this.renderCard(k);

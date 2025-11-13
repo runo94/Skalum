@@ -121,13 +121,21 @@ $accent1: #ed8b35;
         border-radius: 6px;
         overflow: hidden;
         background: $card-bg;
-        border: 1px solid $border;
         box-shadow: $shadow;
 
         aspect-ratio: 5 / 6;
         display: block;
 
-        /* subtle vignette */
+        
+        &::before {
+          content: "";
+          position: absolute;
+          background-color: #657AFF1A;
+          inset: 0;
+          z-index: 1;
+
+        }
+
         &::after {
           content: "";
           position: absolute;
@@ -138,6 +146,7 @@ $accent1: #ed8b35;
             rgba(0, 0, 0, 0.42) 62%,
             rgba(0, 0, 0, 0.95) 100%
           );
+          z-index: 1;
           pointer-events: none;
         }
       }
@@ -175,6 +184,7 @@ $accent1: #ed8b35;
         padding: 10px 6px 0;
         bottom: 0px;
         position: absolute;
+        z-index: 2;
       }
       &__name {
         margin: 8px 0 2px;
