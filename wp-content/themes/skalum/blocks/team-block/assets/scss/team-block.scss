@@ -57,10 +57,12 @@ $accent1: #ed8b35;
     z-index: 2;
     max-width: 369px;
     margin: 0 auto;
+      padding: 0 15px;
 
     @media screen and (min-width: 1025px) {
       max-width: 1240px;
       width: 100%;
+      padding: 0;
     }
 
     @media screen and (min-width: 816px) {

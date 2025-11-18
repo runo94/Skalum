@@ -266,7 +266,12 @@
           color: #ff8c00;
         }
         .case-item__desc {
+          margin-top: 20px;
           display: block;
+
+          @media screen and (min-width: 1024px) {
+            margin-top: 0;
+          }
         }
 
         .case-slide__detail {
@@ -369,13 +374,17 @@
 
   .metric {
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
     flex-flow: column;
     align-items: flex-start;
     text-align: center;
     flex: 1;
     min-width: 75px;
     padding: 16px;
+
+    @media (min-width: 1024px) {
+      justify-content: center;
+    }
 
     &:nth-child(2) {
       border-left: 1px solid rgba(255, 255, 255, 0.1);
@@ -398,9 +407,13 @@
   }
 
   .metric__arrow {
-    font-size: 31px;
+    font-size: 18px;
     color: #ff8c00;
     margin: 8px 0;
+
+    @media (min-width: 1024px) {
+      font-size: 31px;
+    }
   }
 
   .metric__desc {
@@ -408,7 +421,6 @@
     color: rgba(255, 255, 255, 0.7);
   }
 
-  // МОБІЛКА
   @media (max-width: 1024px) {
     .case-slide__detail {
       order: -1;

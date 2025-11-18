@@ -2,9 +2,11 @@
   display: inline-block;
   width: 100%;
   margin-top: 50px;
+  padding: 0 10px;
 
   @media screen and (min-width: 1025px) {
     margin-top: 100px;
+    padding: 0;
   }
 
   .container {
@@ -19,12 +21,7 @@
 
     @media screen and (min-width: 1025px) {
       max-width: 1240px;
-      width: 100%;
-    }
-
-    @media screen and (min-width: 816px) {
-      max-width: 1240px;
-      padding: 0 15px;
+      width: 100%;      
     }
 
     &::before {

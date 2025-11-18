@@ -119,7 +119,7 @@ $render_animation = function () use ($animation_type, $id, $images, $theme_ver, 
 
           <!-- LIST -->
           <section class="ssp-list">
-            <h4>1st October</h4>
+            <!-- <h4>1st October</h4> -->
 
             <div class="inner_block_list">
               <div>

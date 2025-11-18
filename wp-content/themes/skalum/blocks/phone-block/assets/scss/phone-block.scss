@@ -32,8 +32,13 @@
       }
 
       &.image_right {
-        flex-direction: row-reverse;
+        flex-direction: column-reverse;
+
+        @media screen and (min-width: 1024px) {
+          flex-direction: row-reverse;
+        }
       }
+
       .phone-block__name {
         display: flex;
         width: fit-content;
@@ -47,6 +52,12 @@
 
       .phone-block__image {
         position: relative;
+
+        margin-top: 40px;
+
+        @media screen and (min-width: 1024px) {
+          margin-top: 0px;
+        }
       }
 
       #phone_time,

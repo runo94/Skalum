@@ -102,7 +102,7 @@ $first_features = $first_plan['features'] ?? [];
                 <div class="plan-card__row">
                   <div class="plan-card__title">
                     <span class="plan-card__dot" aria-hidden="true"></span>
-                    <?php echo esc_html($p['title'] ?? ''); ?>
+                    <p><?php echo esc_html($p['title'] ?? ''); ?></p>
                   </div>
                   <?php if (!empty($p['price'])): ?>
                     <div class="plan-card__price"><?php echo esc_html($p['price']); ?></div>

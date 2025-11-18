@@ -27,7 +27,7 @@ $cases = get_field('cases');
 
           <?php if ($cta): ?>
             <a href="<?= esc_url($cta['url']) ?>" class="cases-block__cta" <?= $cta['target'] ? 'target="_blank"' : '' ?>>
-               <?= esc_html($cta['title']) ?: 'View All Cases' ?>
+              <?= esc_html($cta['title']) ?: 'View All Cases' ?>
             </a>
           <?php endif; ?>
         </div>
@@ -49,10 +49,7 @@ $cases = get_field('cases');
                         </div>
                         <div class="case-item__arrow">→ View case</div>
                       </div>
-                      <div class="case-item__desc"><?= wp_kses_post($c['description']) ?></div>
-                      <div class="case-item__timer">
-                        <div class="case-item__timer-fill"></div>
-                      </div>
+
 
                       <div class="case-slide__detail">
                         <div class="case-detail">
@@ -67,7 +64,7 @@ $cases = get_field('cases');
                             <span class="dot"></span>
                             <?= esc_html($case['case_label']) ?>
                           </div>
-                          
+
                           <div class="case-detail__metrics">
                             <div class="metric">
                               <div class="metric__top">
@@ -110,6 +107,10 @@ $cases = get_field('cases');
                             </div>
                           </div>
                         </div>
+                      </div>
+                      <div class="case-item__desc"><?= wp_kses_post($c['description']) ?></div>
+                      <div class="case-item__timer">
+                        <div class="case-item__timer-fill"></div>
                       </div>
                     </div>
                   <?php endforeach; ?>

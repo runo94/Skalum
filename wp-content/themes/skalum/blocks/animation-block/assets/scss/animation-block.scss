@@ -15,11 +15,13 @@
     z-index: 2;
     margin: 0 auto;
     gap: 12px;
+    padding: 0 15px;
 
     @media screen and (min-width: 1240px) {
       max-width: 1240px;
       width: 100%;
       gap: 12px;
+      padding: 0;
     }
 
     @media screen and (min-width: 566px) {
@@ -98,7 +100,7 @@
           #roi-canvas {
             display: block;
             width: 100%;
-            height: auto; 
+            height: auto;
             max-width: 380px;
           }
           canvas {
@@ -445,6 +447,11 @@
             gap: 16px;
             margin-bottom: 12px;
             justify-content: flex-start;
+            flex-flow: column;
+
+            @media (min-width: 868px) {
+              flex-flow: row;
+            }
 
             .animation-block__icon-wrap {
               min-width: 36px;
