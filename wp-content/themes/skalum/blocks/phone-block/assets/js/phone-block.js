@@ -347,7 +347,6 @@ const load = (src) =>
   const root = document.documentElement;
   const LOCALE = root?.dataset?.locale || BROWSER_LOCALE;
 
-
   const fmtWeekday = new Intl.DateTimeFormat(LOCALE, { weekday: "long" });
   const fmtMonth = new Intl.DateTimeFormat(LOCALE, { month: "long" });
 
@@ -386,5 +385,32 @@ const load = (src) =>
 
   document.addEventListener("visibilitychange", () => {
     if (!document.hidden) update();
+  });
+
+  document.addEventListener("DOMContentLoaded", () => {
+    const container = document.querySelector(".js-rotating-titles");
+    if (!container) return;
+
+    const titles = Array.from(container.querySelectorAll("h2"));
+    let index = 0;
+    const TIME_VISIBLE = 4000;
+    const FADE_TIME = 600; 
+
+    titles[0].classList.add("active");
+
+    function rotate() {
+      const current = titles[index];
+      const nextIndex = (index + 1) % titles.length;
+      const next = titles[nextIndex];
+
+      current.classList.remove("active");
+
+      setTimeout(() => {
+        next.classList.add("active");
+        index = nextIndex;
+      }, FADE_TIME);
+    }
+
+    setInterval(rotate, TIME_VISIBLE + FADE_TIME);
   });
 })();

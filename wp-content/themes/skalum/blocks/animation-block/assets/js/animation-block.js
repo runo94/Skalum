@@ -155,8 +155,7 @@
 (() => {
   if (!document.querySelector(".animation-block__inner .google_list_card"))
     return;
-  console.log("work");
-
+  
   const cnv = document.getElementById("c");
   const pen = cnv.getContext("2d");
   const dpr = window.devicePixelRatio || 1;

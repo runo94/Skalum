@@ -40,7 +40,7 @@ $image_position = get_field('image_position');
         <?php endif; ?>
 
         <?php if ($title): ?>
-          <div class="phone-block__title"><?php echo wp_kses_post($title); ?></div>
+          <div class="phone-block__title js-rotating-titles"><?php echo wp_kses_post($title); ?></div>
         <?php endif; ?>
 
         <?php if ($description): ?>

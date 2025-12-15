@@ -66,6 +66,23 @@ p {
   }
 }
 
+.has-small-font-size {
+  font-size: 16px !important;
+}
+
+.services-container {
+  h2 {
+    margin: 10px 0;
+  }
+  p {
+    margin-bottom: 20px;
+  }
+}
+
+.margin-b-100 {
+  margin-bottom: 100px !important; 
+}
+
 /* ---------- Links ---------- */
 a {
   color: #ED8B35;
@@ -137,4 +154,18 @@ ul {
 
 @media (max-width: 767.98px) {
   .u-hide-mobile { display: none !important; }
+}
+
+.services-page {
+  width: 100%;
+  margin-top: 150px;
+  .container {
+    max-width: 1240px !important;
+    width: 100%;
+    margin: 0 auto;
+
+    p {
+      margin-left: 20px;
+    }
+  }
 }

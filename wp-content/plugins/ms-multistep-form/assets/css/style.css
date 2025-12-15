@@ -1,0 +1,248 @@
+/* ------ STEP HEADINGS ------ */
+
+.ms-step__title {
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+
+.ms-step__description {
+  font-size: 14px;
+  color: #6b7280;
+  margin-bottom: 16px;
+}
+
+/* ------ PROGRESS BAR ------ */
+
+.ms-progress {
+  margin-bottom: 20px;
+}
+
+.ms-progress__bar {
+  position: relative;
+  width: 100%;
+  height: 6px;
+  border-radius: 999px;
+  background: #e5e7eb;
+  overflow: hidden;
+  margin-bottom: 12px;
+}
+
+.ms-progress__bar-fill {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 0;
+  border-radius: inherit;
+  background: #2563eb;
+  transition: width .25s ease-out;
+}
+
+.ms-progress__steps {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  font-size: 13px;
+}
+
+.ms-progress__step {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: #e5f0ff;
+  color: #1f2933;
+  cursor: default;
+  transition: all .15s ease-in-out;
+}
+
+.ms-progress__step-index {
+  width: 20px;
+  height: 20px;
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  font-weight: 600;
+  background: #fff;
+  border: 1px solid #cbd5e1;
+}
+
+.ms-progress__step-label {
+  white-space: nowrap;
+}
+
+/* Активний/завершений крок */
+.ms-progress__step.is-active {
+  background: #2563eb;
+  color: #fff;
+}
+
+.ms-progress__step.is-active .ms-progress__step-index {
+  background: #fff;
+  border-color: #fff;
+  color: #2563eb;
+}
+
+.ms-progress__step.is-complete {
+  background: #22c55e;
+  color: #fff;
+}
+
+.ms-progress__step.is-complete .ms-progress__step-index {
+  background: #fff;
+  border-color: #fff;
+  color: #16a34a;
+}
+
+/* На мобільних можна приховати частину лейблів, якщо буде тісно
+@media (max-width: 480px) {
+  .ms-progress__steps {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+  }
+}
+*/
+.ms-form {
+  max-width: 720px;
+  margin: 0 auto;
+  background: #f4f9ff;
+  padding: 24px;
+  border-radius: 16px;
+}
+
+.ms-step {
+  display: none;
+}
+
+.ms-step__title {
+  font-size: 20px;
+  margin-bottom: 16px;
+}
+
+.ms-field {
+  margin-bottom: 18px;
+}
+
+.ms-field__label {
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.ms-input {
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: 1px solid #d1d5db;
+  font-size: 14px;
+}
+
+.ms-input--textarea {
+  min-height: 100px;
+}
+
+.ms-input--error {
+  border-color: #ef4444;
+}
+
+/* Кнопки next/prev/submit */
+.ms-form__actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  margin-top: 16px;
+}
+
+.ms-btn {
+  border-radius: 999px;
+  border: none;
+  cursor: pointer;
+  padding: 8px 18px;
+  font-size: 14px;
+}
+
+.ms-btn--primary {
+  background: #2563eb;
+  color: #fff;
+}
+
+.ms-btn--secondary {
+  background: #e5e7eb;
+  color: #111827;
+}
+
+/* -------- ICON CARDS (як на першому скріні) -------- */
+
+.ms-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.ms-option__input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.ms-options--icon .ms-option__label {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  width: 140px;
+  padding: 18px 14px;
+  border-radius: 12px;
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  box-shadow: 0 4px 10px rgba(15, 23, 42, 0.08);
+  cursor: pointer;
+  transition: all .15s ease-in-out;
+}
+
+.ms-options--icon .ms-option__icon {
+  margin-bottom: 10px;
+}
+
+.ms-options--icon .ms-option__icon img {
+  width: 32px;
+  height: 32px;
+}
+
+/* активний стан + hover */
+.ms-options--icon .ms-option.is-active .ms-option__label,
+.ms-options--icon .ms-option__label:hover {
+  border-color: #2563eb;
+  box-shadow: 0 6px 16px rgba(37, 99, 235, 0.25);
+}
+
+/* -------- TEXT PILLS (як на другому скріні) -------- */
+
+.ms-options--text {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.ms-options--text .ms-option__label {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 14px;
+  border-radius: 999px;
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all .12s ease-in-out;
+}
+
+.ms-options--text .ms-option.is-active .ms-option__label {
+  background: #2563eb;
+  border-color: #2563eb;
+  color: #fff;
+}

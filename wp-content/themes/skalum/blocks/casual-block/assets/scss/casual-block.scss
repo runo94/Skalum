@@ -195,6 +195,11 @@
         transform: translateY(10px);
         transition: transform 0.35s ease, opacity 0.35s ease;
         z-index: 5;
+        flex-flow: column;
+
+        @media screen and (min-width: 1024px) {
+          flex-flow: row wrap;
+        }
 
         .casual-block__icon {
           max-width: 48px;
