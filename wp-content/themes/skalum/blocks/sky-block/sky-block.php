@@ -28,7 +28,7 @@ $bg_m = $bg_m_id ? wp_get_attachment_image_url($bg_m_id, 'full') : '';
 <section id="<?php echo esc_attr($id); ?>" class="<?php echo esc_attr($class); ?>">
   <div class="sky-bg">
     <div class="container">
-      <div class="sky-block__inner">
+      <div class="sky-block__inner fade-in">
 
         <div class="sky-block__content">
           <?php if ($title): ?>

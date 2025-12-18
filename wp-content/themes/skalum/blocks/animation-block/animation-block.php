@@ -62,7 +62,7 @@ $render_side = function ($group, $mod = '') {
 /** animation renderer (closure) */
 $render_animation = function () use ($animation_type, $id, $images, $theme_ver, $inside_image) {
   ?>
-  <div class="animation-block__animation">
+  <div class="animation-block__animation ">
     <div class="animation_part" data-animation-type="<?php echo esc_attr($animation_type); ?>">
 
       <?php if ($animation_type === 'circles_and_bars'): ?>
@@ -196,7 +196,7 @@ $render_animation = function () use ($animation_type, $id, $images, $theme_ver, 
 ?>
 <section id="<?php echo esc_attr($id); ?>" class="<?php echo esc_attr($class); ?>">
   <div class="container">
-    <div class="animation-block__inner <?php echo esc_attr($content_position); ?>">
+    <div class="animation-block__inner fade-in <?php echo esc_attr($content_position); ?>">
       <?php $render_animation(); ?>
       <div class="animation-block__content">
         <?php $render_side($start, 'start'); ?>

@@ -33,7 +33,7 @@ $has_card = !empty($card_icon) || !empty($card_title) || !empty($card_desc);
 ?>
 <section id="<?php echo esc_attr($id); ?>" class="<?php echo esc_attr($class); ?>">
   <div class="container">
-    <div class="casual-block__inner">
+    <div class="casual-block__inner fade-in">
       <?php if ($has_header): ?>
         <div class="casual-block__content">
           <div class="casual-block__header">

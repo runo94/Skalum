@@ -18,7 +18,7 @@ $testimonials = get_field('testimonials'); // Repeater
 
 <section id="<?php echo esc_attr($id); ?>" class="<?php echo esc_attr($class); ?>">
     <div class="container">
-        <div class="testimonials-block__inner">
+        <div class="testimonials-block__inner fade-in">
 
             <!-- Header -->
             <div class="testimonials-block__header">

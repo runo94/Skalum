@@ -25,7 +25,7 @@ $image_position = get_field('image_position');
 
 <section id="<?php echo esc_attr($id); ?>" class="<?php echo esc_attr($class); ?>">
   <div class="container">
-    <div class="phone-block__inner <?php echo $image_position ?>">
+    <div class="phone-block__inner fade-in <?php echo $image_position ?>">
 
       <div class="phone-block__image">
         <canvas id="pushes" width="404" height="541" style="width:404px;height:541px;display:block"></canvas>

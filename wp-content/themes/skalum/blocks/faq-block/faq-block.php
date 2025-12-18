@@ -12,7 +12,7 @@ $faq_list = get_field('faq_list');
 
 <section id="<?= esc_attr($id) ?>" class="<?= esc_attr($class) ?>">
   <div class="container">
-    <div class="faq-block__inner">
+    <div class="faq-block__inner fade-in">
 
       <div class="faq-block__header">
         <?php if ($block_name): ?>

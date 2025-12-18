@@ -3,6 +3,9 @@
 @use "components/typography" as *;
 @use "components/header" as *;
 @use "components/footer" as *;
+@use "components/single-case" as *;
+@use "components/case_card" as *;
+@use "components/cases_list" as *;
 
 /* ---------- Base Typography ---------- */
 
@@ -80,12 +83,12 @@ p {
 }
 
 .margin-b-100 {
-  margin-bottom: 100px !important; 
+  margin-bottom: 100px !important;
 }
 
 /* ---------- Links ---------- */
 a {
-  color: #ED8B35;
+  color: #ed8b35;
   text-decoration: none;
   transition: color 0.2s ease;
 }
@@ -137,11 +140,11 @@ ul {
     font-weight: 400;
 
     &::before {
-      content: '';
+      content: "";
       width: 8px;
       height: 8px;
       border-radius: 50%;
-      background-color: #F39C12;
+      background-color: #f39c12;
       flex-shrink: 0;
       margin-top: 8px;
     }
@@ -153,7 +156,9 @@ ul {
 }
 
 @media (max-width: 767.98px) {
-  .u-hide-mobile { display: none !important; }
+  .u-hide-mobile {
+    display: none !important;
+  }
 }
 
 .services-page {
@@ -167,5 +172,25 @@ ul {
     p {
       margin-left: 20px;
     }
+  }
+}
+
+.fade-in {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.fade-in.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* accessibility: зменшений рух */
+@media (prefers-reduced-motion: reduce) {
+  .fade-in {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
   }
 }

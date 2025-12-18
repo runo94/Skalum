@@ -27,7 +27,7 @@ $cards = get_field('cards'); // repeater
   data-block="<?php echo esc_attr($block_name ?: 'Timeline'); ?>">
   <div class="container">
     <div class="timeline-block__inner">
-      <div class="timeline-block__header">
+      <div class="timeline-block__header fade-in">
 
         <?php if ($block_name): ?>
           <div class="title-block__name"><?php echo esc_html($block_name); ?></div>
@@ -44,14 +44,13 @@ $cards = get_field('cards'); // repeater
 
       <div class="timeline-block__line_shadow">
       <div class="timeline-block__body">
-        <!-- вертикальна «шина» таймлайну -->
         <div class="tl-spine" aria-hidden="true">
           <div class="tl-line tl-line--bg"></div>
           <div class="tl-line tl-line--progress" style="height:0"></div>
         </div>
 
         <?php if ($cards && is_array($cards)): ?>
-          <ul class="tl-list" role="list">
+          <ul class="tl-list fade-in" role="list">
             <?php foreach ($cards as $i => $card): ?>
               <?php
               $item_title = $card['title'] ?? '';

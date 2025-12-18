@@ -39,7 +39,7 @@ if (!function_exists('skalum_initials')) {
   <div class="container">
     <div class="team-block__inner">
 
-      <header class="team-block__header">
+      <header class="team-block__header fade-in">
         <?php if (!empty($block_name)): ?>
           <div class="team-block__name"><?php echo esc_html($block_name); ?></div>
         <?php endif; ?>
@@ -57,7 +57,7 @@ if (!function_exists('skalum_initials')) {
             $name  = $g['name'] ?? '';
             $pos   = $g['position'] ?? '';
             ?>
-            <li class="team-card">
+            <li class="team-card fade-in">
               <figure class="team-card__figure">
                 <div class="team-card__image">
                   <?php if ($photo && !empty($photo['ID'])): 

@@ -24,7 +24,7 @@ $block_name = get_field('block_name');
 
 <section id="<?php echo esc_attr($id); ?>" class="<?php echo esc_attr($class); ?>">
   <div class="container">
-    <div class="title-block__inner">
+    <div class="title-block__inner fade-in">
 
 
       <div class="title-block__content">

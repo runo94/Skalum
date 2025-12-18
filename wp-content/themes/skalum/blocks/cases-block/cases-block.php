@@ -14,7 +14,7 @@ $cases = get_field('cases');
 
 <section id="<?= esc_attr($id) ?>" class="<?= esc_attr($class) ?>">
   <div class="container">
-    <div class="cases-block__inner">
+    <div class="cases-block__inner fade-in">
 
       <div class="cases-block__header">
         <?php if ($block_name): ?>

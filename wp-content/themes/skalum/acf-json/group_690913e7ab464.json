@@ -45,6 +45,60 @@
             "delay": 0
         },
         {
+            "key": "field_6a0c_layout_variant_001",
+            "label": "Layout variant",
+            "name": "layout_variant",
+            "aria-label": "",
+            "type": "radio",
+            "instructions": "Choose how this block should be rendered.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "choices": {
+                "default": "Default (current)",
+                "results": "Results (3 cards + wide last card)"
+            },
+            "default_value": "default",
+            "return_format": "value",
+            "allow_null": 0,
+            "other_choice": 0,
+            "layout": "horizontal",
+            "save_other_choice": 0
+        },
+        {
+            "key": "field_6a0c_badge_001",
+            "label": "Badge (Results layout)",
+            "name": "badge",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "Small label above the title (e.g. “Results”). Only used in Results layout.",
+            "required": 0,
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_6a0c_layout_variant_001",
+                        "operator": "==",
+                        "value": "results"
+                    }
+                ]
+            ],
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Results",
+            "maxlength": "",
+            "allow_in_bindings": 0,
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
             "key": "field_690914a184202",
             "label": "Cards",
             "name": "cards",
@@ -145,7 +199,7 @@
             {
                 "param": "block",
                 "operator": "==",
-                "value": "acf\/skalum-cards-block"
+                "value": "acf/skalum-cards-block"
             }
         ]
     ],
@@ -158,5 +212,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1762203637
+    "modified": 1760000000
 }

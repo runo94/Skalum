@@ -43,3 +43,38 @@ document.addEventListener("DOMContentLoaded", function () {
     if (mq.matches) close();
   });
 });
+
+document.addEventListener("DOMContentLoaded", () => {
+  const items = document.querySelectorAll(".fade-in");
+
+  if (!("IntersectionObserver" in window)) {
+    // fallback: показати все
+    items.forEach((el) => el.classList.add("is-visible"));
+    return;
+  }
+
+  const observer = new IntersectionObserver(
+    (entries, obs) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("is-visible");
+          entry.target.classList.add("is-animating");
+          entry.target.addEventListener(
+            "transitionend",
+            () => {
+              el.classList.remove("is-animating"); // 🔥 stacking context зникає
+            },
+            { once: true }
+          );
+          obs.unobserve(entry.target); // анімуємо один раз
+        }
+      });
+    },
+    {
+      root: null,
+      rootMargin: "0px 0px -10% 0px", // трохи раніше
+    }
+  );
+
+  items.forEach((el) => observer.observe(el));
+});

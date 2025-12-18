@@ -22,7 +22,7 @@ $contact = get_field('contact_part');  // [title, description, contact_form]
 ?>
 <section id="<?php echo esc_attr($id); ?>" class="<?php echo esc_attr($class); ?>">
   <div class="container">
-    <div class="contact-form-block__inner">
+    <div class="contact-form-block__inner fade-in">
 
       <?php if ($block_name): ?>
         <div class="bn-wrapper">

@@ -76,7 +76,7 @@
             font-size: 16px;
 
             @media screen and (min-width: 1025px) {
-            font-size: 20px;
+              font-size: 20px;
             }
           }
         }
@@ -134,12 +134,17 @@
           transform: translate(-50%, 50%);
         }
 
-        @media screen and (min-width: 768px) {
-          grid-template-columns: 1fr 1fr;
+        @media (min-width: 768px) {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+
+          /* якщо останній елемент непарний (тобто один у рядку) — тягнемо на всю ширину */
+          & > :last-child:nth-child(odd) {
+            grid-column: 1 / -1;
+          }
         }
 
-        @media screen and (min-width: 1025px) {
-          grid-template-columns: 1fr 1fr;
+        /* desktop max width */
+        @media (min-width: 1025px) {
           max-width: 1240px;
         }
 

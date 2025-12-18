@@ -39,7 +39,7 @@ $has_content = !empty($title) || !empty($description) || !empty($cta_url);
 ?>
 <section id="<?php echo esc_attr($id); ?>" class="<?php echo esc_attr($class); ?>">
   <div class="container">
-    <div class="win-win-block__inner<?php echo $has_media ? ' has-media' : ''; ?>">
+    <div class="win-win-block__inner fade-in <?php echo $has_media ? ' has-media' : ''; ?>">
       <?php if ($has_media): ?>
         <div class="win-win-block__media">
           <?php

@@ -66,7 +66,7 @@ $first_features = $first_plan['features'] ?? [];
 ?>
 <section id="<?php echo esc_attr($id); ?>" class="<?php echo esc_attr($class); ?>">
   <div class="container">
-    <div class="prices-block__inner">
+    <div class="prices-block__inner fade-in">
 
       <?php if ($block_name || $title): ?>
         <header class="prices-block__header">
