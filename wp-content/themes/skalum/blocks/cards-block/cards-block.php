@@ -15,45 +15,67 @@ $class .= $hide_on_mobile ? ' u-hide-mobile' : '';
 $title       = get_field('title');
 $description = get_field('description');
 
-/** New: layout variant */
+/** Variant */
 $layout = (string) (get_field('layout_variant') ?: 'default');
-$badge  = (string) (get_field('badge') ?: '');
 
-/** Optional: add modifier class */
-$class .= $layout === 'results' ? ' cards-block--results' : ' cards-block--default';
+/** Results-only extras (in your JSON it's always available, but used only in results layout) */
+$badge = (string) (get_field('badge') ?: '');
 
-function skalum_render_cards_block_card($icon, string $card_title, $card_desc, string $extra_class = ''): void {
-  ?>
-  <article class="cards-block__card<?php echo $extra_class ? ' ' . esc_attr($extra_class) : ''; ?>">
-    <header class="cards-block__card-head">
-      <?php if (!empty($icon['ID'])) : ?>
-        <?php
-        echo wp_get_attachment_image(
-          $icon['ID'],
-          'full',
-          false,
-          [
-            'class' => 'cards-block__icon',
-            'alt'   => esc_attr($icon['alt'] ?: $card_title),
-            'loading' => 'lazy',
-            'decoding' => 'async',
-          ]
-        );
-        ?>
+/** Optional modifier class */
+$class .= ($layout === 'results') ? ' cards-block--results' : ' cards-block--default';
+
+if (!function_exists('skalum_render_cards_block_card')) {
+  /**
+   * Render one card.
+   *
+   * @param array|null $icon (ACF image array)
+   * @param string     $card_title
+   * @param mixed      $card_desc (wysiwyg html)
+   * @param string     $list_style default|chevron
+   * @param string     $extra_class optional extra class for <article>
+   */
+  function skalum_render_cards_block_card($icon, string $card_title, $card_desc, string $list_style = 'default', string $extra_class = ''): void {
+    $article_class = 'cards-block__card';
+    if ($extra_class) {
+      $article_class .= ' ' . $extra_class;
+    }
+
+    // modifier for lists inside description
+    if ($list_style === 'chevron') {
+      $article_class .= ' cards-block__card--chevron';
+    }
+    ?>
+    <article class="<?php echo esc_attr($article_class); ?>">
+      <header class="cards-block__card-head">
+        <?php if (!empty($icon['ID'])): ?>
+          <?php
+          echo wp_get_attachment_image(
+            (int) $icon['ID'],
+            'full',
+            false,
+            [
+              'class'    => 'cards-block__icon',
+              'alt'      => esc_attr(($icon['alt'] ?? '') ?: $card_title),
+              'loading'  => 'lazy',
+              'decoding' => 'async',
+            ]
+          );
+          ?>
+        <?php endif; ?>
+
+        <?php if ($card_title !== ''): ?>
+          <div class="cards-block__card-title"><?php echo esc_html($card_title); ?></div>
+        <?php endif; ?>
+      </header>
+
+      <?php if (!empty($card_desc)): ?>
+        <div class="cards-block__card-body">
+          <?php echo wp_kses_post($card_desc); ?>
+        </div>
       <?php endif; ?>
-
-      <?php if ($card_title) : ?>
-        <div class="cards-block__card-title"><?php echo esc_html($card_title); ?></div>
-      <?php endif; ?>
-    </header>
-
-    <?php if ($card_desc) : ?>
-      <div class="cards-block__card-body">
-        <?php echo wp_kses_post($card_desc); ?>
-      </div>
-    <?php endif; ?>
-  </article>
-  <?php
+    </article>
+    <?php
+  }
 }
 ?>
 
@@ -62,75 +84,38 @@ function skalum_render_cards_block_card($icon, string $card_title, $card_desc, s
     <div class="cards-block__inner fade-in">
 
       <div class="cards-block__content">
-        <?php if ($layout === 'results' && !empty($badge)) : ?>
+        <?php if ($layout === 'results' && $badge !== ''): ?>
           <div class="cards-block__badge"><?php echo esc_html($badge); ?></div>
         <?php endif; ?>
 
-        <?php if ($title) : ?>
+        <?php if (!empty($title)): ?>
           <div class="cards-block__title"><?php echo wp_kses_post($title); ?></div>
         <?php endif; ?>
 
-        <?php if ($description) : ?>
+        <?php if (!empty($description)): ?>
           <div class="cards-block__text"><?php echo wp_kses_post($description); ?></div>
         <?php endif; ?>
       </div>
 
-      <?php if (have_rows('cards')) : ?>
+      <?php if (have_rows('cards')): ?>
+        <div class="cards-block__grid<?php echo ($layout === 'results') ? ' cards-block__grid--results' : ''; ?>">
+          <?php while (have_rows('cards')): the_row(); ?>
+            <?php
+            $icon       = get_sub_field('icon');
+            $card_title = (string) get_sub_field('title');
+            $card_desc  = get_sub_field('description');
 
-        <?php if ($layout === 'default') : ?>
-          <!-- ✅ CURRENT (unchanged logic) -->
-          <div class="cards-block__grid">
-            <?php while (have_rows('cards')) : the_row(); ?>
-              <?php
-              $icon       = get_sub_field('icon');
-              $card_title = (string) get_sub_field('title');
-              $card_desc  = get_sub_field('description');
-              skalum_render_cards_block_card($icon, $card_title, $card_desc);
-              ?>
-            <?php endwhile; ?>
-          </div>
+            // in your JSON default_value is "", so normalize it to "default"
+            $list_style = (string) get_sub_field('list_style');
+            $list_style = $list_style ?: 'default';
 
-        <?php else : ?>
-          <!-- ✅ RESULTS layout: all except last are "stats", last is "wide" -->
-          <?php
-          // Collect rows first (so we can split last)
-          $cards = [];
-          while (have_rows('cards')) : the_row();
-            $cards[] = [
-              'icon'  => get_sub_field('icon'),
-              'title' => (string) get_sub_field('title'),
-              'desc'  => get_sub_field('description'),
-            ];
-          endwhile;
+            // In results layout you were adding stat class; keep it as modifier if you need it in CSS
+            $extra_class = ($layout === 'results') ? 'cards-block__card--stat' : '';
 
-          $count = count($cards);
-          $wide  = null;
-          $stats = $cards;
-
-          if ($count >= 2) {
-            $wide  = $cards[$count - 1];
-            $stats = array_slice($cards, 0, $count - 1);
-          }
-          ?>
-
-          <div class="cards-block__grid cards-block__grid--results">
-
-            <?php if (!empty($stats)) : ?>
-              <div class="cards-block__stats">
-                <?php foreach ($stats as $c) : ?>
-                  <?php skalum_render_cards_block_card($c['icon'], $c['title'], $c['desc'], 'cards-block__card--stat'); ?>
-                <?php endforeach; ?>
-              </div>
-            <?php endif; ?>
-
-            <?php if (!empty($wide)) : ?>
-              <?php skalum_render_cards_block_card($wide['icon'], $wide['title'], $wide['desc'], 'cards-block__card--wide'); ?>
-            <?php endif; ?>
-
-          </div>
-
-        <?php endif; ?>
-
+            skalum_render_cards_block_card($icon, $card_title, $card_desc, $list_style, $extra_class);
+            ?>
+          <?php endwhile; ?>
+        </div>
       <?php endif; ?>
 
     </div>

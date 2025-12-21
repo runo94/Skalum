@@ -3,6 +3,53 @@
     "title": "BLOCK: Grid block",
     "fields": [
         {
+            "key": "field_69445783969f7",
+            "label": "Type",
+            "name": "layout_variant",
+            "aria-label": "",
+            "type": "radio",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "choices": {
+                "default": "Default",
+                "results": "Results"
+            },
+            "default_value": "default",
+            "return_format": "value",
+            "allow_null": 0,
+            "other_choice": 0,
+            "allow_in_bindings": 0,
+            "layout": "vertical",
+            "save_other_choice": 0
+        },
+        {
+            "key": "field_69445c86b6411",
+            "label": "Badge",
+            "name": "badge",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "allow_in_bindings": 0,
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
             "key": "field_690913e884200",
             "label": "Title",
             "name": "title",
@@ -45,60 +92,6 @@
             "delay": 0
         },
         {
-            "key": "field_6a0c_layout_variant_001",
-            "label": "Layout variant",
-            "name": "layout_variant",
-            "aria-label": "",
-            "type": "radio",
-            "instructions": "Choose how this block should be rendered.",
-            "required": 0,
-            "conditional_logic": 0,
-            "wrapper": {
-                "width": "",
-                "class": "",
-                "id": ""
-            },
-            "choices": {
-                "default": "Default (current)",
-                "results": "Results (3 cards + wide last card)"
-            },
-            "default_value": "default",
-            "return_format": "value",
-            "allow_null": 0,
-            "other_choice": 0,
-            "layout": "horizontal",
-            "save_other_choice": 0
-        },
-        {
-            "key": "field_6a0c_badge_001",
-            "label": "Badge (Results layout)",
-            "name": "badge",
-            "aria-label": "",
-            "type": "text",
-            "instructions": "Small label above the title (e.g. “Results”). Only used in Results layout.",
-            "required": 0,
-            "conditional_logic": [
-                [
-                    {
-                        "field": "field_6a0c_layout_variant_001",
-                        "operator": "==",
-                        "value": "results"
-                    }
-                ]
-            ],
-            "wrapper": {
-                "width": "",
-                "class": "",
-                "id": ""
-            },
-            "default_value": "Results",
-            "maxlength": "",
-            "allow_in_bindings": 0,
-            "placeholder": "",
-            "prepend": "",
-            "append": ""
-        },
-        {
             "key": "field_690914a184202",
             "label": "Cards",
             "name": "cards",
@@ -112,7 +105,7 @@
                 "class": "",
                 "id": ""
             },
-            "layout": "table",
+            "layout": "block",
             "pagination": 0,
             "min": 0,
             "max": 0,
@@ -190,6 +183,33 @@
                     "media_upload": 1,
                     "delay": 0,
                     "parent_repeater": "field_690914a184202"
+                },
+                {
+                    "key": "field_69446d3a21db8",
+                    "label": "List style",
+                    "name": "list_style",
+                    "aria-label": "",
+                    "type": "radio",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "choices": {
+                        "default": "Default",
+                        "chevron": "Chevron"
+                    },
+                    "default_value": "",
+                    "return_format": "value",
+                    "allow_null": 0,
+                    "other_choice": 0,
+                    "allow_in_bindings": 0,
+                    "layout": "vertical",
+                    "save_other_choice": 0,
+                    "parent_repeater": "field_690914a184202"
                 }
             ]
         }
@@ -199,7 +219,7 @@
             {
                 "param": "block",
                 "operator": "==",
-                "value": "acf/skalum-cards-block"
+                "value": "acf\/skalum-cards-block"
             }
         ]
     ],
@@ -212,5 +232,6 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1760000000
+    "display_title": "",
+    "modified": 1766092173
 }

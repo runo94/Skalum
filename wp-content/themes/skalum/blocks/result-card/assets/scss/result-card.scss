@@ -154,15 +154,9 @@
 
           .cards-block__card-head {
             display: flex;
-            align-items: start;
+            align-items: center;
             margin-bottom: 16px;
             gap: 16px;
-            flex-flow: column;
-
-            @media screen and (min-width: 886px) {
-              flex-flow: row;
-              align-items: center;
-            }
 
             .cards-block__card-icon {
               width: 48px;
@@ -192,95 +186,6 @@
             color: #fff;
             font-weight: 200;
             font-size: 14px;
-          }
-        }
-
-        &--results {
-          display: grid;
-          grid-template-columns: 1fr;
-          gap: 24px;
-          margin: 48px auto 0;
-          width: 100%;
-
-          @media (min-width: 768px) {
-            grid-template-columns: repeat(3, minmax(0, 1fr));
-
-            & > :last-child {
-              grid-column: 1 / -1;
-            }
-          }
-
-          @media (min-width: 1025px) {
-            max-width: 1240px;
-          }
-
-          .cards-block__card {
-            backdrop-filter: blur(10px);
-            background: radial-gradient(
-                50% 40% at 50% 0,
-                rgba(87, 87, 186, 0.35) 0,
-                #050b13 90%
-              ),
-              #010102;
-            border: 1px solid hsla(0, 0%, 100%, 0.06);
-            border-radius: 16px;
-            padding: 24px;
-            height: 100%;
-
-            .cards-block__card-head {
-              display: flex;
-              flex-flow: column;
-              align-items: center;
-              margin-bottom: 16px;
-              gap: 16px;
-
-              .cards-block__card-icon {
-                width: 48px;
-                height: 48px;
-                margin-right: 16px;
-                flex-shrink: 0;
-              }
-
-              .cards-block__card-title {
-                font-size: 48px;
-                font-weight: 600;
-                color: #ed8b35;
-              }
-            }
-
-            p {
-              margin: 0;
-              color: rgba($color: #fff, $alpha: 0.7);
-              font-size: 16px;
-              line-height: 1.5;
-              font-weight: 200;
-              margin-bottom: 24px;
-            }
-
-            &--chevron {
-              li {
-                &::before {
-                  content: "";
-                  display: block;
-                  background-image: url("../images/chevron.svg");
-                  background-color: transparent;
-                  background-position: center;
-                  background-repeat: no-repeat;
-                  width: 24px;
-                  height: 24px;
-                  position: relative;
-                  margin-right: 0;
-                  margin-top: -4px;
-                }
-              }
-            }
-
-            li {
-              margin-bottom: 12px;
-              color: #fff;
-              font-weight: 200;
-              font-size: 14px;
-            }
           }
         }
       }

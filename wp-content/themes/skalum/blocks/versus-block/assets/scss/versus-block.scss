@@ -1,0 +1,162 @@
+.versus-block {
+  margin: 80px auto 0;
+  position: relative;
+
+  .container {
+    position: relative;
+    z-index: 2;
+    max-width: 369px;
+    margin: 0 auto;
+    padding: 0 15px;
+
+    @media screen and (min-width: 816px) {
+      max-width: 1240px;
+      padding: 0 15px;
+    }
+
+    @media screen and (min-width: 1025px) {
+      max-width: 1240px;
+      width: 100%;
+      padding: 0;
+    }
+  }
+
+  /* Big title */
+  &__title {
+    text-align: center;
+    margin: 60px auto;
+
+    h1,
+    h2,
+    h3,
+    p {
+      margin: 0;
+      color: rgba(#fff, 0.95);
+    }
+
+    h1,
+    h2 {
+      font-weight: 500;
+      line-height: 1.1;
+      font-size: 38px;
+
+      @media screen and (min-width: 1025px) {
+        font-size: 56px;
+      }
+    }
+  }
+
+  /* Card/table wrapper */
+  &__table-wrap {
+    border-radius: 20px;
+    overflow: hidden;
+    border: 1px solid rgba(#fff, 0.1);
+    background: rgba(#0b0f16, 0.65);
+    backdrop-filter: blur(12px);
+    box-shadow: 0 20px 60px rgba(#000, 0.35);
+
+    /* якщо буде багато колонок — даємо горизонтальний скрол */
+    overflow-x: auto;
+  }
+
+  &__table {
+    /* кількість колонок приходить інлайном як --versus-cols */
+    --cols: var(--versus-cols, 2);
+    min-width: 720px; /* щоб на мобілці було як на скріні зі скролом */
+  }
+
+  /* Header row */
+  &__head {
+    display: grid;
+    grid-template-columns: repeat(var(--cols), minmax(0, 1fr));
+    background: rgba(#000, 0.25);
+  }
+
+  &__head-cell {
+    padding: 22px 26px;
+    font-weight: 600;
+    color: rgba(#fff, 0.92);
+    backdrop-filter: blur(10px);
+    background: radial-gradient(
+        50% 40% at 50% 0,
+        rgba(87, 87, 186, 0.35) 0,
+        #050b13 90%
+      ),
+      #010102;
+
+    &:last-child {
+      border-right: 0;
+    }
+
+    @media screen and (min-width: 1025px) {
+      padding: 26px 30px;
+      font-size: 18px;
+    }
+  }
+
+  /* Body rows */
+  &__row {
+    display: grid;
+    grid-template-columns: repeat(var(--cols), minmax(0, 1fr));
+  }
+
+  &__cell {
+    padding: 18px 26px;
+    border-top: 1px solid rgba(#fff, 0.1);
+    border-right: 1px solid rgba(#fff, 0.1);
+
+    &:last-child {
+      border-right: 0;
+    }
+
+    @media screen and (min-width: 1025px) {
+      padding: 22px 30px;
+    }
+  }
+
+  /* alternating rows background (як на скріні) */
+  &__body {
+    .versus-block__row:nth-child(even) {
+      .versus-block__cell {
+        background: rgba(#fff, 0.03);
+      }
+    }
+  }
+
+  &__item {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    min-height: 36px;
+  }
+
+  &__icon {
+    width: 36px;
+    height: 36px;
+  }
+
+  &__icon-img {
+    width: 36px;
+    height: 36px;
+    display: block;
+  }
+
+  &__text {
+    color: rgba(#fff, 1);
+    font-size: 16px;
+    line-height: 1.35;
+    max-width: 443px;
+    width: 100%;
+
+    @media screen and (min-width: 1025px) {
+      font-size: 16px;
+    }
+  }
+
+  /* Mobile: прибираємо мін-ширину, якщо дуже хочеш стек (але тут я лишив скрол як на скрінах) */
+  @media screen and (max-width: 480px) {
+    &__table {
+      min-width: 620px;
+    }
+  }
+}

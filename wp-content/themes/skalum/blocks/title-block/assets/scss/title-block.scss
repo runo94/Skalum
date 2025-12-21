@@ -1,127 +1,230 @@
 .title-block {
   margin: 100px auto 0;
   position: relative;
+
   .container {
     position: relative;
     z-index: 2;
     max-width: 369px;
     margin: 0 auto;
-      padding: 0 15px;
-
-    @media screen and (min-width: 1025px) {
-      max-width: 1240px;
-      width: 100%;
-      padding: 0;
-    }
+    padding: 0 15px;
 
     @media screen and (min-width: 816px) {
       max-width: 1240px;
       padding: 0 15px;
     }
 
-    .title-block__inner {
+    @media screen and (min-width: 1025px) {
+      max-width: 1240px;
+      width: 100%;
+      padding: 0;
+    }
+  }
+
+  /* =============================
+   * Inner
+   * ============================= */
+  .title-block__inner {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+    align-items: flex-start;
+    margin: 0 auto;
+  }
+
+  /* =============================
+   * Content
+   * ============================= */
+  .title-block__content {
+    position: relative;
+    display: flex;
+    align-items: center;
+    flex-flow: column;
+
+    &::before {
+      content: "";
+      display: block;
+      width: 200px;
+      height: 200px;
+      background-color: #7ec3f4;
+      border-radius: 50%;
+      filter: blur(150px);
+      position: absolute;
+      z-index: 0;
+      top: 10%;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+  }
+
+  /* =============================
+   * Name
+   * ============================= */
+  .title-block__name {
+    display: flex;
+    width: fit-content;
+    background-color: rgba(255, 255, 255, 0.2);
+    border-radius: 30px;
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.8);
+    padding: 2px 10px;
+    margin-bottom: 16px;
+    z-index: 1;
+  }
+
+  /* =============================
+   * Title
+   * ============================= */
+  .title-block__title {
+    max-width: 368px;
+    margin: 0 auto 42px;
+    z-index: 1;
+    text-align: center;
+
+    @media screen and (min-width: 1025px) {
+      max-width: 846px;
+    }
+
+    h2 {
+      font-weight: 500;
+    }
+  }
+
+  /* =============================
+   * Text
+   * ============================= */
+  .title-block__text {
+    max-width: 368px;
+    margin: 0 auto;
+    z-index: 1;
+
+    @media screen and (min-width: 1025px) {
+      max-width: 764px;
+    }
+
+    p {
+      color: rgba(#fff, 0.6);
+      text-align: center;
+      font-size: 16px;
+
+      @media screen and (min-width: 1025px) {
+        font-size: 20px;
+      }
+    }
+  }
+
+  /* =============================
+   * List
+   * ============================= */
+  .title-block__list {
+    list-style: none;
+    padding: 0;
+    margin: 48px auto 0;
+    max-width: 368px;
+    z-index: 1;
+
+    @media screen and (min-width: 1025px) {
+      max-width: 612px;
+    }
+
+    .title-block__item {
       display: flex;
-      flex-flow: row wrap;
-      justify-content: center;
       align-items: flex-start;
-      margin: 0 auto;
-    }
+      margin: 8px 0;
+      font-weight: 200;
 
-    .title-block__name {
-      display: flex;
-      width: fit-content;
-      background-color: rgba(255, 255, 255, 0.2);
-      border-radius: 30px;
-      font-size: 14px;
-      color: rgba(255, 255, 255, 0.8);
-      padding: 2px 10px;
-      margin-bottom: 16px;
-    }
-
-    .title-block__content {
-      position: relative;
-      display: flex;
-      align-items: center;
-      flex-flow: column;
       &::before {
         content: "";
         display: block;
-        width: 200px;
-        height: 200px;
-        background-color: #7ec3f4;
-        border-radius: 50%;
-        filter: blur(150px);
-        position: absolute;
-        z-index: 0;
-        top: 10%;
-        left: 50%;
+        background-image: url("../images/chevron.svg");
+        background-position: center;
+        background-repeat: no-repeat;
+        width: 24px;
+        height: 24px;
+        margin-right: 12px;
       }
+    }
+  }
 
-      .title-block__title {
-        max-width: 368px;
-        margin: 0 auto 42px;
-        z-index: 1;
-        text-align: center;
+  /* ==================================================
+   * POSITION MODIFIERS (from ACF: left | center | right)
+   * ================================================== */
 
-        @media screen and (min-width: 1025px) {
-          max-width: 846px;
-        }
+  &--left {
+    .title-block__inner {
+      justify-content: flex-start;
+    }
 
-        h2 {
-          font-weight: 500;
-        }
-      }
+    .title-block__content {
+      align-items: flex-start;
+    }
 
-      .title-block__text {
-        max-width: 368px;
-        margin: 0 auto;
-        z-index: 1;
+    .title-block__text {
+      margin: 0;
+    }
 
-        @media screen and (min-width: 1025px) {
-          max-width: 764px;
-        }
+    .title-block__title,
+    .title-block__text p {
+      text-align: left;
+      margin-left: 0;
+      margin-right: auto;
+    }
 
-        p {
-          color: rgba($color: #fff, $alpha: 0.6);
-          text-align: center;
-          font-size: 16px;
+    .title-block__list {
+      margin-left: 0;
+      margin-right: auto;
+    }
 
-          @media screen and (min-width: 1025px) {
-            font-size: 20px;
-          }
-        }
-      }
+    .title-block__content::before {
+      left: 0;
+      transform: none;
+    }
+  }
 
-      .title-block__list {
-        list-style: none;
-        padding: 0;
-        margin: 48px auto 0;
-        max-width: 368px;
-        z-index: 1;
+  &--center {
+    .title-block__inner {
+      justify-content: center;
+    }
 
-        @media screen and (min-width: 1025px) {
-          max-width: 612px;
-        }
+    .title-block__content {
+      align-items: center;
+    }
 
-        .title-block__item {
-          display: flex;
-          align-items: flex-start;
-          margin: 8px 0;
-          font-weight: 200;
+    .title-block__content::before {
+      left: 50%;
+      transform: translateX(-50%);
+    }
+  }
 
-          &::before {
-            content: "";
-            display: block;
-            background-image: url("../images/chevron.svg");
-            background-position: center;
-            background-repeat: no-repeat;
-            width: 24px;
-            height: 24px;
-            position: relative;
-            margin-right: 12px;
-          }
-        }
-      }
+  &--right {
+    .title-block__inner {
+      justify-content: flex-end;
+    }
+
+    .title-block__content {
+      align-items: flex-end;
+    }
+
+    .title-block__text {
+      margin: 0;
+    }
+
+    .title-block__title,
+    .title-block__text p {
+      text-align: right;
+      margin-left: auto;
+      margin-right: 0;
+    }
+
+    .title-block__list {
+      margin-left: auto;
+      margin-right: 0;
+    }
+
+    .title-block__content::before {
+      left: auto;
+      right: 0;
+      transform: none;
     }
   }
 }

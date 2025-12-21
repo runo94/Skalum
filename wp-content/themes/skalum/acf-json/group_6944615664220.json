@@ -1,13 +1,13 @@
 {
-    "key": "group_68f8e4d4c5d05",
-    "title": "BLOCK: Title block",
+    "key": "group_6944615664220",
+    "title": "BLOCK: Card result",
     "fields": [
         {
-            "key": "field_69484391b0b96",
-            "label": "Position",
-            "name": "position",
+            "key": "field_69446156fa95a",
+            "label": "Image",
+            "name": "image",
             "aria-label": "",
-            "type": "select",
+            "type": "image",
             "instructions": "",
             "required": 0,
             "conditional_logic": 0,
@@ -16,26 +16,22 @@
                 "class": "",
                 "id": ""
             },
-            "choices": {
-                "left": "Left",
-                "center": "Center",
-                "right": "Right"
-            },
-            "default_value": "center",
-            "return_format": "value",
-            "multiple": 0,
-            "allow_null": 0,
+            "return_format": "id",
+            "library": "all",
+            "min_width": "",
+            "min_height": "",
+            "min_size": "",
+            "max_width": "",
+            "max_height": "",
+            "max_size": "",
+            "mime_types": "",
             "allow_in_bindings": 0,
-            "ui": 0,
-            "ajax": 0,
-            "placeholder": "",
-            "create_options": 0,
-            "save_options": 0
+            "preview_size": "medium"
         },
         {
-            "key": "field_68f8e4e72b29a",
-            "label": "Block name",
-            "name": "block_name",
+            "key": "field_6944616cfa95b",
+            "label": "Title",
+            "name": "title",
             "aria-label": "",
             "type": "text",
             "instructions": "",
@@ -54,28 +50,7 @@
             "append": ""
         },
         {
-            "key": "field_68f8e4d62b299",
-            "label": "Title",
-            "name": "title",
-            "aria-label": "",
-            "type": "wysiwyg",
-            "instructions": "",
-            "required": 0,
-            "conditional_logic": 0,
-            "wrapper": {
-                "width": "",
-                "class": "",
-                "id": ""
-            },
-            "default_value": "",
-            "allow_in_bindings": 0,
-            "tabs": "all",
-            "toolbar": "full",
-            "media_upload": 1,
-            "delay": 0
-        },
-        {
-            "key": "field_68f8e5562b29b",
+            "key": "field_69446188fa95c",
             "label": "Description",
             "name": "description",
             "aria-label": "",
@@ -101,7 +76,7 @@
             {
                 "param": "block",
                 "operator": "==",
-                "value": "acf\/skalum-title-block"
+                "value": "acf\/skalum-result-card"
             }
         ]
     ],
@@ -115,5 +90,5 @@
     "description": "",
     "show_in_rest": 0,
     "display_title": "",
-    "modified": 1766343878
+    "modified": 1766092074
 }

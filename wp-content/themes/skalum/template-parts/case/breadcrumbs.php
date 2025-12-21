@@ -55,9 +55,5 @@ if (!empty($terms) && !is_wp_error($terms)) {
   }
 }
 
-echo '<li class="breadcrumbs__item breadcrumbs__item--current" aria-current="page">'
-  . esc_html(get_the_title($post_id))
-  . '</li>';
-
 echo '</ol>';
 echo '</nav>';
