@@ -12,4 +12,11 @@ add_action('after_setup_theme', function () {
         'header' => __('Header Menu', 'skalum'),
         'footer' => __('Footer Menu', 'skalum'),
     ]);
+
+    add_theme_support('custom-logo', [
+        'height' => 42,
+        'width' => 150,
+        'flex-height' => true,
+        'flex-width' => true,
+    ]);
 });

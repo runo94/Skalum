@@ -15,15 +15,15 @@ const ASSETS = {
 
 const LAYOUT = { stackX: 0.075, stackY: 0.52, cardW: 0.85, gap: 10, rows: 3 };
 const TIMING = {
-  arrivalEveryMs: 3600,
-  pushPxPerMs: 0.12,
-  damping: 0.095, // чим менше — тим сильніше гасіння
+  arrivalEveryMs: 1600,
+  pushPxPerMs: 0.18,
+  damping: 0.075, // чим менше — тим сильніше гасіння
   settlePx: 0.9,
   growFrom: 0.9,
   growOvershoot: 0.16,
   growSpeed: 0.003,
-  constraintsIters: 3,
-  TICK_MS: 1500, // ⏸ тривалість тік-паузи
+  constraintsIters: 2,
+  TICK_MS: 600, // ⏸ тривалість тік-паузи
 };
 
 const FRAME_RATE = 60;
@@ -47,7 +47,6 @@ function fitDPR() {
   ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
 }
 fitDPR();
-addEventListener("resize", fitDPR);
 
 // ---------- LOAD ----------
 const load = (src) =>
@@ -142,20 +141,50 @@ const load = (src) =>
 
   // апдейт росту новачка (з overshoot)
   function updateGrow(dt) {
-    const top = cards[0];
-    if (!top || !top.__growing) return;
-    const dt_s = dt / 1000;
-    const target =
-      top.s < 1 + TIMING.growOvershoot ? 1 + TIMING.growOvershoot : 1;
-    const grow_k = 1 - Math.exp(-GROW_RATE * dt_s);
-    top.s += (target - top.s) * grow_k;
-    top.a += (1 - top.a) * grow_k * 0.9;
-    if (Math.abs(top.s - 1) < 0.01) {
-      top.s = 1;
-      top.a = 1;
-      top.__growing = false;
-    }
+  const top = cards[0];
+  if (!top || !top.__growing) return;
+
+  // таймер росту
+  top.__growT = (top.__growT || 0) + dt;
+
+  const dt_s = dt / 1000;
+
+  // 2 фази: до overshoot, потім назад до 1
+  const phase1 = 260;   // ms до overshoot
+  const phase2 = 260;   // ms назад до 1
+  const total = phase1 + phase2;
+
+  // нормалізований прогрес 0..1
+  const t = Math.min(1, top.__growT / total);
+
+  // easeOutCubic
+  const ease = (x) => 1 - Math.pow(1 - x, 3);
+
+  // інтерполяція скейла
+  const from = TIMING.growFrom;
+  const over = 1 + TIMING.growOvershoot;
+
+  let s;
+  if (top.__growT <= phase1) {
+    const p = ease(top.__growT / phase1);
+    s = from + (over - from) * p;
+  } else {
+    const p = ease((top.__growT - phase1) / phase2);
+    s = over + (1 - over) * p;
   }
+
+  top.s = s;
+  top.a = Math.min(1, top.a + dt_s * 4); // швидке проявлення
+
+  // ✅ гарантоване завершення
+  if (t >= 1) {
+    top.s = 1;
+    top.a = 1;
+    top.__growing = false;
+    top.__growT = 0;
+  }
+}
+
 
   // обмеження без перекриття
   function solveConstraints() {
@@ -178,6 +207,17 @@ const load = (src) =>
 
   // видалення лише коли картка повністю нижче екрану
   function cullOut() {
+    const HARD_MARGIN = G.cardH * 1.2; // запас вниз, щоб не зрізати завчасно
+    const MAX_CARDS = LAYOUT.rows + 8; // safety: не даємо масиву розростися
+
+    // 1) HARD cleanup: якщо картка далеко знизу — прибираємо без умов
+    // (але не чіпаємо перші rows, щоб не ламати видиму частину)
+    cards = cards.filter((c, idx) => {
+      if (idx < LAYOUT.rows) return true;
+      return c.y < G.screenBottom + HARD_MARGIN;
+    });
+
+    // 2) Soft cleanup: твоя стара логіка, але тільки коли верх стабільний
     const rowsOK = cards
       .slice(0, LAYOUT.rows)
       .every(
@@ -185,31 +225,40 @@ const load = (src) =>
           Math.abs(c.y - slotY(i)) < G.cardH * 0.08 &&
           Math.abs(c.vy) < ROWS_OK_VY
       );
-    if (!rowsOK) return;
 
-    let removed = false;
-    cards = cards.filter((c, idx) => {
-      const out = c.y >= G.screenBottom;
-      if (out && !removed && idx >= LAYOUT.rows) {
-        removed = true;
-        return false;
-      }
-      return true;
-    });
+    if (rowsOK) {
+      let removed = false;
+      cards = cards.filter((c, idx) => {
+        const out = c.y >= G.screenBottom;
+        if (out && !removed && idx >= LAYOUT.rows) {
+          removed = true;
+          return false;
+        }
+        return true;
+      });
 
-    if (!removed && cards.length <= LAYOUT.rows) {
-      const allSettled = cards
-        .slice(0, LAYOUT.rows)
-        .every(
-          (c, i) =>
-            Math.abs(c.y - slotY(i)) < TIMING.settlePx &&
-            Math.abs(c.vy) < SETTLE_VY &&
-            !c.__growing
-        );
-      if (allSettled) {
-        seqActive = false;
-        resetTickGate();
+      if (!removed && cards.length <= LAYOUT.rows) {
+        const allSettled = cards
+          .slice(0, LAYOUT.rows)
+          .every(
+            (c, i) =>
+              Math.abs(c.y - slotY(i)) < TIMING.settlePx &&
+              Math.abs(c.vy) < SETTLE_VY &&
+              !c.__growing
+          );
+        if (allSettled) {
+          seqActive = false;
+          resetTickGate();
+
+          // ✅ важливо: щоб наступний цикл точно стартанув, навіть якщо таймінги “попливли”
+          lastPushAt = performance.now();
+        }
       }
+    }
+
+    // 3) Safety: якщо все ж розрослось — прибираємо найнижчі
+    if (cards.length > MAX_CARDS) {
+      cards.length = MAX_CARDS;
     }
   }
 
@@ -221,7 +270,8 @@ const load = (src) =>
     // Кліпінг для карток, щоб не малювати нижче screenBottom
     ctx.save();
     ctx.beginPath();
-    ctx.rect(0, 0, G.W, G.screenBottom);
+    const CLIP_PAD = G.cardH * 2;
+    ctx.rect(0, 0, G.W, Math.min(G.H, G.screenBottom + CLIP_PAD));
     ctx.clip();
 
     let primary = null,
@@ -394,7 +444,7 @@ const load = (src) =>
     const titles = Array.from(container.querySelectorAll("h2"));
     let index = 0;
     const TIME_VISIBLE = 4000;
-    const FADE_TIME = 600; 
+    const FADE_TIME = 600;
 
     titles[0].classList.add("active");
 

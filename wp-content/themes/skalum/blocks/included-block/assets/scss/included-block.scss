@@ -1,0 +1,117 @@
+.included-block {
+  max-width: 965px;
+  margin: 0 auto;
+  padding: 64px 20px;
+  color: #fff;
+
+  @media screen and (min-width: 1025px) {
+    padding: 64px;
+  }
+
+  &--border-top {
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+  }
+}
+
+.included-block__inner {
+  display: grid;
+  grid-template-columns: 260px 1fr;
+  gap: 48px;
+  align-items: start;
+}
+
+.included-block__title {
+  font-size: 22px;
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: 0.2px;
+  margin: 0;
+}
+
+.included-block__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  column-gap: 34px;
+  row-gap: 16px;
+}
+
+.included-block__item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  padding: 12px 18px;
+  border-radius: 999px;
+
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.10);
+
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.08),
+    0 10px 30px rgba(0, 0, 0, 0.25);
+
+    &::before {
+      content: none;
+    }
+}
+
+.included-block__icon {
+  width: 22px;
+  height: 22px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 22px;
+
+  color: #58a6ff; // синій чек як на скріні
+
+  img {
+    width: 22px;
+    height: 22px;
+    display: block;
+    object-fit: contain;
+  }
+
+  svg {
+    display: block;
+  }
+}
+
+.included-block__text {
+  font-size: 14px;
+  line-height: 1.2;
+  letter-spacing: 0.2px;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+/* ===== Mobile ===== */
+@media (max-width: 820px) {
+  .included-block__inner {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+
+  .included-block__list {
+    grid-template-columns: 1fr;
+    row-gap: 18px;
+  }
+
+  // на мобайлі — без "pill" (як на скріні)
+  .included-block__item {
+    padding: 0;
+    border-radius: 0;
+    background: transparent;
+    border: 0;
+    box-shadow: none;
+    gap: 14px;
+  }
+
+  .included-block__text {
+    font-size: 16px;
+    color: rgba(255, 255, 255, 0.8);
+  }
+}

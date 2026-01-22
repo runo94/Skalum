@@ -277,6 +277,8 @@
         .case-slide__detail {
           display: flex;
           margin-top: 20px;
+          height: max-content;
+
           .case-detail {
             padding: 0;
 
@@ -315,10 +317,12 @@
     max-width: 100%;
     height: -webkit-fill-available;
     display: none;
+    height: max-content;
 
     @media (min-width: 1025px) {
       display: flex;
       max-width: 660px;
+      height: auto;
     }
   }
 

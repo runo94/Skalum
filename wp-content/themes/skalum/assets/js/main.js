@@ -77,4 +77,17 @@ document.addEventListener("DOMContentLoaded", () => {
   );
 
   items.forEach((el) => observer.observe(el));
+
+  document.querySelector(".blog__load").addEventListener("click", async () => {
+    const grid = document.querySelector(".blog__grid");
+    let page = +grid.dataset.page;
+
+    const res = await fetch(
+      `/wp-admin/admin-ajax.php?action=blog_more&page=${page}`
+    );
+    const html = await res.text();
+
+    grid.insertAdjacentHTML("beforeend", html);
+    grid.dataset.page = page + 1;
+  });
 });

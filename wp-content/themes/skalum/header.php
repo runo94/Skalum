@@ -18,8 +18,20 @@
 
   <header class="site-header">
     <div class="site-header__inner">
-      <a href="<?php echo esc_url($home_url); ?>" class="site-header__brand">
-        <span class="brand-text"><?php echo esc_html($site_name ?: 'Skalum'); ?></span>
+      <a href="<?php echo esc_url($home_url); ?>" class="site-header__brand"
+        aria-label="<?php echo esc_attr($site_name); ?>">
+
+        <?php if (has_custom_logo()): ?>
+          <?php
+          $custom_logo_id = get_theme_mod('custom_logo');
+          $logo = wp_get_attachment_image_src($custom_logo_id, 'full');
+          ?>
+          <img src="<?php echo esc_url($logo[0]); ?>" alt="<?php echo esc_attr($site_name); ?>" class="site-header__logo"
+            loading="eager" decoding="async" />
+        <?php else: ?>
+          <span class="brand-text"><?php echo esc_html($site_name ?: 'Skalum'); ?></span>
+        <?php endif; ?>
+
       </a>
 
       <nav class="nav-pill" aria-label="<?php esc_attr_e('Main', 'yourtheme'); ?>">
@@ -98,7 +110,7 @@
 
       </nav>
 
-      <a class="cta-btn" href="#contact">Get Free Audit</a>
+      <a class="cta-btn" href="#form">Get Free Audit</a>
 
       <button class="burger" id="burgerBtn" aria-label="<?php esc_attr_e('Open menu', 'yourtheme'); ?>"
         aria-controls="mobileNav" aria-expanded="false">
@@ -109,27 +121,28 @@
     </div>
   </header>
 
-  <?php $toggle = function_exists('skl_lang_toggle_target') ? skl_lang_toggle_target() : ['url'=>'#','label'=>'EN']; ?>
+  <?php $toggle = function_exists('skl_lang_toggle_target') ? skl_lang_toggle_target() : ['url' => '#', 'label' => 'EN']; ?>
 
-<nav class="mobile-nav" id="mobileNav" hidden>
-  <div class="mobile-nav__inner">
-    <?php
+  <nav class="mobile-nav" id="mobileNav" hidden>
+    <div class="mobile-nav__inner">
+      <?php
       wp_nav_menu([
-        'theme_location' => 'header',   // твоє меню
-        'container'      => false,
-        'menu_class'     => 'mobile-nav__list',
-        'fallback_cb'    => false,
+        'theme_location' => 'header',
+        'container' => false,
+        'menu_class' => 'mobile-nav__list',
+        'fallback_cb' => false,
       ]);
-    ?>
+      ?>
 
-    <div class="mobile-nav__lang">
-      <a class="lang-pill" href="<?php echo esc_url($toggle['url']); ?>">
-        <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
-          <circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.5"/>
-          <path d="M3 12h18M12 3c3 3 3 15 0 18M12 3c-3 3-3 15 0 18" fill="none" stroke="currentColor" stroke-width="1.5"/>
-        </svg>
-        <span><?php echo esc_html($toggle['label']); ?></span>
-      </a>
+      <div class="mobile-nav__lang">
+        <a class="lang-pill" href="<?php echo esc_url($toggle['url']); ?>">
+          <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
+            <circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.5" />
+            <path d="M3 12h18M12 3c3 3 3 15 0 18M12 3c-3 3-3 15 0 18" fill="none" stroke="currentColor"
+              stroke-width="1.5" />
+          </svg>
+          <span><?php echo esc_html($toggle['label']); ?></span>
+        </a>
+      </div>
     </div>
-  </div>
-</nav>
+  </nav>
