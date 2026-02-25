@@ -47,3 +47,32 @@ $faq_list = get_field('faq_list');
     </div>
   </div>
 </section>
+
+<?php if ($faq_list): 
+  $schema = [
+    '@context' => 'https://schema.org',
+    '@type'    => 'FAQPage',
+    'mainEntity' => [],
+  ];
+
+  foreach ($faq_list as $item) {
+    if (empty($item['question']) || empty($item['answer'])) {
+      continue;
+    }
+
+    $schema['mainEntity'][] = [
+      '@type' => 'Question',
+      'name'  => wp_strip_all_tags($item['question']),
+      'acceptedAnswer' => [
+        '@type' => 'Answer',
+        'text'  => wp_kses_post($item['answer']),
+      ],
+    ];
+  }
+?>
+
+<script type="application/ld+json">
+<?= wp_json_encode($schema, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT); ?>
+</script>
+
+<?php endif; ?>

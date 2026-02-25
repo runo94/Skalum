@@ -65,3 +65,71 @@ $testimonials = get_field('testimonials'); // Repeater
         </div>
     </div>
 </section>
+
+<?php
+// --- Schema: Reviews for Testimonials block ---
+if ($testimonials && count($testimonials) > 0) {
+
+  $site_name = get_bloginfo('name');
+  $site_url  = home_url('/');
+
+  $schema = [
+    '@context' => 'https://schema.org',
+    '@graph'   => [],
+  ];
+
+  foreach ($testimonials as $item) {
+    $desc    = $item['description'] ?? '';
+    $name    = $item['client_name'] ?? '';
+    $company = $item['company'] ?? '';
+
+    if (!$desc || !$name) {
+      continue;
+    }
+
+    $review_body = wp_strip_all_tags($desc);
+    if (!$review_body) {
+      continue;
+    }
+
+    $author = ['@type' => 'Person', 'name' => wp_strip_all_tags($name)];
+
+    if ($company) {
+      $author['worksFor'] = [
+        '@type' => 'Organization',
+        'name'  => wp_strip_all_tags($company),
+      ];
+    }
+
+    $schema['@graph'][] = [
+      '@type' => 'Review',
+      'reviewBody' => $review_body,
+      'reviewRating' => [
+        '@type'       => 'Rating',
+        'ratingValue' => '5',
+        'bestRating'  => '5',
+        'worstRating' => '1',
+      ],
+      'author' => $author,
+      'publisher' => [
+        '@type' => 'Organization',
+        'name'  => $site_name,
+        'url'   => $site_url,
+      ],
+      'itemReviewed' => [
+        '@type' => 'Organization',
+        'name'  => $site_name,
+        'url'   => $site_url,
+      ],
+    ];
+  }
+
+  if (!empty($schema['@graph'])) :
+?>
+<script type="application/ld+json">
+<?= wp_json_encode($schema, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT); ?>
+</script>
+<?php
+  endif;
+}
+?>

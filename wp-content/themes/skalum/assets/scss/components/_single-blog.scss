@@ -1,0 +1,133 @@
+.single-post {
+  padding: 60px 0 0;
+  background: radial-gradient(circle at top, #0c111b, #05070c);
+  color: #fff;
+
+  &__article {
+    max-width: 1240px;
+    padding: 0 20px;
+    margin: 0 auto;
+  }
+
+  &__header {
+    margin-bottom: 28px;
+  }
+
+  &__title {
+    font-size: 44px;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    margin: 14px 0 14px;
+  }
+
+  &__meta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 14px;
+    font-size: 12px;
+    opacity: 0.75;
+    margin-bottom: 18px;
+  }
+
+  &__cat {
+    display: inline-flex;
+    align-items: center;
+    padding: 6px 10px;
+    border-radius: 999px;
+    background: rgba(17, 24, 39, 0.65);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(8px);
+    white-space: nowrap;
+  }
+
+  &__thumb {
+    border-radius: 18px;
+    overflow: hidden;
+    border: 1px solid rgba(30, 41, 59, 0.9);
+    background: rgba(15, 23, 42, 0.75);
+
+    img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+  }
+
+  &__content {
+    margin-top: 26px;
+    font-size: 18px;
+    line-height: 1.75;
+    opacity: 0.92;
+
+    p {
+      margin: 0 0 16px;
+    }
+    h2,
+    h3 {
+      margin: 28px 0 14px;
+      line-height: 1.2;
+    }
+    a {
+      color: inherit;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+    ul,
+    ol {
+      padding-left: 20px;
+      margin: 0 0 18px;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 14px;
+    }
+  }
+
+  @media (max-width: 640px) {
+    padding: 70px 0;
+
+    &__title {
+      font-size: 32px;
+    }
+    &__content {
+      font-size: 16px;
+    }
+  }
+}
+
+.related-posts {
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 80px 20px 0;
+  background: radial-gradient(circle at top, #0c111b, #05070c);
+  color: #fff;
+
+  &__title {
+    text-align: center;
+    font-size: 28px;
+    margin: 0 0 32px;
+    letter-spacing: -0.01em;
+  }
+
+  &__grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 32px;
+  }
+
+  @media (max-width: 1024px) {
+    &__grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 24px;
+    }
+  }
+
+  @media (max-width: 640px) {
+    &__grid {
+      grid-template-columns: 1fr;
+      gap: 18px;
+    }
+  }
+}

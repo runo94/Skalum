@@ -1,0 +1,90 @@
+.breadcrumbs {
+  max-width: 1240px;
+  padding: 0px 20px;
+  margin: 0 auto;
+
+  &__inner,
+  &__list {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 18px; // відстань між елементами як на скріні
+  }
+
+  &__list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  &__item {
+    font-size: 16px;
+    line-height: 1.08;
+    letter-spacing: -0.02em;
+    font-weight: 400;
+
+    color: rgba(255, 255, 255, 0.55);
+    text-shadow: 0 0 22px rgba(120, 140, 255, 0.18);
+  }
+
+  // лінки такі ж як текст, без підкреслень
+  a,
+  &__link {
+    color: inherit;
+    text-decoration: none;
+    transition:
+      color 0.18s ease,
+      opacity 0.18s ease;
+  }
+
+  a:hover,
+  &__link:hover {
+    color: rgba(255, 255, 255, 0.72);
+  }
+
+  // поточний елемент трохи яскравіший
+  &__item--current {
+    color: rgba(255, 255, 255, 0.68);
+  }
+
+  // РОЗДІЛЮВАЧ ">"
+  // якщо у тебе немає окремого li для ">", то зробимо через псевдоелемент:
+  &__item + &__item {
+    position: relative;
+    padding-left: 22px;
+
+    &::before {
+      content: ">";
+      position: absolute;
+      left: 0;
+      top: 0;
+
+      color: rgba(255, 255, 255, 0.32);
+      text-shadow: 0 0 18px rgba(120, 140, 255, 0.14);
+    }
+  }
+
+  // адаптив
+  @media (max-width: 1024px) {
+    &__item {
+      font-size: 34px;
+    }
+  }
+
+  @media (max-width: 640px) {
+    margin: 18px 0 14px;
+
+    &__inner,
+    &__list {
+      gap: 12px;
+    }
+
+    &__item {
+      font-size: 24px;
+    }
+
+    &__item + &__item {
+      padding-left: 16px;
+    }
+  }
+}
