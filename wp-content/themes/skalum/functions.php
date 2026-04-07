@@ -39,3 +39,29 @@ add_action('pre_get_posts', function ($q) {
   }
 });
 
+add_action('wp_enqueue_scripts', function () {
+    if ((!is_home() && !is_post_type_archive('post') && is_page_template('page-blog.php')) || (!is_home() && !is_post_type_archive('post') && is_page_template('page-blogs.php'))) {
+        return;
+    }
+
+    wp_enqueue_script(
+        'particles-js-lib',
+        get_template_directory_uri() . '/assets/js/vendor/particles.min.js',
+        [],
+        '2.0.0',
+        true
+    );
+
+    wp_enqueue_script(
+        'blog-particles-init',
+        get_template_directory_uri() . '/assets/js/blog-particles.js',
+        ['particles-js-lib'],
+        filemtime(get_template_directory() . '/assets/js/blog-particles.js'),
+        true
+    );
+
+    wp_localize_script('blog-particles-init', 'skalumBlog', [
+        'ajaxUrl' => admin_url('admin-ajax.php'),
+    ]);
+});
+

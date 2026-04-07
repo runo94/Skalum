@@ -12,6 +12,16 @@ if (have_posts()):
     the_post();
 
     $current_id = get_the_ID();
+    $cats = get_the_category();
+    $cat = $cats[0] ?? null;
+
+    $content = get_post_field('post_content', get_the_ID());
+    $word_count = str_word_count(wp_strip_all_tags($content));
+    $reading_time = max(1, ceil($word_count / 200));
+
+    $author_id = get_the_author_meta('ID');
+    $author_name = get_the_author();
+    $author_avatar = get_avatar_url($author_id, ['size' => 80]);
     ?>
 
     <main id="primary" class="site-main single-post">
@@ -22,25 +32,48 @@ if (have_posts()):
         <article id="post-<?php the_ID(); ?>" <?php post_class('single-post__article'); ?>>
 
           <header class="single-post__header">
-            <h1 class="single-post__title"><?php the_title(); ?></h1>
+            <div class="single-post__hero">
+              <div class="single-post__hero-content">
+                <div class="single-post__meta">
+                  <?php if ($cat): ?>
+                    <span class="single-post__cat"><?php echo esc_html($cat->name); ?></span>
+                  <?php endif; ?>
 
-            <div class="single-post__meta">
-              <?php
-              $cats = get_the_category();
-              $cat = $cats[0] ?? null;
-              ?>
-              <?php if ($cat): ?>
-                <span class="single-post__cat"><?php echo esc_html($cat->name); ?></span>
-              <?php endif; ?>
+                  <span class="single-post__date"><?php echo esc_html(get_the_date('F j, Y')); ?></span>
 
-              <span class="single-post__date"><?php echo esc_html(get_the_date('F j, Y')); ?></span>
-            </div>
+                  <span class="single-post__read-time">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                      <path d="M12 7V12L15 15" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+                        stroke-linejoin="round" />
+                      <path d="M7 3H17" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+                      <path d="M7 21H17" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+                      <path d="M18 3C18 7 14 8.5 14 12C14 15.5 18 17 18 21" stroke="currentColor" stroke-width="1.8"
+                        stroke-linecap="round" />
+                      <path d="M6 3C6 7 10 8.5 10 12C10 15.5 6 17 6 21" stroke="currentColor" stroke-width="1.8"
+                        stroke-linecap="round" />
+                    </svg>
+                    <?php echo esc_html($reading_time); ?> min
+                  </span>
+                </div>
 
-            <?php if (has_post_thumbnail()): ?>
-              <div class="single-post__thumb">
-                <?php the_post_thumbnail('large'); ?>
+                <h1 class="single-post__title"><?php the_title(); ?></h1>
+
+                <div class="single-post__author">
+                  <span class="single-post__author-avatar">
+                    <?php if ($author_avatar): ?>
+                      <img src="<?php echo esc_url($author_avatar); ?>" alt="<?php echo esc_attr($author_name); ?>">
+                    <?php endif; ?>
+                  </span>
+                  <span class="single-post__author-name"><?php echo esc_html($author_name); ?></span>
+                </div>
               </div>
-            <?php endif; ?>
+
+              <?php if (has_post_thumbnail()): ?>
+                <div class="single-post__hero-media">
+                  <?php the_post_thumbnail('full'); ?>
+                </div>
+              <?php endif; ?>
+            </div>
           </header>
 
           <div class="single-post__content">
@@ -67,17 +100,21 @@ if (have_posts()):
       ];
 
       if (!empty($cat_ids)) {
-        $related_args['tax_query'] = [[
-          'taxonomy' => 'category',
-          'field' => 'term_id',
-          'terms' => $cat_ids,
-        ]];
+        $related_args['tax_query'] = [
+          [
+            'taxonomy' => 'category',
+            'field' => 'term_id',
+            'terms' => $cat_ids,
+          ]
+        ];
       } elseif (!empty($tag_ids)) {
-        $related_args['tax_query'] = [[
-          'taxonomy' => 'post_tag',
-          'field' => 'term_id',
-          'terms' => $tag_ids,
-        ]];
+        $related_args['tax_query'] = [
+          [
+            'taxonomy' => 'post_tag',
+            'field' => 'term_id',
+            'terms' => $tag_ids,
+          ]
+        ];
       }
 
       $related_q = new WP_Query($related_args);

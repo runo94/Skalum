@@ -1,16 +1,39 @@
 .blog {
+  position: relative;
   padding: 120px 0;
   color: #fff;
   background: radial-gradient(circle at top, #0c111b, #05070c);
+  overflow: hidden;
+
+  .sky-bg {
+    position: relative;
+    overflow: hidden;
+  }
 
   .container {
     position: relative;
+    z-index: 1;
     max-width: 1240px;
     padding: 0 20px;
     margin: 0 auto;
   }
 
+  &__particles {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+
+    canvas {
+      display: block;
+      width: 100% !important;
+      height: 100% !important;
+    }
+  }
+
   &__header {
+    position: relative;
+    z-index: 1;
     text-align: center;
     margin-bottom: 60px;
   }
@@ -27,24 +50,31 @@
     background: rgba(17, 24, 39, 0.7);
     border: 1px solid rgba(255, 255, 255, 0.08);
     backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
   }
 
   &__title {
     margin-top: 12px;
+    margin-bottom: 0;
     font-size: 48px;
     line-height: 1.1;
     letter-spacing: -0.02em;
   }
 
   &__grid {
+    position: relative;
+    z-index: 1;
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 32px;
   }
 
   &__load {
+    position: relative;
+    z-index: 1;
     margin: 60px auto 0;
-    display: inline-flex;
+    display: flex;
+    width: fit-content;
     align-items: center;
     justify-content: center;
     padding: 14px 28px;
@@ -55,8 +85,20 @@
     color: #fff;
 
     cursor: pointer;
-    transition: transform 0.2s ease, box-shadow 0.2s ease,
-      border-color 0.2s ease;
+    transition:
+      transform 0.2s ease,
+      box-shadow 0.2s ease,
+      border-color 0.2s ease,
+      background 0.2s ease;
+
+    &.is-hidden {
+      display: none;
+    }
+
+    &.is-loading {
+      opacity: 0.6;
+      pointer-events: none;
+    }
 
     &:hover {
       transform: translateY(-2px);
@@ -67,11 +109,19 @@
     &:active {
       transform: translateY(0);
     }
+
+    &:focus-visible {
+      outline: 2px solid rgba(59, 130, 246, 0.8);
+      outline-offset: 2px;
+    }
   }
 
-  // responsive
   @media (max-width: 1024px) {
     padding: 96px 0;
+
+    &__header {
+      margin-bottom: 48px;
+    }
 
     &__title {
       font-size: 40px;
@@ -81,10 +131,18 @@
       grid-template-columns: repeat(2, minmax(0, 1fr));
       gap: 24px;
     }
+
+    &__load {
+      margin-top: 48px;
+    }
   }
 
   @media (max-width: 640px) {
     padding: 80px 0;
+
+    .container {
+      padding: 0 16px;
+    }
 
     &__header {
       margin-bottom: 40px;
@@ -98,23 +156,35 @@
       grid-template-columns: 1fr;
       gap: 18px;
     }
+
+    &__load {
+      width: 100%;
+      max-width: 280px;
+      margin-top: 40px;
+    }
   }
 }
 
 .blog-card {
   position: relative;
+  z-index: 1;
   border-radius: 18px;
   overflow: hidden;
+  height: 100%;
 
   background: rgba(15, 23, 42, 0.75);
   border: 1px solid rgba(30, 41, 59, 0.9);
 
-  transition: transform 0.25s ease, box-shadow 0.25s ease,
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease,
     border-color 0.25s ease;
 
   a {
-    display: block;
-    color: inherit;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    color: #fff;
     text-decoration: none;
   }
 
@@ -128,6 +198,7 @@
     position: relative;
     aspect-ratio: 16 / 9;
     overflow: hidden;
+    flex-shrink: 0;
 
     img {
       width: 100%;
@@ -138,7 +209,6 @@
       transition: transform 0.35s ease;
     }
 
-    // легкий градієнт щоб текст на темному виглядав як на макеті
     &::after {
       content: "";
       position: absolute;
@@ -157,7 +227,11 @@
   }
 
   &__body {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
     padding: 20px;
+    flex: 1;
   }
 
   &__meta {
@@ -165,33 +239,37 @@
     align-items: center;
     justify-content: space-between;
     gap: 14px;
+    flex-wrap: wrap;
 
+    margin-bottom: 0;
     font-size: 12px;
     line-height: 1;
     opacity: 0.7;
-
-    margin-bottom: 12px;
   }
 
   &__cat {
     display: inline-flex;
     align-items: center;
-    padding: 6px 10px;
-    border-radius: 999px;
-
+    padding: 4px 8px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 300;
     background: rgba(17, 24, 39, 0.65);
-    border: 1px solid rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.4);
     backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
     white-space: nowrap;
   }
 
   &__date {
     white-space: nowrap;
+    font-size: 14px;
+    font-weight: 300;
   }
 
   h3 {
     margin: 0;
-    font-size: 20px;
+    font-size: 24px;
     line-height: 1.35;
     letter-spacing: -0.01em;
   }
@@ -199,6 +277,20 @@
   @media (max-width: 1024px) {
     h3 {
       font-size: 18px;
+    }
+  }
+
+  @media (max-width: 640px) {
+    &__body {
+      padding: 18px;
+    }
+
+    &__meta {
+      gap: 10px;
+    }
+
+    h3 {
+      font-size: 20px;
     }
   }
 }
