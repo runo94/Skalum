@@ -2,7 +2,6 @@
   position: relative;
   padding: 72px 0 0;
   color: #fff;
-  overflow: hidden;
   background: transparent;
 
   &::before {
@@ -68,6 +67,7 @@
   &__sidebar {
     position: relative;
     min-width: 0;
+    height: 100%;
   }
 
   &__toc {

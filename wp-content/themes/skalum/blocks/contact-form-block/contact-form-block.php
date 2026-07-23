@@ -19,6 +19,11 @@ $block_name = get_field('block_name');
 /** Groups */
 $planet = get_field('planet_part');   // [image, email, phone, office]
 $contact = get_field('contact_part');  // [title, description, contact_form]
+
+$email = get_field('contact_email', 'option');
+$phone = get_field('contact_phone', 'option');
+$office = get_field('contact_office', 'option');
+$image = get_field('contact_image', 'option');
 ?>
 <section id="<?php echo esc_attr($id); ?>" class="<?php echo esc_attr($class); ?>">
   <div class="container">
@@ -41,48 +46,45 @@ $contact = get_field('contact_part');  // [title, description, contact_form]
       <div class="contact-form-block__grid">
         <?php
         /** LEFT: Planet part */
-        $has_planet = !empty($planet) && (isset($planet['image'], $planet['email'], $planet['phone'], $planet['office']));
         ?>
-        <?php if (!empty($planet)): ?>
           <aside class="contact-form-block__planet">
-            <?php if (!empty($planet['image'])): ?>
+            <?php if (!empty($image)): ?>
               <div class="contact-form-block__planet-media">
-                <?php echo wp_get_attachment_image((int) $planet['image'], 'large', false, ['class' => 'contact-form-block__planet-img']); ?>
+                <?php echo wp_get_attachment_image((int) $image, 'large', false, ['class' => 'contact-form-block__planet-img']); ?>
               </div>
             <?php endif; ?>
 
             <div class="contact-form-block__planet-list">
-              <?php if (!empty($planet['email'])): ?>
+              <?php if (!empty($email)): ?>
                 <div class="contact-form-block__planet-item contact-form-block__planet-item--email">
                   <span class="contact-form-block__planet-label"><?php esc_html_e('Email', 'skalum'); ?></span>
-                  <a class="contact-form-block__planet-link" href="mailto:<?php echo esc_attr($planet['email']); ?>">
-                    <?php echo esc_html($planet['email']); ?>
+                  <a class="contact-form-block__planet-link" href="mailto:<?php echo esc_attr($email); ?>">
+                    <?php echo esc_html($email); ?>
                   </a>
                 </div>
               <?php endif; ?>
 
-              <?php if (!empty($planet['phone'])):
-                $tel_href = preg_replace('/[^+\d]/', '', (string) $planet['phone']);
+              <?php if (!empty($phone)):
+                $tel_href = preg_replace('/[^+\d]/', '', (string) $phone);
                 ?>
                 <div class="contact-form-block__planet-item contact-form-block__planet-item--phone">
                   <span class="contact-form-block__planet-label"><?php esc_html_e('Phone', 'skalum'); ?></span>
                   <a class="contact-form-block__planet-link" href="tel:<?php echo esc_attr($tel_href); ?>">
-                    <?php echo esc_html($planet['phone']); ?>
+                    <?php echo esc_html($phone); ?>
                   </a>
                 </div>
               <?php endif; ?>
 
-              <?php if (!empty($planet['office'])): ?>
+              <?php if (!empty($office)): ?>
                 <div class="contact-form-block__planet-item contact-form-block__planet-item--office">
                   <span class="contact-form-block__planet-label"><?php esc_html_e('Office', 'skalum'); ?></span>
                   <span class="contact-form-block__planet-value">
-                    <?php echo esc_html($planet['office']); ?>
+                    <?php echo esc_html($office); ?>
                   </span>
                 </div>
               <?php endif; ?>
             </div>
           </aside>
-        <?php endif; ?>
 
         <?php
         /** RIGHT: Contact part (title, description, form) */

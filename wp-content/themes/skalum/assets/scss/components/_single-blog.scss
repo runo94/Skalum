@@ -21,8 +21,18 @@
     overflow: hidden;
     border-radius: 22px;
     background:
-      linear-gradient(90deg, rgba(18, 30, 52, 0.96) 0%, rgba(8, 11, 27, 0.92) 42%, rgba(5, 7, 12, 0.72) 62%, rgba(5, 7, 12, 0.18) 100%),
-      radial-gradient(circle at left top, rgba(55, 85, 140, 0.28), transparent 38%),
+      linear-gradient(
+        90deg,
+        rgba(18, 30, 52, 0.96) 0%,
+        rgba(8, 11, 27, 0.92) 42%,
+        rgba(5, 7, 12, 0.72) 62%,
+        rgba(5, 7, 12, 0.18) 100%
+      ),
+      radial-gradient(
+        circle at left top,
+        rgba(55, 85, 140, 0.28),
+        transparent 38%
+      ),
       #05070c;
     border: 1px solid rgba(255, 255, 255, 0.06);
     box-shadow:
@@ -53,8 +63,12 @@
       content: "";
       position: absolute;
       inset: 0;
-      background:
-        linear-gradient(90deg, rgba(5, 7, 12, 0.75) 0%, rgba(5, 7, 12, 0.08) 25%, rgba(5, 7, 12, 0) 100%);
+      background: linear-gradient(
+        90deg,
+        rgba(5, 7, 12, 0.75) 0%,
+        rgba(5, 7, 12, 0.08) 25%,
+        rgba(5, 7, 12, 0) 100%
+      );
       z-index: 2;
     }
 
@@ -212,7 +226,11 @@
       height: 260px;
 
       &::before {
-        background: linear-gradient(180deg, rgba(5, 7, 12, 0.15) 0%, rgba(5, 7, 12, 0.75) 100%);
+        background: linear-gradient(
+          180deg,
+          rgba(5, 7, 12, 0.15) 0%,
+          rgba(5, 7, 12, 0.75) 100%
+        );
       }
 
       img {
@@ -279,6 +297,95 @@
     &__grid {
       grid-template-columns: 1fr;
       gap: 18px;
+    }
+  }
+}
+
+.author-box {
+  margin-top: 48px;
+  padding: 32px;
+  border-radius: 24px;
+
+  &__inner {
+    display: flex;
+    align-items: flex-start;
+    gap: 24px;
+  }
+
+  &__avatar {
+    flex: 0 0 96px;
+
+    img {
+      display: block;
+      width: 96px;
+      height: 96px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+  }
+
+  &__content {
+    flex: 1;
+  }
+
+  &__name {
+    margin: 0 0 12px;
+    font-size: 24px;
+    line-height: 1.2;
+    font-weight: 600;
+  }
+
+  &__description {
+    margin-bottom: 20px;
+    p {
+      font-size: 16px;
+    }
+
+    p:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  &__socials {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  &__social {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      transition: all 0.25s ease;
+      img {
+        width: 22px;
+        height: 22px;
+        display: block;
+      }
+
+      &:hover {
+        transform: translateY(-2px);
+        background: rgba(255, 255, 255, 0.08);
+        border-color: rgba(255, 255, 255, 0.18);
+        box-shadow: 0 10px 24px rgba(0, 0, 0, 0.25);
+      }
+
+      &:focus-visible {
+        outline: 2px solid rgba(255, 255, 255, 0.35);
+        outline-offset: 2px;
+      }
+    }
+
+  @media (max-width: 767px) {
+    padding: 24px;
+
+    &__inner {
+      flex-direction: column;
     }
   }
 }
