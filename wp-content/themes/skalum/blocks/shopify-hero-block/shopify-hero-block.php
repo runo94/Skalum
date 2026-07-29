@@ -180,7 +180,7 @@ $render_trust_cards = static function ($trusted_block_1, $trusted_block_2, $trus
 
 			<?php if ($subtitle) : ?>
 				<div class="shopify-hero-block__subtitle">
-					<?php echo $subtitle; ?>
+					<?php echo wp_kses_post($subtitle); ?>
 				</div>
 			<?php endif; ?>
 		</div>

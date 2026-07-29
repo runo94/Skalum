@@ -1,4 +1,0 @@
-[09-May-2026 21:43:51 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function get_field() in /home2/wpsocial/skalum.agency/wp-content/themes/skalum/blocks/phone-block/phone-block.php:11
-Stack trace:
-#0 {main}
-  thrown in /home2/wpsocial/skalum.agency/wp-content/themes/skalum/blocks/phone-block/phone-block.php on line 11

@@ -134,16 +134,20 @@ $legal_links = [
                 <div class="site-footer__service-item">
                   <?php if (!empty($service_links)): ?>
                     <div class="site-footer__service-title">
-                      <?php foreach ($service_links as $link):
+                      <?php foreach ($service_links as $service_link_row): ?>
+                        <?php
+                        $link = $service_link_row['link'] ?? null;
+                        if (empty($link['url'])) {
+                          continue;
+                        }
                         ?>
-
                         <a
-                          href="<?php echo esc_url($link['link']['url']); ?>"
-                          target="<?php echo esc_attr(!empty($link['link']['target']) ? $link['link']['target'] : '_self'); ?>"
-                          <?php echo !empty($link['link']['target']) && $link['link']['target'] === '_blank' ? 'rel="noopener noreferrer"' : ''; ?>
+                          href="<?php echo esc_url($link['url']); ?>"
+                          target="<?php echo esc_attr(!empty($link['target']) ? $link['target'] : '_self'); ?>"
+                          <?php echo !empty($link['target']) && $link['target'] === '_blank' ? 'rel="noopener noreferrer"' : ''; ?>
                           class="site-footer__service-link"
                         >
-                          <?php echo esc_html($link['link']['title'] ?: $service_title ?: 'Service'); ?>
+                          <?php echo esc_html($link['title'] ?: $service_title ?: 'Service'); ?>
                         </a>
                       <?php endforeach; ?>
                     </div>
@@ -206,9 +210,7 @@ $legal_links = [
           </div>
         <?php endif; ?>
 
-        <?php if (!empty($footer_cases)):
-          $cases_links = $footer_cases['link'];
-          ?>
+        <?php if (!empty($footer_cases)): ?>
           <div class="site-footer__col site-footer__col--cases">
             <h3 class="site-footer__title"><?php echo esc_html($footer_titles['cases']); ?></h3>
 

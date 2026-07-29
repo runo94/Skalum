@@ -2,15 +2,43 @@
 # WordPress theme: SKALUM
 # ========================
 
-# Node & build
-node_modules/
+# ========================
+# Logs — never commit, never deploy
+# ========================
+*.log
+*.log.*
+*.logs
+error_log
+error_log.*
+php_errorlog
+php_error.log
+debug.log
+wp-content/debug.log
+wp-content/uploads/**/*.log
+wp-content/litespeed/
+wp-content/litespeed/debug/
+wp-content/ai1wm-backups/*.log
+wp-content/logs/
+logs/
+*/error_log
+**/error_log
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Local by Flywheel dev artifacts (leak phpinfo/xdebug if deployed)
+local-phpinfo.php
+local-xdebuginfo.php
+adminer.php
+adminer-*.php
+
+# Node & build
+node_modules/
 package-lock.json
 .DS_Store
 *.tmp
-*.log
 
 # Gulp / build cache
 .cache/
@@ -69,4 +97,25 @@ composer.lock
 *.orig
 wp-content/mu-plugins/local-by-flywheel-live-link-helper.php
 
-*/error_log
+# Backups / dumps / secrets — leak config if served
+*.bk
+*.bak
+*.old
+*.save
+*.swp
+*.rej
+*.7z
+*.rar
+*.gz
+*.dump
+.htaccess.bk
+.htpasswd
+wp-config.local.php
+wp-config-backup.php
+*credentials*
+*secret*.json
+*.pem
+*.key
+*.p12
+*.ppk
+id_rsa*

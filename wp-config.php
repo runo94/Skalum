@@ -89,12 +89,53 @@ $table_prefix = 'wp_';
  *
  * @link https://wordpress.org/support/article/debugging-in-wordpress/
  */
-define('WP_DEBUG', true);
-define('WP_DEBUG_LOG', true);
-define('WP_DEBUG_DISPLAY', false);
-define('SKALUM_ACFDBG', true);
-
+/**
+ * Environment. MUST be 'production' on the live server — everything below
+ * keys off this, and every branch defaults to the SECURE side when unsure.
+ */
 define( 'WP_ENVIRONMENT_TYPE', 'local' );
+
+$skalum_is_dev = in_array( WP_ENVIRONMENT_TYPE, array( 'local', 'development' ), true );
+
+/**
+ * Debugging — on locally, off everywhere else.
+ * Errors are NEVER printed to the page: a fatal mid-render would otherwise
+ * leak absolute paths and stack traces to visitors.
+ */
+define( 'WP_DEBUG',         $skalum_is_dev );
+define( 'WP_DEBUG_LOG',     $skalum_is_dev );
+define( 'WP_DEBUG_DISPLAY', false );
+define( 'SCRIPT_DEBUG',     $skalum_is_dev );
+@ini_set( 'display_errors', '0' );
+@ini_set( 'display_startup_errors', '0' );
+
+/** Verbose ACF tracing for the pricing block. Dev only — it logs every request. */
+define( 'SKALUM_ACFDBG', false );
+
+/* -------------------------------------------------------------------------
+ * Hardening
+ * ---------------------------------------------------------------------- */
+
+/** No theme/plugin editing from wp-admin: turns a stolen admin login into
+ *  a much smaller problem than arbitrary PHP execution. */
+define( 'DISALLOW_FILE_EDIT', true );
+
+/** Keep receiving core security releases. */
+define( 'WP_AUTO_UPDATE_CORE', 'minor' );
+
+/**
+ * Deliberately NOT set here: DISALLOW_UNFILTERED_HTML.
+ * It strips <script>/<iframe> from WYSIWYG + ACF wysiwyg content on save,
+ * which would silently eat embeds (YouTube, Calendly, tracking snippets)
+ * the next time an editor touches a page. Enable it only after auditing
+ * what the existing wysiwyg fields actually contain.
+ */
+
+if ( ! $skalum_is_dev ) {
+	/** Admin + login always over TLS in production. */
+	define( 'FORCE_SSL_ADMIN', true );
+}
+
 /* That's all, stop editing! Happy publishing. */
 
 /** Absolute path to the WordPress directory. */

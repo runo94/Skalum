@@ -148,4 +148,105 @@ add_action('send_headers', function () {
     header('Referrer-Policy: strict-origin-when-cross-origin');
     header('X-XSS-Protection: 1; mode=block');
     header('Permissions-Policy: geolocation=(), microphone=(), camera=()');
+    header('Cross-Origin-Opener-Policy: same-origin');
+
+    // HSTS only where TLS is actually terminated. .htaccess already 301s all
+    // HTTP -> HTTPS in production; asserting this on a plain-HTTP local box
+    // would pin the browser and make skalum.local unreachable.
+    if (is_ssl() && wp_get_environment_type() === 'production') {
+        header('Strict-Transport-Security: max-age=31536000; includeSubDomains');
+    }
 });
+
+/**
+ * Serve user-uploaded SVG/XML with a sandbox so a crafted file cannot run
+ * script in the site's origin. svg-support is active, and SVG is a live
+ * stored-XSS vector: it is an XML document that may carry <script>.
+ */
+add_action('send_headers', function () {
+    $uri = $_SERVER['REQUEST_URI'] ?? '';
+    if (preg_match('#\.svgz?(\?|$)#i', $uri)) {
+        header('Content-Security-Policy: default-src \'none\'; style-src \'unsafe-inline\'; sandbox');
+        header('X-Content-Type-Options: nosniff');
+    }
+});
+
+/* -------------------------------------------------------------------------
+ * 3. LOGIN HARDENING
+ * ---------------------------------------------------------------------- */
+
+/**
+ * Never confirm which half of the credentials was wrong — the default WP
+ * errors ("Unknown username", "The password you entered for the username X")
+ * turn the login form into a free username oracle.
+ */
+add_filter('login_errors', function () {
+    return esc_html__('Invalid credentials.', 'skalum');
+}, 100);
+
+/** Drop the "shake" JS and stop advertising WP on the login screen. */
+add_action('login_head', function () {
+    remove_action('login_footer', 'wp_shake_js', 12);
+});
+
+/**
+ * NOTE: no username blocklist here on purpose. This install has a real
+ * administrator whose login is literally "admin" (user ID 2), so rejecting
+ * guessable usernames at authenticate() would lock that person out.
+ * Rename that account first — see the security notes in the handover.
+ */
+
+/**
+ * Throttle repeated failed logins per IP. Not a substitute for a WAF, but it
+ * turns an unlimited password-guessing loop into a slow one.
+ */
+add_action('wp_login_failed', function ($username) {
+    $ip = skalum_client_ip();
+    if (!$ip) {
+        return;
+    }
+
+    $key   = 'skalum_lf_' . md5($ip);
+    $fails = (int) get_transient($key);
+    set_transient($key, $fails + 1, 15 * MINUTE_IN_SECONDS);
+});
+
+add_filter('authenticate', function ($user, $username) {
+    if (empty($username)) {
+        return $user;
+    }
+
+    $ip = skalum_client_ip();
+    if (!$ip) {
+        return $user;
+    }
+
+    $fails = (int) get_transient('skalum_lf_' . md5($ip));
+
+    if ($fails >= 10) {
+        return new WP_Error(
+            'too_many_attempts',
+            esc_html__('Too many failed attempts. Try again later.', 'skalum')
+        );
+    }
+
+    return $user;
+}, 30, 2);
+
+/** Clear the counter on a successful login. */
+add_action('wp_login', function () {
+    $ip = skalum_client_ip();
+    if ($ip) {
+        delete_transient('skalum_lf_' . md5($ip));
+    }
+});
+
+/**
+ * Client IP, validated. REMOTE_ADDR only: forwarded headers are attacker
+ * controlled unless a known proxy is in front, and trusting them here would
+ * let anyone reset their own throttle counter by spoofing X-Forwarded-For.
+ */
+function skalum_client_ip() {
+    $ip = $_SERVER['REMOTE_ADDR'] ?? '';
+    return filter_var($ip, FILTER_VALIDATE_IP) ? $ip : '';
+}

@@ -1,21 +1,34 @@
 <?php
-add_action('wp_ajax_skalum_demo', 'skalum_demo');
-add_action('wp_ajax_nopriv_skalum_demo', 'skalum_demo');
+defined('ABSPATH') || exit;
 
-function skalum_demo() {
-    wp_send_json_success(['message' => 'AJAX connected!']);
-}
-
+/**
+ * Blog "load more" — public, read-only pagination.
+ *
+ * No nonce: this serves the same published posts the archive already renders
+ * to anonymous visitors, so a nonce would only add cache friction. Everything
+ * that reaches a query is bounded and cast.
+ */
 add_action('wp_ajax_blog_more', 'blog_more');
 add_action('wp_ajax_nopriv_blog_more', 'blog_more');
 
 function blog_more() {
-    $paged = isset($_GET['page']) ? ((int) $_GET['page'] + 1) : 2;
+    $per_page = (int) get_option('posts_per_page') ?: 10;
+
+    // Bound the page number: absint kills negatives/injection, the cap stops a
+    // crawler from walking OFFSET into the millions and hammering the DB.
+    $requested = isset($_GET['page']) ? absint(wp_unslash($_GET['page'])) : 1;
+    $paged     = min($requested + 1, 500);
 
     $q = new WP_Query([
-        'post_type'      => 'post',
-        'posts_per_page' => get_option('posts_per_page'),
-        'paged'          => $paged,
+        'post_type'           => 'post',
+        // Explicit: admin-ajax runs authenticated for logged-in editors, and
+        // the WP_Query default would then expose drafts/private posts through
+        // this otherwise-public endpoint.
+        'post_status'         => 'publish',
+        'posts_per_page'      => $per_page,
+        'paged'               => $paged,
+        'ignore_sticky_posts' => true,
+        'no_found_rows'       => true,
     ]);
 
     if ($q->have_posts()) {
