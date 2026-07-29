@@ -224,8 +224,6 @@ final class NF_Admin_Menus_Forms extends NF_Abstracts_Menu
 
             $promotions = get_option( 'nf_active_promotions' );
             $promotions = json_decode( $promotions, true );
-            $surveyPromo = new NF_Admin_SurveyPromo();
-            if($surveyPromo->shouldShow() && $surveyPromo->isDashboard()) $promotions = array();
 
             if( ! empty( $promotions ) ) {
                 wp_localize_script( 'nf-dashboard', 'nfPromotions', array_values( $promotions[ 'dashboard' ] ) );
@@ -329,7 +327,9 @@ final class NF_Admin_Menus_Forms extends NF_Abstracts_Menu
         wp_enqueue_style( 'jBox', Ninja_Forms::$url . 'assets/css/jBox.css' );
         wp_enqueue_style( 'codemirror', Ninja_Forms::$url . 'assets/css/codemirror.css' );
         wp_enqueue_style( 'codemirror-monokai', Ninja_Forms::$url . 'assets/css/monokai-theme.css' );
-        wp_enqueue_style( 'summernote', Ninja_Forms::$url . 'assets/css/summernote-lite.min.css' );
+        wp_enqueue_style( 'quill-core', Ninja_Forms::$url . 'assets/css/quill.core.css' );
+        wp_enqueue_style( 'quill-snow', Ninja_Forms::$url . 'assets/css/quill.snow.css' );
+        wp_enqueue_style( 'quill-custom', Ninja_Forms::$url . 'assets/css/quill-custom.css' );
 
         /**
          * JS Libraries
@@ -352,10 +352,10 @@ final class NF_Admin_Menus_Forms extends NF_Abstracts_Menu
         wp_enqueue_script( 'codemirror', Ninja_Forms::$url . 'assets/js/lib/codemirror.min.js', array( 'jquery', 'nf-builder-deps' ) );
         wp_enqueue_script( 'codemirror-xml', Ninja_Forms::$url . 'assets/js/lib/codemirror-xml.min.js', array( 'jquery', 'codemirror' ) );
         wp_enqueue_script( 'codemirror-formatting', Ninja_Forms::$url . 'assets/js/lib/codemirror-formatting.min.js', array( 'jquery', 'codemirror' ) );
-        wp_enqueue_script( 'summernote', Ninja_Forms::$url . 'assets/js/lib/summernote-lite.min.js', array( 'jquery', 'nf-builder-deps' ) );
+        wp_enqueue_script( 'quill', Ninja_Forms::$url . 'assets/js/lib/quill.min.js', array( 'jquery', 'nf-builder-deps' ) );
+        wp_enqueue_script( 'quill-blot-formatter', Ninja_Forms::$url . 'assets/js/lib/quill-blot-formatter.min.js', array( 'quill' ) );
 
-
-        wp_enqueue_script( 'nf-builder', Ninja_Forms::$url . 'assets/js/min/builder.js', array( 'jquery', 'jquery-ui-core', 'jquery-ui-draggable', 'jquery-ui-droppable', 'jquery-ui-sortable', 'jquery-effects-bounce', 'wp-color-picker' ), $this->ver );
+        wp_enqueue_script( 'nf-builder', Ninja_Forms::$url . 'assets/js/min/builder.js', array( 'jquery', 'jquery-ui-core', 'jquery-ui-draggable', 'jquery-ui-droppable', 'jquery-ui-sortable', 'jquery-effects-bounce', 'wp-color-picker', 'quill-blot-formatter' ), $this->ver );
         wp_localize_script( 'nf-builder', 'nfi18n', Ninja_Forms::config( 'i18nBuilder' ) );
 
         $home_url = parse_url( home_url() );
@@ -604,6 +604,10 @@ final class NF_Admin_Menus_Forms extends NF_Abstracts_Menu
 
             $name = $field->get_name();
             $settings = $field->get_settings();
+            // Add settingKey BEFORE grouping so it's available in settingGroups (for data-testid)
+            foreach( $settings as $key => $setting ) {
+                $settings[ $key ][ 'settingKey' ] = $key;
+            }
             $groups = Ninja_Forms::config( 'SettingsGroups' );
 
             $unique_settings = $this->_unique_settings( $settings );
@@ -683,6 +687,10 @@ final class NF_Admin_Menus_Forms extends NF_Abstracts_Menu
 
         // This step remove the <script> that sets inline vars we then use the $this variables into wp_localize_script
         $this->fieldTypeData = array_values( $field_type_settings );
+        // Add unique config key to each setting before stripping array keys (for data-testid)
+        foreach( $master_settings as $key => $setting ) {
+            $master_settings[ $key ][ 'settingKey' ] = $key;
+        }
         $this->fieldSettings = array_values( $master_settings );
         $this->fieldTypeSections = $field_type_sections;
 
@@ -698,6 +706,10 @@ final class NF_Admin_Menus_Forms extends NF_Abstracts_Menu
 
             $name = $action->get_name();
             $settings = $action->get_settings();
+            // Add settingKey BEFORE grouping so it's available in settingGroups (for data-testid)
+            foreach( $settings as $key => $setting ) {
+                $settings[ $key ][ 'settingKey' ] = $key;
+            }
             $groups = Ninja_Forms::config( 'SettingsGroups' );
 
             $settings_groups = $this->_group_settings( $settings, $groups );
@@ -764,6 +776,10 @@ final class NF_Admin_Menus_Forms extends NF_Abstracts_Menu
 
         // This step remove the <script> that sets inline vars we then use the $this variables into wp_localize_script
         $this->actionTypeData = array_values( $action_type_settings );
+        // Add unique config key to each setting before stripping array keys (for data-testid)
+        foreach( $master_settings_list as $key => $setting ) {
+            $master_settings_list[ $key ][ 'settingKey' ] = $key;
+        }
         $this->actionSettings = array_values( $master_settings_list );
 
     }

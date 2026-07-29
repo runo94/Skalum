@@ -48,7 +48,7 @@ class Module {
 	 * Getter.
 	 *
 	 * @param string $key           Key to get data for.
-	 * @param mixed  $default_value Defaul value if not found.
+	 * @param mixed  $default_value Default value if not found.
 	 *
 	 * @return mixed
 	 */
@@ -102,7 +102,7 @@ class Module {
 			return;
 		}
 		?>
-		<a href="<?php echo esc_url( $this->args['settings'] ); ?>" class="module-settings button button-secondary"><?php esc_html_e( 'Settings', 'rank-math' ); ?></a>
+		<a href="<?php echo esc_url( $this->args['settings'] ); ?>" class="module-settings button button-secondary"><?php esc_html_e( 'Settings', 'seo-by-rank-math' ); ?></a>
 		<?php
 	}
 

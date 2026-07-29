@@ -1,10 +1,10 @@
 === Ninja Forms - The Contact Form Builder That Grows With You ===
-Contributors: wpninjasllc, kstover, jameslaws, kbjohnson90, klhall1987, krmoorhouse, jmcelhaney, wpnzach, ericwindhamsd, mrpritchett
+Contributors: wpninjasllc, kstover, jameslaws, kbjohnson90, klhall1987, krmoorhouse, jmcelhaney, wpnzach, ericwindhamsd, mrpritchett, stuartsequeira, nahuelmahe
 Tags: forms, form builder, contact form, lead form, registration form
 
-Requires at least: 6.6
-Tested up to: 6.8.3
-Stable tag: 3.13.3
+Requires at least: 6.8
+Tested up to: 7.0
+Stable tag: 3.14.11
 Requires PHP: 7.4
 
 License: GPLv2 or later
@@ -310,11 +310,187 @@ This section describes how to install the plugin and get it working.
 5. Beautiful Forms Every Time!
 
 == Upgrade Notice ==
-= 3.13.3 (December 8, 2025) =
+= 3.14.11 (28 July 2026) =
+
 *Bug Fixes:*
-- Limit submission token generation
+
+- fix CSV export column alignment for fields placed after repeatable fieldsets
+- preserve <br>, <hr>, and <pre> tags in HTML field editor
+- clear validation error on Time Only field when user corrects input
+- fix ninja_forms_render_options filter breaking form validation
 
 == Changelog ==
+= 3.14.11 (28 July 2026) =
+
+*Bug Fixes:*
+
+- fix CSV export column alignment for fields placed after repeatable fieldsets
+- preserve <br>, <hr>, and <pre> tags in HTML field editor
+- clear validation error on Time Only field when user corrects input
+- fix ninja_forms_render_options filter breaking form validation
+
+= 3.14.10 (27 July 2026) =
+
+*Bug Fixes:*
+
+- fix anchor tag URLs breaking when merge tags are used as querystrings in HTML fields
+- fix date field required validation not triggering for Date & Time mode
+- fix {other:date} merge tag reporting dates in UTC instead of local timezone
+
+*Enhancements:*
+
+- add banner-led partner cards to Partner Apps & Services tab
+
+*Security Enhancements:*
+
+- protect against SQL injection in import settings key
+- block unauthenticated shortcode execution
+
+= 3.14.9 (14 July 2026) =
+
+*Bug Fixes:*
+
+- restore visibility of "Almost there..." heading in new-form drawer
+- add descender allowance for typed signature fonts in PDF
+
+*Security Enhancements:*
+
+- protect against unauthorized multisite data deletion
+- protect against stored XSS in Repeatable Fieldset
+- protect against field metadata override
+- protect against calc value injection in list fields
+- protect against unauthorized access to submissions via block insertion
+
+= 3.14.8 (29 June 2026) =
+
+*Bug Fixes:*
+
+- fix merge tag picker falsely triggering for calculation tags with slash in name
+- fix phone field truncating last digit when browser autofill includes country code
+- fix PHP warning for array offset on null in Model.php
+- fix opinionated styles CSS not loading for logged-out users
+- fix Gutenberg block editor iframe not loading (add API version 3)
+- fix personal data export failing with PHP fatal error in UserDataRequests.php
+- fix invisible reCAPTCHA v2 not working due to block scope bug
+- fix form builder sidebar not closing when screen width expands
+- fix {fields_table} incorrectly including unchecked checkbox fields
+
+= 3.14.7 (18 June 2026) =
+
+*Bug Fixes:*
+
+- fix date field "default to current date" displaying wrong date with conditional logic
+- fix date/date-time field value corruption when editing via submissions backend
+- fix checkbox fields not being redacted from record submissions
+- fix time display on single submission page for date/time fields
+- fix decimal precision loss in calculations
+
+*Enhancements:*
+
+- increase default visible columns in legacy submissions from 5 to 10
+- remove survey promo from admin
+
+*Security Enhancements:*
+
+- protect against PHP object injection in form import
+
+= 3.14.6 (10 June 2026) =
+
+*Bug Fixes:*
+
+- fix PHP warnings when retriggering emails from submissions page
+- fix bulk export returning no results when selecting a single day
+
+= 3.14.5 (19 May 2026) =
+
+*Bug Fixes:*
+
+- fix Rich Text Editor content displaying as raw HTML in submissions modal
+- fix HTML entity decoding in Rich Text Editor fields
+- fix Quill Rich Text Editor inline text alignment not being preserved
+- fix unordered list content being stripped in Quill Rich Text Editor
+- fix ordered list items getting unwanted markup injected in Quill Rich Text Editor
+- limit telemetry to admin only
+
+= 3.14.4 (11 May 2026) =
+
+*Bug Fixes:*
+
+- fix repeater field data showing as "Array" in email CSV attachments
+- fix mixed content blocking CSV downloads
+- fix CSV export with multiple repeater fields
+- fix repeater fieldset data misalignment in CSV exports
+- fix phone numbers with plus sign getting apostrophe prefix in CSV
+- fix decimal precision loss in number fields
+- fix form title showing blank for accessibility compliance
+- fix Quill Rich Text Editor placeholder initialization
+- fix merge tags with spaces in names not being recognized
+- fix PHP 8.4 nullable type deprecation warnings
+
+= 3.14.3 (29 April 2026) =
+
+*Bug Fixes:*
+
+- fix Quill.js Rich Text Editor table functionality not working properly
+- fix HTML being sanitized/stripped when saving Quill.js RTE content
+- fix Quill.js CSS conflicts with certain add-ons
+- fix ESC key removing HTML content from success messages with calculations
+- fix PHP warning for undefined array key "payment_total_type"
+- fix radio and checkbox field alignment for RTL languages
+
+*Enhancements:*
+
+- improve color contrast for form names on dashboard to meet WCAG 2.2 AA standards
+- improve color contrast for "Add New" button on dashboard to meet WCAG AA standards
+- add ARIA attributes, keyboard navigation, and focus styles to Quill.js RTE
+
+= 3.14.2 (04 March 2026) =
+
+*Bug Fixes:*
+
+- fix missing payment data and blank CSV issues in submission exports
+- prevent premature deletion of submissions less than 24 hours old
+- checkbox merge tags now display custom values instead of 1/0
+- fix merge tag population when retriggering emails from Submissions page
+- decode HTML entities for Rich Text Editor fields in CSV exports
+- fix invalid date display in Dashboard for imported/duplicated forms
+- fix calculation merge tags with extra text in hidden fields
+
+*Security Enhancements:*
+
+- protect block token/refresh endpoint against unauthorized access
+- add capability check to render_callback for blocks
+
+= 3.14.1 (2 February 2026) =
+
+*Bug Fixes:*
+
+- fix drawer close button not working after merge tag insertion
+- fix token visibility issue in submissions table block
+- remove tabindex from radio lists for accessibility compliance
+
+*Enhancements:*
+
+- replace Summernote with Quill.js for Rich Text Editor
+- improve star rating field accessibility sizing
+
+*Security Enhancements:*
+
+- protect against XSS in Success Message action
+- block merge tag injection in repeater field processing
+- harden blocks code against unauthorized access
+
+= 3.14.0 (January 26, 2026) =
+* Features:*
+- Add support for Abilities API
+
+*Bug Fixes:*
+- Prevent loading CDN font per GDPR rules
+
+= 3.13.4 (January 14, 2026) =
+*Bug Fixes:*
+- Check visibility to prevent post spoofing
+
 = 3.13.3 (December 8, 2025) =
 *Bug Fixes:*
 - Limit submission token generation
@@ -337,6 +513,10 @@ This section describes how to install the plugin and get it working.
 - Require form id as integer
 - Fix an accessibility issue with labels for HTML and Divider fields.
 
+= 3.12.2.1 (December 15, 2025) =
+*Bug Fixes:*
+- Limit submission token generation
+
 = 3.12.2 (October 6, 2025) =
 *Bug Fixes:*
 - fix undefined $outgoing
@@ -353,6 +533,10 @@ This section describes how to install the plugin and get it working.
 
 *Bug Fixes:*
 - Ensure File Upload link in submissions table is clickable
+
+= 3.11.1.1 (December 15, 2025) =
+*Bug Fixes:*
+- Limit submission token generation
 
 = 3.11.1 (August 20, 2025) =
 *Bug Fixes:*
@@ -381,6 +565,10 @@ This section describes how to install the plugin and get it working.
 - Improves CSS build process with proper source map generation.
 - Adds comprehensive E2E tests for RTE settings and Turnstile integration.
 - Updates test folder structure for better organization.
+
+= 3.10.4.1 (December 15, 2025) =
+*Bug Fixes:*
+- Limit submission token generation
 
 = 3.10.4 (July 7 2025) =
 *Bug Fixes:*
@@ -435,6 +623,10 @@ This section describes how to install the plugin and get it working.
 - Fix an error related to File Uploads merge tags.
 - Required errors should no longer trigger on removed repeater sets.
 
+= 3.9.2.1 (December 15, 2025) =
+*Bug Fixes:*
+- Limit submission token generation
+
 = 3.9.2 (12 March 2025) =
 *Bug Fixes:*
 - List fields can now be used for determining the payment total in payment collection actions.
@@ -462,6 +654,10 @@ This section describes how to install the plugin and get it working.
 
 *Other:*
 - JS library updates
+
+= 3.8.25.1 (December 15, 2025) =
+*Bug Fixes:*
+- Limit submission token generation
 
 = 3.8.25 (27 January 2025) =
 *Bug Fixes:*

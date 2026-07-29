@@ -100,10 +100,10 @@ class Str {
 	}
 
 	/**
-	 * Convert string to array with defined seprator.
+	 * Convert string to array with defined separator.
 	 *
 	 * @param string $str String to convert.
-	 * @param string $sep Seprator.
+	 * @param string $sep Separator.
 	 *
 	 * @return bool|array
 	 */
@@ -216,6 +216,23 @@ class Str {
 		}
 
 		return $excerpt;
+	}
+
+	/**
+	 * Returns the portion of string specified by the offset and length parameters.
+	 *
+	 * @param string   $str    The input string.
+	 * @param int      $start  The offset position.
+	 * @param int|null $length The length of the substring returned.
+	 *
+	 * @return string
+	 */
+	public static function substr( $str, $start, $length = null ) {
+		if ( function_exists( 'mb_substr' ) ) {
+			return mb_substr( $str, $start, $length );
+		}
+
+		return substr( $str, $start, $length );
 	}
 
 	/**
