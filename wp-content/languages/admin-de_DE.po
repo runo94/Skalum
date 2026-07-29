@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the WordPress - 6.8.x - Development - Administration package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2025-10-20 03:24:35+0000\n"
+"PO-Revision-Date: 2025-11-04 14:03:00+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -1669,7 +1669,7 @@ msgstr "REST-API-Endpunkt: %s"
 
 #: wp-admin/includes/class-wp-site-health.php:2171
 msgid "When testing the REST API, an error was encountered:"
-msgstr "Beim Testen des REST-API ist ein Fehler aufgetreten:"
+msgstr "Beim Testen der REST-API ist ein Fehler aufgetreten:"
 
 #. translators: %s: The server PHP version.
 #: wp-admin/includes/class-wp-site-health.php:817
@@ -2195,7 +2195,7 @@ msgstr "Zusätzliche Menüpunkte ein- und ausblenden"
 #. translators: %s: The currently displayed tab.
 #: wp-admin/site-health.php:43
 msgid "Site Health - %s"
-msgstr "Website-Zustand – %s"
+msgstr "Website-Zustand – %s"
 
 #. translators: 1: wp-config.php, 2: Documentation URL.
 #: wp-admin/setup-config.php:485
@@ -2259,7 +2259,7 @@ msgstr "Lerne, wie du <a href=\"%s\" class=\"update-browser-link\">unbeschwert s
 
 #: wp-admin/includes/dashboard.php:1716
 msgid "Internet Explorer does not give you the best WordPress experience. Switch to Microsoft Edge, or another more modern browser to get the most from your site."
-msgstr "Der Internet Explorer bietet dir nicht die bestmögliche WordPress-Erfahrung. Wechsle zu Microsoft Edge oder einen anderen modernen Browser, um das meiste aus deiner Website herauszuholen."
+msgstr "Der Internet Explorer bietet dir nicht die bestmögliche WordPress-Erfahrung. Wechsle zu Microsoft Edge oder einem anderen modernen Browser, um das Meiste aus deiner Website herauszuholen."
 
 #: wp-admin/includes/class-wp-debug-data.php:720
 msgid "GD supported file formats"
@@ -2461,7 +2461,7 @@ msgstr "https://make.wordpress.org/community/organize-event-landing-page/"
 #. translators: %s: Localized meetup organization documentation URL.
 #: wp-admin/includes/dashboard.php:1482
 msgid "Want more events? <a href=\"%s\">Help organize the next one</a>!"
-msgstr "Du möchtest mehr Events? <a href=\"%s\">Hilf bei der Organisation der nächsten</a>!"
+msgstr "Du möchtest mehr Events? <a href=\"%s\">Hilf bei der Organisation der Nächsten</a>!"
 
 #. translators: %s: User's display name.
 #: wp-admin/includes/ajax-actions.php:5630
@@ -3099,7 +3099,7 @@ msgstr "Maximale Größe einer hochgeladenen Datei"
 
 #: wp-admin/includes/class-wp-debug-data.php:627
 msgid "Max size of post data allowed"
-msgstr "Maximale Anzahl erlaubter POST-Daten"
+msgstr "Maximal erlaubte Größe der POST-Daten"
 
 #: wp-admin/includes/class-wp-debug-data.php:622
 #: wp-admin/includes/class-wp-site-health.php:2759
@@ -4192,7 +4192,7 @@ msgstr "Geplant für: %s"
 #: wp-admin/includes/meta-boxes.php:236 wp-admin/includes/meta-boxes.php:442
 msgctxt "publish box time format"
 msgid "H:i"
-msgstr "H:i"
+msgstr "G:i"
 
 #. translators: Publish box date format, see
 #. https://www.php.net/manual/datetime.format.php
@@ -4422,7 +4422,7 @@ msgstr "Inaktive Plugins verwalten"
 
 #: wp-admin/includes/class-wp-site-health.php:417
 msgid "Update your plugins"
-msgstr "Aktualisiere deine Plugins"
+msgstr "Deine Plugins aktualisieren"
 
 #: wp-admin/includes/class-wp-site-health.php:370
 msgid "Manage your plugins"
@@ -4817,7 +4817,7 @@ msgstr "Das REST-API kam zu einem unerwarteten Ergebnis"
 
 #: wp-admin/includes/class-wp-site-health.php:2167
 msgid "The REST API encountered an error"
-msgstr "Das REST-API hat einen Fehler gefunden"
+msgstr "Bei der REST-API ist ein Fehler aufgetreten"
 
 #: wp-admin/includes/class-wp-site-health.php:2132
 msgid "The REST API is one way that WordPress and other applications communicate with the server. For example, the block editor screen relies on the REST API to display and save your posts and pages."
@@ -5317,7 +5317,7 @@ msgstr "Maximale Eingabe-Zeit (max_input_time)"
 #: wp-admin/includes/class-wp-debug-data.php:413
 #: wp-admin/includes/class-wp-debug-data.php:422
 msgid "PHP memory limit"
-msgstr "PHP-Arbeitsspeichergrenze"
+msgstr "PHP-Arbeitsspeichergrenze (memory_limit)"
 
 #: wp-admin/includes/class-wp-debug-data.php:407
 msgid "PHP time limit"
@@ -5656,7 +5656,7 @@ msgstr "Das Theme konnte nicht wiederhergestellt werden, da es einen <strong>fat
 
 #: wp-admin/plugins.php:678
 msgid "If you notice &#8220;headers already sent&#8221; messages, problems with syndication feeds or other issues, try deactivating or removing this plugin."
-msgstr "Wenn du &#8222;headers already sent&#8220;-Hinweise, Probleme mit Syndication-Feeds oder andere Probleme bemerkst, versuche, dieses Plugin zu deaktivieren oder zu entfernen."
+msgstr "Wenn du &#8222;headers already sent&#8220;-Hinweise, Probleme mit Feeds oder andere Probleme bemerkst, versuche, dieses Plugin zu deaktivieren oder zu entfernen."
 
 #. translators: %d: Number of characters.
 #: wp-admin/plugins.php:671
@@ -7764,7 +7764,7 @@ msgstr "Details der Version %2$s von %1$s anzeigen"
 #: wp-admin/includes/dashboard.php:1036
 msgctxt "dashboard"
 msgid "%1$s, %2$s"
-msgstr "%1$s, %2$s"
+msgstr "%1$s, %2$s Uhr"
 
 #: wp-admin/edit-form-advanced.php:369
 msgid "<strong>Publish</strong> &mdash; You can set the terms of publishing your post in the Publish box. For Status, Visibility, and Publish (immediately), click on the Edit link to reveal more options. Visibility includes options for password-protecting a post or making it stay at the top of your blog indefinitely (sticky). The Password protected option allows you to set an arbitrary password for each post. The Private option hides the post from everyone except editors and administrators. Publish (immediately) allows you to set a future or past date and time, so you can schedule a post to be published in the future or backdate a post."
@@ -11179,7 +11179,7 @@ msgstr "Website anzeigen"
 
 #: wp-admin/includes/ms.php:598
 msgid "Visit Dashboard"
-msgstr "Zum Dashboard"
+msgstr "Dashboard aufrufen"
 
 #: wp-admin/includes/ms.php:592
 msgid "Your Sites"
@@ -11356,7 +11356,7 @@ msgstr "Plugin-Homepage &#187;"
 
 #: wp-admin/export.php:52
 msgid "You can export a file of your site&#8217;s content in order to import it into another installation or platform. The export file will be an XML file format called WXR. Posts, pages, comments, custom fields, categories, and tags can be included. You can choose for the WXR file to include only certain posts or pages by setting the dropdown filters to limit the export by category, author, date range by month, or publishing status."
-msgstr "Die Inhalte deiner Website können in eine Datei exportiert werden, um diese wieder in eine andere Installation zu importieren. Das Format der Export-Datei ist ein spezielles XML-Format, auch WXR (WordPress eXtended Rss) genannt. Beim Export können Beiträge, Seiten, Kommentare, individuelle Felder, Kategorien und Schlagwörter inkludiert werden. Du kannst die Inhalte der WXR-Datei vorab auch filtern, indem du die Export-Daten z. B. auf Seiten, Beiträge und/oder Medien beschränkst und diese wiederum per Kategorie, Autor, Zeitraum oder Status weiter eingrenzt."
+msgstr "Die Inhalte deiner Website können in eine Datei exportiert werden, um diese wieder in eine andere Installation zu importieren. Das Format der Export-Datei ist ein spezielles XML-Format, auch WXR (WordPress eXtended RSS) genannt. Beim Export können Beiträge, Seiten, Kommentare, individuelle Felder, Kategorien und Schlagwörter inkludiert werden. Du kannst die Inhalte der WXR-Datei vorab auch filtern, indem du die Export-Daten z. B. auf Seiten, Beiträge und/oder Medien beschränkst und diese wiederum per Kategorie, Autor, Zeitraum oder Status weiter eingrenzt."
 
 #. translators: 1: Table name, 2: Error message.
 #: wp-admin/maint/repair.php:129
@@ -12043,7 +12043,7 @@ msgstr "beispielbeitrag"
 #: wp-admin/options-permalink.php:265 wp-admin/options-permalink.php:266
 msgctxt "sample permalink base"
 msgid "archives"
-msgstr "archive"
+msgstr "archiv"
 
 #. translators: %s: URL to Import screen on the main site.
 #: wp-admin/import.php:171
@@ -12684,7 +12684,7 @@ msgstr "Du kannst auf dieser Seite einstellen, welche Größe Bilder maximal hab
 
 #: wp-admin/options-general.php:28
 msgid "Most themes show the site title at the top of every page, in the title bar of the browser, and as the identifying name for syndicated feeds. Many themes also show the tagline."
-msgstr "Die meisten Themes zeigen den Website-Titel oben auf jeder Seite, in der Titelleiste des Browsers und als eindeutigen Namen für syndizierte Feeds an. Viele Themes zeigen auch den Untertitel an."
+msgstr "Die meisten Themes zeigen den Website-Titel oben auf jeder Seite, in der Titelleiste des Browsers und als eindeutigen Namen für Feeds an. Viele Themes zeigen auch den Untertitel an."
 
 #: wp-admin/edit-form-advanced.php:407
 msgid "<strong>Order</strong> &mdash; Pages are usually ordered alphabetically, but you can choose your own order by entering a number (1 for first, etc.) in this field."
@@ -12890,7 +12890,7 @@ msgstr "Wähle zuerst in der Auswahlbox das zu bearbeitende Theme und klicke dan
 
 #: wp-admin/theme-editor.php:30
 msgid "You can use the theme file editor to edit the individual CSS and PHP files which make up your theme."
-msgstr "Du kannst den Theme-Datei-Editor verwenden, um Änderungen in den individuellen CSS- und PHP-Dateien vorzunehmen, die das Design ausmachen."
+msgstr "Du kannst den Theme-Datei-Editor verwenden, um Änderungen in den individuellen CSS- und PHP-Dateien vorzunehmen, die das Theme ausmachen."
 
 #: wp-admin/includes/meta-boxes.php:1010
 msgid "(no parent)"
@@ -14086,7 +14086,7 @@ msgstr "ganzen Text"
 
 #: wp-admin/options-reading.php:179
 msgid "Syndication feeds show the most recent"
-msgstr "Newsfeeds zeigen die letzten"
+msgstr "Feeds zeigen die neuesten"
 
 #: wp-admin/options-reading.php:175
 msgid "posts"
@@ -14227,7 +14227,7 @@ msgstr "Einstellungen &rsaquo; Medien"
 
 #: wp-admin/options-general.php:565
 msgid "Week Starts On"
-msgstr "Die Woche beginnt am"
+msgstr "Erster Wochentag"
 
 #: wp-admin/options-general.php:498 wp-admin/options-general.php:546
 msgid "Custom:"
@@ -14406,7 +14406,7 @@ msgstr "Themes aktualisieren"
 #: wp-admin/network/site-info.php:146 wp-admin/network/site-settings.php:95
 #: wp-admin/network/site-themes.php:181 wp-admin/network/site-users.php:226
 msgid "Visit"
-msgstr "Ansehen"
+msgstr "Aufrufen"
 
 #: wp-admin/includes/revision.php:97
 msgid "Removed"
@@ -15162,7 +15162,7 @@ msgstr "Diesen Link als Privat markieren"
 
 #: wp-admin/includes/meta-boxes.php:1114
 msgid "Visit Link"
-msgstr "Link besuchen"
+msgstr "Link aufrufen"
 
 #: wp-admin/includes/class-wp-posts-list-table.php:1845
 msgid "Main Page (no parent)"
@@ -16086,7 +16086,7 @@ msgstr "<a href=\"%s\">Links</a> / Link bearbeiten"
 
 #: wp-admin/themes.php:273 wp-admin/themes.php:282
 msgid "Visit site"
-msgstr "Website ansehen"
+msgstr "Website aufrufen"
 
 #: wp-admin/includes/template.php:509
 msgid "Update Comment"

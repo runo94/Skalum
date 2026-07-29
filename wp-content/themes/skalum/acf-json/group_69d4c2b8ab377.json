@@ -3,6 +3,24 @@
     "title": "Author info",
     "fields": [
         {
+            "key": "field_69d75a7206496",
+            "label": "Author Info",
+            "name": "",
+            "aria-label": "",
+            "type": "tab",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "placement": "top",
+            "endpoint": 0,
+            "selected": 0
+        },
+        {
             "key": "field_69d4c2ba575eb",
             "label": "Author Avatar",
             "name": "author_avatar",
@@ -61,24 +79,6 @@
             },
             "return_format": "array",
             "allow_in_bindings": 0
-        },
-        {
-            "key": "field_69d75a7206496",
-            "label": "Author Info",
-            "name": "",
-            "aria-label": "",
-            "type": "tab",
-            "instructions": "",
-            "required": 0,
-            "conditional_logic": 0,
-            "wrapper": {
-                "width": "",
-                "class": "",
-                "id": ""
-            },
-            "placement": "top",
-            "endpoint": 0,
-            "selected": 0
         },
         {
             "key": "field_69d4c953afd73",
@@ -177,5 +177,5 @@
     "description": "",
     "show_in_rest": 0,
     "display_title": "",
-    "modified": 1775721121
+    "modified": 1775721291
 }

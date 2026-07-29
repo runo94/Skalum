@@ -3,6 +3,8 @@
   padding: 72px 0 0;
   color: #fff;
   background: transparent;
+  overflow: hidden;
+  width: 100%;
 
   &::before {
     content: "";

@@ -6,8 +6,31 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <meta name="format-detection" content="telephone=no">
   <?php wp_head(); ?>
-</head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=AW-17878287456"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
 
+  gtag('config', 'AW-17878287456');
+</script>
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-TKZWJVDX');</script>
+<!-- End Google Tag Manager -->
+</head>
+<!-- Clarity tracking code for https://skalum.agency/ -->
+<script>
+    (function(c,l,a,r,i,t,y){
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i+"?ref=bwt";
+        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window, document, "clarity", "script", "xrfqdhs6em");
+</script>
 <body <?php body_class(); ?>>
   <?php wp_body_open(); ?>
   <?php get_template_part('template-parts/header/site', 'header'); ?>
@@ -15,6 +38,10 @@
   $home_url = home_url('/');
   $site_name = get_bloginfo('name');
   ?>
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TKZWJVDX"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
 
   <header class="site-header">
     <div class="site-header__inner">
@@ -127,7 +154,7 @@
     <div class="mobile-nav__inner">
       <?php
       wp_nav_menu([
-        'theme_location' => 'header',
+        'theme_location' => 'header',   // твоє меню
         'container' => false,
         'menu_class' => 'mobile-nav__list',
         'fallback_cb' => false,

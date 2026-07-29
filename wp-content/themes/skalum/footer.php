@@ -329,7 +329,26 @@ $legal_links = [
     </div>
   </div>
 </footer>
+<script>
+(function($){
+  if (typeof jQuery === 'undefined') return;
 
+  // Спрацьовує після успішної відправки форми (form ID = 1)
+  jQuery(document).on('nfFormSubmitResponse', function(e, response){
+    // response.data.errors — якщо є помилки валідації, подію не шлемо
+    if (response.data && response.data.errors && response.data.errors.length) {
+      return;
+    }
+
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push({
+      'event': 'form_submit',
+      'form_id': 'nf-form-1',
+      'form_name': 'Get Free Audit' // онови на реальну назву
+    });
+  });
+})(jQuery);
+</script>
 <?php wp_footer(); ?>
 </body>
 </html>
