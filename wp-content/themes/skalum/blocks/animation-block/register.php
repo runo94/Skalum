@@ -30,6 +30,11 @@ acf_register_block_type([
             $css_ver
         );
 
+        // Фронтовий JS не потрібен у редакторі — див. skalum_is_editor_render().
+        if (skalum_is_editor_render()) {
+            return;
+        }
+
         wp_enqueue_script(
             'gsap',
             'https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js',

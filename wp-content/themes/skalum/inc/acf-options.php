@@ -11,11 +11,9 @@ if (function_exists('acf_add_options_page')) {
     ]);
 }
 
-add_filter('acf/settings/save_json', fn() => get_template_directory() . '/acf-json');
-add_filter('acf/settings/load_json', function($paths){
-    $paths[] = get_template_directory() . '/acf-json';
-    return $paths;
-});
+// save_json/load_json навмисно не дублюються тут — вони зареєстровані один раз
+// у functions.php. Другий однаковий шлях у load_json змушував ACF сканувати
+// теку acf-json двічі на кожному запиті.
 
 add_filter('acf/settings/show_admin', '__return_true');
 

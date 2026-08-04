@@ -16,8 +16,10 @@ acf_register_block_type([
             [],
             $ver
         );
-        $ver = wp_get_theme()->get('Version');
-        $base = get_stylesheet_directory_uri() . '/blocks/cards-block/assets';
+        // Фронтовий JS не потрібен у редакторі — див. skalum_is_editor_render().
+        if (skalum_is_editor_render()) {
+            return;
+        }
 
         $script = "$base/js/cards-block.min.js";
         if (file_exists(get_stylesheet_directory() . '/blocks/cards-block/assets/js/cards-block.min.js')) {

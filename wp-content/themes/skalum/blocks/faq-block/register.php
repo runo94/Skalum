@@ -16,8 +16,10 @@ acf_register_block_type([
             [],
             $ver
         );
-        $ver = wp_get_theme()->get('Version');
-        $base = get_stylesheet_directory_uri() . '/blocks/faq-block/assets';
+        // Фронтовий JS не потрібен у редакторі — див. skalum_is_editor_render().
+        if (skalum_is_editor_render()) {
+            return;
+        }
 
         $script = "$base/js/faq-block.min.js";
         if (file_exists(get_stylesheet_directory() . '/blocks/faq-block/assets/js/faq-block.min.js')) {

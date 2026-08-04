@@ -17,6 +17,12 @@ acf_register_block_type([
             $ver
         );
 
+        // Фронтовий JS не потрібен у редакторі — див. skalum_is_editor_render().
+        // particles.js особливо: він крутить canvas-анімацію в прев'ю.
+        if (skalum_is_editor_render()) {
+            return;
+        }
+
         $particles = "$base/js/particles.min.js";
         $script = "$base/js/sky-block.min.js";
 

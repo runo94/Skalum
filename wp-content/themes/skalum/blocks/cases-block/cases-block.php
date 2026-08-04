@@ -106,6 +106,12 @@ $cases = get_field('cases');
                               <div class="metric__desc"><?= esc_html($case['third_column']['description']) ?></div>
                             </div>
                           </div>
+
+                          <?php
+                          $footer_case = $case;
+                          include __DIR__ . '/partials/card-footer.php';
+                          ?>
+
                         </div>
                       </div>
                       <div class="case-item__desc"><?= wp_kses_post($c['description']) ?></div>
@@ -167,6 +173,11 @@ $cases = get_field('cases');
                         <div class="metric__desc"><?= esc_html($case['third_column']['description']) ?></div>
                       </div>
                     </div>
+
+                    <?php
+                    $footer_case = $case;
+                    include __DIR__ . '/partials/card-footer.php';
+                    ?>
                   </div>
                 </div>
               </div>

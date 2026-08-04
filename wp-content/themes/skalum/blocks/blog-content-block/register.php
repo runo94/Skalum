@@ -31,6 +31,11 @@ add_action('acf/init', function () {
                 file_exists($block_path . '/css/style.css') ? filemtime($block_path . '/css/style.css') : null
             );
 
+            // Фронтовий JS не потрібен у редакторі — див. skalum_is_editor_render().
+            if (skalum_is_editor_render()) {
+                return;
+            }
+
             wp_enqueue_script(
                 'blog-content-block-script',
                 $block_url . '/js/script.js',

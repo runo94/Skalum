@@ -5,9 +5,11 @@ $inc = [
     '/inc/enqueue.php',
     '/inc/acf-options.php',
     '/inc/helpers.php',
+    '/inc/nav-menu.php',
     '/inc/ajax.php',
     '/inc/blocks.php',
     '/inc/fields/page-settings.php',
+    '/inc/fields/menu-items.php',
     '/inc/post-types/cases.php',
     '/inc/fields/full-range-pricing-prefill.php',
 ];

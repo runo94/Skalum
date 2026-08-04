@@ -37,6 +37,12 @@ function skalum_register_shopify_hero_block()
 				file_exists($css_path) ? filemtime($css_path) : null
 			);
 
+			// Фронтовий JS не потрібен у редакторі — див. skalum_is_editor_render().
+			// particles.js особливо: він крутить canvas-анімацію в прев'ю.
+			if (skalum_is_editor_render()) {
+				return;
+			}
+
 			$particles = "$base/js/particles.min.js";
 			$script = "$base/js/shopify-hero-block.min.js";
 

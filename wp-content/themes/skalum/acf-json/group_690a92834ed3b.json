@@ -421,6 +421,46 @@
                         }
                     ],
                     "parent_repeater": "field_690a92eaaaff3"
+                },
+                {
+                    "key": "field_690a941fab010",
+                    "label": "Card description",
+                    "name": "card_description",
+                    "aria-label": "",
+                    "type": "textarea",
+                    "instructions": "Short text in the card footer, next to the button.",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "maxlength": "",
+                    "allow_in_bindings": 0,
+                    "rows": 3,
+                    "placeholder": "",
+                    "new_lines": "wpautop",
+                    "parent_repeater": "field_690a92eaaaff3"
+                },
+                {
+                    "key": "field_690a941fab011",
+                    "label": "Card CTA",
+                    "name": "card_cta",
+                    "aria-label": "",
+                    "type": "link",
+                    "instructions": "Button in the card footer. Default label — Read More.",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "return_format": "array",
+                    "allow_in_bindings": 0,
+                    "parent_repeater": "field_690a92eaaaff3"
                 }
             ]
         }
@@ -443,5 +483,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1762300987
+    "modified": 1785456000
 }

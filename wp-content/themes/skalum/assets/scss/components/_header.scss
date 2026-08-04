@@ -5,6 +5,8 @@ $muted: #9aa3ad;
 $accent: #6ec1ff; // світла блакить на бордері кнопок
 $radius-xl: 999px;
 $shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+$line: rgba(255, 255, 255, 0.1); // розділювачі в мобільному меню
+$mnav-top: 88px; // висота хедера на мобілці: padding-top 20 + пілюля 68
 
 // Хедер
 .site-header {
@@ -14,7 +16,12 @@ $shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
   width: 100%;
   padding-top: 30px;
 
+  @media screen and (max-width: 1024px) {
+    background-color: #050505;
+  }
+
   &__inner {
+    position: relative; // контекст для панелі мега-меню
     max-width: 1280px;
     margin: 0 auto;
     padding: 16px 20px;
@@ -22,6 +29,12 @@ $shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
     align-items: center;
     justify-content: space-between;
     gap: 20px;
+    padding: 6px 20px;
+    border-radius: 12px;
+    backdrop-filter: blur(8px);
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.02);
   }
 
   &__brand {
@@ -39,17 +52,9 @@ $shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
   display: flex;
   align-items: center;
   gap: 14px;
-  padding: 6px 20px;
-  border-radius: 16px;
-  backdrop-filter: blur(8px);
-  background: linear-gradient(
-    180deg,
-    rgba(255, 255, 255, 0.04),
-    rgba(255, 255, 255, 0.02)
-  );
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.02);
-  position: relative;
+
+  // position: relative тут навмисно немає — панель мега-меню позиціонується
+  // від .site-header__inner, щоб бути на всю ширину пілюлі хедера.
 
   &__list {
     display: flex;
@@ -63,24 +68,105 @@ $shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
       &::before {
         content: none;
       }
-      &.current-menu-item a,
-      &.current-menu-ancestor a {
+      &.current-menu-item > .nav-pill__link,
+      &.current-menu-item > .nav-pill__group,
+      &.current-menu-ancestor > .nav-pill__link,
+      &.current-menu-ancestor > .nav-pill__group {
         background: rgba(255, 255, 255, 0.08);
         box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.06) inset;
+        color: $text;
+
+        .nav-pill__link {
+          color: $text;
+        }
+      }
+    }
+  }
+
+  &__item {
+    position: static;
+  }
+
+  // Обгортка «посилання + шеврон» для пунктів з панеллю: підсвічується як одне ціле.
+  &__group {
+    display: inline-flex;
+    align-items: center;
+    border-radius: 12px;
+    transition: background 0.2s ease, box-shadow 0.2s ease;
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.05);
+    }
+  }
+
+  &__link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    height: 42px;
+    padding: 0 16px;
+    border: 0;
+    background: transparent;
+    border-radius: 12px;
+    color: $muted;
+    text-decoration: none;
+    font-family: inherit;
+    font-size: 1rem;
+    font-weight: 500;
+    letter-spacing: 0.1px;
+    cursor: pointer;
+    transition: color 0.2s ease, background 0.2s ease;
+
+    &:hover,
+    &:focus-visible {
+      color: $text;
+      text-decoration: none;
+    }
+
+    .nav-pill__group > & {
+      padding-right: 4px;
+    }
+  }
+
+  // Окрема кнопка-шеврон біля посилання
+  &__caret {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 42px;
+    padding: 0;
+    margin: 0;
+    border: 0;
+    background: transparent;
+    border-radius: 12px;
+    color: $muted;
+    cursor: pointer;
+    transition: color 0.2s ease;
+
+    &:hover,
+    &:focus-visible {
+      color: $text;
+    }
+  }
+
+  .nav-caret {
+    transition: transform 0.25s ease;
+  }
+
+  &__item.is-open {
+    > .nav-pill__link,
+    > .nav-pill__group {
+      color: $text;
+
+      .nav-pill__link,
+      .nav-pill__caret {
         color: $text;
       }
     }
 
-    a {
-      display: inline-flex;
-      align-items: center;
-      height: 42px;
-      padding: 0 16px;
-      border-radius: 12px;
-      color: $muted;
-      text-decoration: none;
-      font-weight: 500;
-      letter-spacing: 0.1px;
+    .nav-caret {
+      transform: rotate(180deg);
     }
   }
 
@@ -93,6 +179,9 @@ $shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
       display: inline-flex;
       align-items: center;
       gap: 10px;
+      padding: 12px 24px;
+      border: 1px solid rgba($color: #fff, $alpha: 0.2);
+      border-radius: 12px;
 
       color: $text;
       cursor: pointer;
@@ -132,6 +221,197 @@ $shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
         }
       }
     }
+  }
+}
+
+/* ================= Mega menu (desktop) ================= */
+.mega-menu {
+  position: absolute;
+  top: calc(100% + 12px);
+  backdrop-filter: blur(8px);
+  left: 0;
+  right: 0;
+  z-index: 40;
+
+  padding: 44px 48px;
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+
+  background: radial-gradient(
+      90% 130% at 8% -20%,
+      rgba(57, 143, 255, 0.1),
+      transparent 100%
+    ),
+    radial-gradient(
+      110% 150% at 88% 130%,
+      rgba(237, 139, 53, 0.09),
+      transparent 100%
+    ),
+    rgba(10, 11, 14, 0.95);
+
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px) saturate(1.15);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.45),
+    inset 0 1px 0 rgba(255, 255, 255, 0.06);
+
+  opacity: 0;
+  visibility: hidden; // прибирає вміст із таб-порядку, поки закрито
+  transform: translateY(-8px);
+  pointer-events: none;
+  transition: opacity 0.24s ease, transform 0.24s ease, visibility 0.24s;
+
+  .nav-pill__item.is-open > & {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+    pointer-events: auto;
+  }
+
+  &__inner {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 300px));
+    justify-content: start;
+    gap: 34px 48px;
+  }
+
+  // Дропдаун з однією колонкою: ширина по вмісту, вирівняний під своїм пунктом
+  &--single {
+    left: auto;
+    right: auto;
+    width: 100%;
+    min-width: 240px;
+    max-width: 1280px;
+    padding: 24px 20px;
+
+    .mega-menu__inner {
+      grid-template-columns: minmax(200px, 1fr);
+    }
+
+    .mega-menu__heading {
+      margin-bottom: 18px;
+    }
+  }
+
+  &__col {
+    min-width: 0;
+  }
+
+  &__heading {
+    display: block;
+    margin: 0 0 34px;
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 1.2;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.6);
+    text-decoration: none;
+  }
+
+  a.mega-menu__heading:hover,
+  a.mega-menu__heading:focus-visible {
+    color: rgba(255, 255, 255, 0.6);
+  }
+
+  &__list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 10px;
+
+    > li {
+      margin: 0;
+      display: block;
+
+      &::before {
+        content: none;
+      }
+    }
+  }
+
+  &__link {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 6px 10px 6px 8px;
+    margin-left: -8px;
+    border-radius: 12px;
+    color: rgba(255, 255, 255, 0.82);
+    text-decoration: none;
+    transition: background 0.2s ease, color 0.2s ease;
+
+    &:hover,
+    &:focus-visible {
+      color: #fff;
+      background: rgba(255, 255, 255, 0.05);
+      text-decoration: none;
+
+      .mega-menu__icon {
+        border-color: rgba(110, 193, 255, 0.35);
+        box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.14),
+          0 0 18px rgba(110, 193, 255, 0.16);
+        color: #fff;
+      }
+    }
+
+    &.is-current {
+      color: #fff;
+
+      .mega-menu__icon {
+        border-color: rgba(110, 193, 255, 0.3);
+      }
+    }
+  }
+
+  &__icon {
+    flex: 0 0 auto;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    border-radius: 11px;
+    border: 1px solid rgba(255, 255, 255, 0.09);
+    background: rgba(255, 255, 255, 0.04);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
+    color: rgba(255, 255, 255, 0.85);
+    transition: border-color 0.2s ease, box-shadow 0.2s ease, color 0.2s ease;
+
+    svg,
+    img {
+      width: 20px;
+      height: 20px;
+      display: block;
+    }
+  }
+
+  &__text {
+    display: grid;
+    min-width: 0;
+  }
+
+  &__title {
+    font-size: 1.0625rem;
+    font-weight: 400;
+    line-height: 1.35;
+  }
+
+  &__desc {
+    font-size: 0.875rem;
+    line-height: 1.35;
+    color: rgba(255, 255, 255, 0.45);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mega-menu {
+    transition: none;
+    transform: none;
+  }
+  .mega-menu .nav-caret,
+  .nav-pill .nav-caret {
+    transition: none;
   }
 }
 
@@ -224,63 +504,49 @@ $shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
   }
 
   position: relative;
-  width: 44px;
+  width: 46px;
   height: 44px;
-  border: 0;
   background: transparent;
   align-items: center;
   justify-content: center;
-  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 6px;
   cursor: pointer;
-  // "світла пляма" зверху
-  &::before {
-    content: "";
-    position: absolute;
-    top: -2px;
-    left: 6px;
-    right: 6px;
-    height: 12px;
-    background: radial-gradient(
-      120% 90% at 50% 0%,
-      rgba(110, 193, 255, 0.35),
-      transparent 70%
-    );
-    filter: blur(2px);
-    border-radius: 14px;
+  transition: border-color 0.2s ease;
+
+  &:hover {
+    border-color: rgba(255, 255, 255, 0.24);
   }
 
   .burger__bar {
     position: absolute;
-    width: 26px;
-    height: 3px;
-    border-radius: 3px;
+    width: 22px;
+    height: 2px;
+    border-radius: 2px;
     background: #e9edf1;
-    box-shadow: 0 1px 6px rgba(110, 193, 255, 0.55),
-      0 0 10px rgba(110, 193, 255, 0.3) inset;
-    transition: transform 0.35s ease, opacity 0.25s ease, top 0.35s ease,
-      bottom 0.35s ease;
+    transition: transform 0.35s ease, opacity 0.25s ease;
 
     &:nth-child(1) {
-      top: 14px;
+      top: 15px;
     }
     &:nth-child(2) {
       top: 21px;
     }
     &:nth-child(3) {
-      top: 28px;
+      top: 27px;
     }
   }
 
   &.is-open {
     .burger__bar:nth-child(1) {
-      transform: translateY(7px) rotate(45deg);
+      transform: translateY(6px) rotate(45deg);
     }
     .burger__bar:nth-child(2) {
       opacity: 0;
       transform: scaleX(0.2);
     }
     .burger__bar:nth-child(3) {
-      transform: translateY(-7px) rotate(-45deg);
+      transform: translateY(-6px) rotate(-45deg);
     }
   }
 }
@@ -296,12 +562,43 @@ $shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
     display: none;
   }
 
+  // Хедер: пілюля з відступами від краю екрана, логотип у одну вертикаль
+  // із пунктами меню (16 + 20 = 36 = падінг мобільної панелі)
+  .site-header {
+    padding: 20px 16px 0;
+  }
+
+  .site-header__inner {
+    gap: 12px;
+    padding: 12px 20px;
+  }
+
+  .nav-pill__lang {
+    margin-left: auto;
+
+    .lang-btn {
+      height: 44px;
+      padding: 0 14px;
+      gap: 8px;
+      border-radius: 6px;
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      font-size: 15px;
+      transition: border-color 0.2s ease;
+
+      &:hover {
+        color: $text;
+        border-color: rgba(255, 255, 255, 0.24);
+      }
+    }
+  }
+
   .mobile-nav {
     position: fixed;
-    inset: 76px 0 0 0; // під шапкою
-    background: rgba(5, 5, 5, 0.96);
-    backdrop-filter: blur(6px);
-    border-top: 1px solid rgba(255, 255, 255, 0.06);
+    inset: $mnav-top 0 0 0; // під шапкою
+    overflow-y: auto;
+    overscroll-behavior: contain; // скрол панелі не «протікає» на сторінку
+    -webkit-overflow-scrolling: touch;
+    background: #050505;
     transform: translateY(10px);
     opacity: 0;
     pointer-events: none;
@@ -317,73 +614,204 @@ $shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
   .mobile-nav__inner {
     max-width: 720px;
     margin: 0 auto;
-    padding: 40px 22px 28px;
-    display: grid;
-    gap: 28px;
-    min-height: calc(100vh - 76px);
-    align-content: start;
+    padding: 34px 36px 32px;
+    display: flex;
+    flex-direction: column;
+    min-height: calc(100vh - #{$mnav-top});
   }
 
   .mobile-nav__list {
     list-style: none;
     margin: 0;
     padding: 0;
-    display: grid;
-    gap: 22px;
-    justify-content: center;
+    display: block;
 
     li {
-      width: 100%;
       display: block;
-      text-align: center;
+      width: 100%;
       margin: 0;
+      text-align: left;
 
       &::before {
         content: none;
       }
     }
-    a {
-      color: $text;
-      text-decoration: none;
-      font-size: 22px;
-      line-height: 1.2;
-      display: block;
-      padding: 6px 0;
-      border-radius: 10px;
-      transition: transform 0.2s ease, background 0.2s ease;
-      text-align: center;
-      &:hover {
-        transform: translateY(-1px);
-        background: rgba(255, 255, 255, 0.04);
-      }
-    }
   }
 
-  .mobile-nav__lang {
-    margin-top: auto;
-    padding: 40px 0 20px;
+  // Розділювач між пунктами верхнього рівня (під останнім не треба)
+  .mobile-nav__item:not(:last-child) {
+    border-bottom: 1px solid rgba($color: #fff, $alpha: .2);
+  }
+
+  .mobile-nav__row {
     display: flex;
-    justify-content: center;
-    .lang-pill {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      height: 44px;
-      padding: 0 16px;
-      border-radius: 12px;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 8px;
+  }
+
+  .mobile-nav__link {
+    display: block;
+    padding: 18px 0;
+    color: $text;
+    font-size: 22px;
+    line-height: 1.2;
+    text-align: left;
+    text-decoration: none;
+    font-weight: 300;
+
+    &:hover {
       color: $text;
-      text-decoration: none;
-      border: 1px solid rgba(110, 193, 255, 0.35);
-      background: linear-gradient(
-        180deg,
-        rgba(255, 255, 255, 0.06),
-        rgba(255, 255, 255, 0.02)
-      );
-      box-shadow: 0 0 18px rgba(110, 193, 255, 0.12);
     }
   }
 
-  body.nav-open {
+  .mobile-nav__toggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    color: rgba(255, 255, 255, 0.75);
+    cursor: pointer;
+
+    .nav-caret {
+      flex: 0 0 auto;
+      width: 18px;
+      height: 18px;
+      transition: transform 0.25s ease;
+    }
+
+    &[aria-expanded="true"] .nav-caret {
+      transform: rotate(180deg);
+    }
+
+    // Пункт без URL: кнопкою стає вся стрічка разом із підписом
+    &--row {
+      width: 100%;
+      height: auto;
+      justify-content: flex-start;
+      gap: 8px;
+      text-align: left;
+    }
+  }
+
+  // Акордеон: max-height анімується інлайном із JS
+  .mobile-nav__sub {
     overflow: hidden;
+    max-height: 0;
+    transition: max-height 0.3s ease, opacity 0.3s ease;
+    opacity: 0;
+
+    &.is-open {
+      opacity: 1;
+    }
+  }
+
+  .mobile-nav__sub-inner {
+    padding: 0 0 6px;
+  }
+
+  .mobile-nav__group {
+    padding: 4px 0 18px 20px;
+
+    &:not(:last-child) {
+      margin-bottom: 16px;
+      border-bottom: 1px solid rgba($color: #fff, $alpha: .2);
+    }
+  }
+
+  .mobile-nav__heading {
+    margin: 0 0 14px;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.35);
+    text-align: left;
+  }
+
+  .mobile-nav__sublist {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 8px;
+  }
+
+  .mobile-nav__sublink {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    width: 100%;
+    padding: 4px 0;
+    color: rgba(255, 255, 255, 0.9);
+    text-decoration: none;
+    text-align: left;
+    transition: color 0.2s ease;
+
+    &:hover {
+      color: #fff;
+    }
+  }
+
+  .mobile-nav__icon {
+    flex: 0 0 auto;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 11px;
+    border: 1px solid rgba(255, 255, 255, 0.09);
+    background: rgba(255, 255, 255, 0.04);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
+    color: rgba(255, 255, 255, 0.85);
+
+    svg,
+    img {
+      width: 18px;
+      height: 18px;
+      display: block;
+    }
+  }
+
+  .mobile-nav__text {
+    display: grid;
+    min-width: 0;
+  }
+
+  .mobile-nav__subtitle {
+    font-size: 1.0625rem;
+    line-height: 1.35;
+  }
+
+  .mobile-nav__desc {
+    font-size: 0.8125rem;
+    line-height: 1.35;
+    color: rgba(255, 255, 255, 0.45);
+  }
+
+  // CTA притиснута до низу панелі
+  .cta-btn--block {
+    display: flex;
+    width: 100%;
+    height: 52px;
+    margin-top: auto;
+    justify-content: center;
+  }
+
+  // Сторінка під відкритим меню не скролиться.
+  // position: fixed замість overflow: hidden — інакше iOS Safari все одно тягне
+  // сторінку; top виставляє JS, щоб не стрибнути на початок.
+  body.nav-open {
+    position: fixed;
+    left: 0;
+    right: 0;
+    width: 100%;
+    overflow: hidden;
+    overscroll-behavior: none;
   }
 }

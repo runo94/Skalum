@@ -16,8 +16,10 @@ acf_register_block_type([
             [],
             $ver
         );
-        $ver = wp_get_theme()->get('Version');
-        $base = get_stylesheet_directory_uri() . '/blocks/header-case-block/assets';
+        // Фронтовий JS не потрібен у редакторі — див. skalum_is_editor_render().
+        if (skalum_is_editor_render()) {
+            return;
+        }
 
         $script = "$base/js/header-case-block.min.js";
         if (file_exists(get_stylesheet_directory() . '/blocks/header-case-block/assets/js/header-case-block.min.js')) {

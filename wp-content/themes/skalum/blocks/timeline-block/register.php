@@ -29,6 +29,11 @@ add_action('acf/init', function () {
         $ver
       );
 
+      // Фронтовий JS не потрібен у редакторі — див. skalum_is_editor_render().
+      if (skalum_is_editor_render()) {
+        return;
+      }
+
       wp_enqueue_script(
         'skalum-timeline-block',
         "$base/js/timeline-block.js?v=$ver",

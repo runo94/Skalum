@@ -62,14 +62,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       </a>
 
       <nav class="nav-pill" aria-label="<?php esc_attr_e('Main', 'yourtheme'); ?>">
-        <?php
-        wp_nav_menu([
-          'theme_location' => 'header',
-          'container' => false,
-          'menu_class' => 'nav-pill__list',
-          'fallback_cb' => false,
-        ]);
-        ?>
+        <?php skalum_render_desktop_nav('header'); ?>
 
         <?php
         // Toggle DE <-> EN (DE is default)
@@ -121,21 +114,22 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
         $toggle = skl_lang_toggle_target();
         ?>
-        <?php if (!empty($toggle['enabled'])): ?>
-          <div class="nav-pill__lang">
-            <a class="lang-btn" href="<?php echo esc_url($toggle['url']); ?>"
-              aria-label="<?php echo esc_attr(sprintf(__('Switch language to %s', 'yourtheme'), $toggle['label'])); ?>">
-              <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
-                <circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.5" />
-                <path d="M3 12h18M12 3c3 3 3 15 0 18M12 3c-3 3-3 15 0 18" fill="none" stroke="currentColor"
-                  stroke-width="1.5" />
-              </svg>
-              <span><?php echo esc_html($toggle['label']); ?></span>
-            </a>
-          </div>
-        <?php endif; ?>
-
       </nav>
+
+      <?php // Перемикач мови — окремий елемент хедера: на мобілці він у пілюлі поруч із бургером ?>
+      <?php if (!empty($toggle['enabled'])): ?>
+        <div class="nav-pill__lang">
+          <a class="lang-btn" href="<?php echo esc_url($toggle['url']); ?>"
+            aria-label="<?php echo esc_attr(sprintf(__('Switch language to %s', 'yourtheme'), $toggle['label'])); ?>">
+            <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
+              <circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.5" />
+              <path d="M3 12h18M12 3c3 3 3 15 0 18M12 3c-3 3-3 15 0 18" fill="none" stroke="currentColor"
+                stroke-width="1.5" />
+            </svg>
+            <span><?php echo esc_html($toggle['label']); ?></span>
+          </a>
+        </div>
+      <?php endif; ?>
 
       <a class="cta-btn" href="#form">Get Free Audit</a>
 
@@ -148,28 +142,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     </div>
   </header>
 
-  <?php $toggle = function_exists('skl_lang_toggle_target') ? skl_lang_toggle_target() : ['url' => '#', 'label' => 'EN']; ?>
-
   <nav class="mobile-nav" id="mobileNav" hidden>
     <div class="mobile-nav__inner">
-      <?php
-      wp_nav_menu([
-        'theme_location' => 'header',   // твоє меню
-        'container' => false,
-        'menu_class' => 'mobile-nav__list',
-        'fallback_cb' => false,
-      ]);
-      ?>
+      <?php skalum_render_mobile_nav('header'); ?>
 
-      <div class="mobile-nav__lang">
-        <a class="lang-pill" href="<?php echo esc_url($toggle['url']); ?>">
-          <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
-            <circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.5" />
-            <path d="M3 12h18M12 3c3 3 3 15 0 18M12 3c-3 3-3 15 0 18" fill="none" stroke="currentColor"
-              stroke-width="1.5" />
-          </svg>
-          <span><?php echo esc_html($toggle['label']); ?></span>
-        </a>
-      </div>
+      <a class="cta-btn cta-btn--block" href="#form">Get Free Audit</a>
     </div>
   </nav>

@@ -16,14 +16,18 @@ acf_register_block_type([
             [],
             $ver
         );
-        $ver = wp_get_theme()->get('Version');
-        $base = get_stylesheet_directory_uri() . '/blocks/cases-block/assets';
+        // Swiper CSS лишаємо, щоб прев'ю не розповзалося; JS у редакторі не
+        // потрібен — див. skalum_is_editor_render().
+        wp_enqueue_style('swiper', 'https://unpkg.com/swiper@10/swiper-bundle.min.css', [], '10.0.0');
+
+        if (skalum_is_editor_render()) {
+            return;
+        }
 
         $script = "$base/js/cases-block.min.js";
         if (file_exists(get_stylesheet_directory() . '/blocks/cases-block/assets/js/cases-block.min.js')) {
             wp_enqueue_script('skalum-cases-block', $script, [], $ver, true);
 
-            wp_enqueue_style('swiper', 'https://unpkg.com/swiper@10/swiper-bundle.min.css', [], '10.0.0');
             wp_enqueue_script('swiper', 'https://unpkg.com/swiper@10/swiper-bundle.min.js', [], '10.0.0', true);
 
             // твій файл зі слайдером
