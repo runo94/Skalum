@@ -47,23 +47,23 @@ $cases = get_field('cases');
                           <div class="case-item__num"><?= $i + 1 ?></div>
                           <div class="case-item__title"><?= esc_html($c['title']) ?></div>
                         </div>
-                        <div class="case-item__arrow">→ View case</div>
+                        <?php $item_link_attrs = skalum_link_attrs($c['case_link'] ?? null); ?>
+                        <?php if ($item_link_attrs): ?>
+                          <a class="case-item__arrow"<?= $item_link_attrs ?>>→ View case</a>
+                        <?php else: ?>
+                          <div class="case-item__arrow">→ View case</div>
+                        <?php endif; ?>
                       </div>
 
 
                       <div class="case-slide__detail">
                         <div class="case-detail">
 
-                          <?php if ($img = wp_get_attachment_image_url($case['image'], 'large')): ?>
-                            <div class="case-detail__chart">
-                              <img src="<?= esc_url($img) ?>" alt="Chart">
-                            </div>
-                          <?php endif; ?>
-
-                          <div class="case-detail__label">
-                            <span class="dot"></span>
-                            <?= esc_html($case['case_label']) ?>
-                          </div>
+                          <?php
+                          $detail_case = $case;
+                          include __DIR__ . '/partials/detail-chart.php';
+                          include __DIR__ . '/partials/detail-label.php';
+                          ?>
 
                           <div class="case-detail__metrics">
                             <div class="metric">
@@ -124,16 +124,11 @@ $cases = get_field('cases');
 
                 <div class="case-slide__detail">
                   <div class="case-detail">
-                    <div class="case-detail__label">
-                      <span class="dot"></span>
-                      <?= esc_html($case['case_label']) ?>
-                    </div>
-
-                    <?php if ($img = wp_get_attachment_image_url($case['image'], 'large')): ?>
-                      <div class="case-detail__chart">
-                        <img src="<?= esc_url($img) ?>" alt="Chart">
-                      </div>
-                    <?php endif; ?>
+                    <?php
+                    $detail_case = $case;
+                    include __DIR__ . '/partials/detail-label.php';
+                    include __DIR__ . '/partials/detail-chart.php';
+                    ?>
 
                     <div class="case-detail__metrics">
                       <div class="metric">

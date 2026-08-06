@@ -106,6 +106,24 @@
                     "parent_repeater": "field_690a92eaaaff3"
                 },
                 {
+                    "key": "field_690a941fab012",
+                    "label": "Case link",
+                    "name": "case_link",
+                    "aria-label": "",
+                    "type": "link",
+                    "instructions": "Link to the case page — used by «View case», the card label and the chart.",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "return_format": "array",
+                    "allow_in_bindings": 0,
+                    "parent_repeater": "field_690a92eaaaff3"
+                },
+                {
                     "key": "field_690a9325aaff5",
                     "label": "Description",
                     "name": "description",

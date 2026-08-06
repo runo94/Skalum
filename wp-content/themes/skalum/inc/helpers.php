@@ -32,6 +32,29 @@ function skalum_is_editor_render(): bool {
 }
 
 /**
+ * Атрибути href/target/rel для ACF-поля типу link.
+ *
+ * Повертає порожній рядок, якщо URL не заданий — тоді розмітку посилання
+ * можна не рендерити взагалі.
+ *
+ * @param array|null $link Значення ACF link у форматі array.
+ * @return string Готовий до вставки в тег рядок атрибутів (з ведучим пробілом).
+ */
+function skalum_link_attrs(?array $link): string {
+    if (empty($link['url'])) {
+        return '';
+    }
+
+    $attrs = ' href="' . esc_url($link['url']) . '"';
+
+    if (!empty($link['target'])) {
+        $attrs .= ' target="' . esc_attr($link['target']) . '" rel="noopener noreferrer"';
+    }
+
+    return $attrs;
+}
+
+/**
  * Іконка зовнішнього посилання (share / open-in-new).
  *
  * Колір успадковується від тексту посилання через currentColor.
