@@ -188,6 +188,13 @@ ul {
   }
 }
 
+/* Іконка зовнішнього посилання — skalum_external_link_icon() */
+.skalum-icon-external {
+  flex: 0 0 auto;
+  width: 16px;
+  height: 16px;
+}
+
 .fade-in {
   opacity: 0;
   transform: translateY(24px);

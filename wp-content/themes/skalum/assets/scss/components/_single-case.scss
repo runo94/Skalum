@@ -34,12 +34,6 @@
 
       align-items: stretch;
     }
-
-    &__card {
-      &__header {
-        grid-template-columns: auto;
-      }
-    }
   }
   @media (max-width: 980px) {
     .related-cases__grid {

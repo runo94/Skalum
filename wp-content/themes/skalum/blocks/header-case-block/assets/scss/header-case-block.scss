@@ -141,6 +141,9 @@
   }
 
   &__link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
     color: #ed8b35;
     text-decoration: none;
 

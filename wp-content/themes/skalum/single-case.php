@@ -56,7 +56,7 @@ if (have_posts()):
             if ($related_q->have_posts()): ?>
                 <section class="related-cases">
                     <div class="container">
-                        <h2 class="related-cases__title"><?php esc_html_e('Related Projects', 'your-textdomain'); ?></h2>
+                        <h2 class="related-cases__title"><?php esc_html_e('Related Projects', 'skalum'); ?></h2>
 
                         <div class="related-cases__grid">
                             <?php while ($related_q->have_posts()):

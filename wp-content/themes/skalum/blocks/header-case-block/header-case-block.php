@@ -157,7 +157,7 @@ $render_stat = function(array $col) {
               <div class="case-head__meta-value">
                 <a class="case-head__link" href="<?php echo esc_url($client_site); ?>" target="_blank" rel="noopener">
                   <?php echo esc_html(preg_replace('#^https?://#', '', $client_site)); ?>
-                  <span aria-hidden="true">↗</span>
+                  <?php echo skalum_external_link_icon('case-head__link-icon'); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
                 </a>
               </div>
             </div>

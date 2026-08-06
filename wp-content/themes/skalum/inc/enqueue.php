@@ -23,5 +23,16 @@ add_action('wp_enqueue_scripts', function () {
         skalum_asset_version('/assets/js/main.js'),
         true
     );
+
+    // Подія form_submit для GTM — потрібна лише там, де є Ninja Forms.
+    if (class_exists('Ninja_Forms')) {
+        wp_enqueue_script(
+            'skalum-form-tracking',
+            get_template_directory_uri() . '/assets/js/form-tracking.js',
+            ['jquery'],
+            skalum_asset_version('/assets/js/form-tracking.js'),
+            true
+        );
+    }
 });
 

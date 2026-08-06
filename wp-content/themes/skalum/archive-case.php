@@ -17,9 +17,9 @@ get_header();
                 <?php post_type_archive_title(); ?>
             </h1>
 
-            <?php if (term_description()): ?>
+            <?php if ($archive_description = get_the_post_type_description()): ?>
                 <div class="archive-cases__description">
-                    <?php echo term_description(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+                    <?php echo wp_kses_post($archive_description); ?>
                 </div>
             <?php endif; ?>
         </header>
@@ -42,7 +42,7 @@ get_header();
 
         <?php else: ?>
             <div class="archive-cases__empty">
-                <p><?php esc_html_e('No cases found.', 'your-textdomain'); ?></p>
+                <p><?php esc_html_e('No cases found.', 'skalum'); ?></p>
             </div>
         <?php endif; ?>
 
