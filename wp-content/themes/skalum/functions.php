@@ -5,6 +5,7 @@ $inc = [
     '/inc/enqueue.php',
     '/inc/acf-options.php',
     '/inc/helpers.php',
+    '/inc/schema-reviews.php',
     '/inc/nav-menu.php',
     '/inc/ajax.php',
     '/inc/blocks.php',

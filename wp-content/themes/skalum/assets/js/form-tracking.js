@@ -1,5 +1,10 @@
 /**
- * Подія form_submit у dataLayer для GTM / Google Ads.
+ * Подія nf_form_success у dataLayer для GTM / Google Ads.
+ *
+ * Ім'я НЕ form_submit навмисно: form_submit автоматично генерує сам gtag
+ * (GA4 Enhanced Measurement «взаємодії з формами» + автодетект форм у тезі
+ * Google Ads). Та подія спрацьовує на нативний submit, до валідації, і
+ * тригер у GTM не міг відрізнити її від нашої. Тепер розведено по іменах.
  *
  * Слухаємо nfFormSubmitResponse — це відповідь сервера на AJAX-сабміт, а не
  * натискання кнопки. Ninja Forms віддає payload виду:
@@ -54,7 +59,7 @@
 
     window.dataLayer = window.dataLayer || [];
     window.dataLayer.push({
-      event: 'form_submit',
+      event: 'nf_form_success',
       form_id: 'nf-form-' + formId,
       form_name: getFormName(formId)
     });

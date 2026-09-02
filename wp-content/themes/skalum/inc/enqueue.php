@@ -24,8 +24,8 @@ add_action('wp_enqueue_scripts', function () {
         true
     );
 
-    // Подія form_submit для GTM — потрібна лише там, де є Ninja Forms.
-    if (class_exists('Ninja_Forms')) {
+    // Подія form_submit для GTM — обслуговує і Ninja Forms, і ms-multistep-form.
+    if (class_exists('Ninja_Forms') || class_exists('MSMF_Plugin')) {
         wp_enqueue_script(
             'skalum-form-tracking',
             get_template_directory_uri() . '/assets/js/form-tracking.js',

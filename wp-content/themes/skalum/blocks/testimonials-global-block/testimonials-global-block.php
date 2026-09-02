@@ -102,7 +102,11 @@ if (!$testimonials && $current_lang !== 'en') {
 
 <?php
 // --- Schema: Reviews for Testimonials block ---
-if (count($testimonials) > 0) {
+// На головній EN відгуки віддаються одним Product-вузлом з aggregateRating
+// (inc/schema-reviews.php), тому окремі Review-ноди тут не дублюємо.
+if (function_exists('skalum_is_en_home_reviews_schema') && skalum_is_en_home_reviews_schema()) {
+  skalum_collect_testimonials($testimonials);
+} elseif (count($testimonials) > 0) {
 
   $site_name = get_bloginfo('name');
   $site_url  = home_url('/');

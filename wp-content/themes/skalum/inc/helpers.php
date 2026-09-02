@@ -37,11 +37,19 @@ function skalum_is_editor_render(): bool {
  * Повертає порожній рядок, якщо URL не заданий — тоді розмітку посилання
  * можна не рендерити взагалі.
  *
- * @param array|null $link Значення ACF link у форматі array.
+ * Тип значення не фіксуємо: ACF для незаповненого link-поля віддає '' або
+ * false (а не null), а при return_format=url — рядок з адресою. Жорсткий
+ * ?array тут кидав TypeError і роняв усю сторінку, тому нормалізуємо самі.
+ *
+ * @param mixed $link Значення ACF-поля типу link (array, string або порожнє).
  * @return string Готовий до вставки в тег рядок атрибутів (з ведучим пробілом).
  */
-function skalum_link_attrs(?array $link): string {
-    if (empty($link['url'])) {
+function skalum_link_attrs($link): string {
+    if (is_string($link)) {
+        $link = $link !== '' ? ['url' => $link] : [];
+    }
+
+    if (!is_array($link) || empty($link['url'])) {
         return '';
     }
 
