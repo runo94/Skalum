@@ -145,7 +145,7 @@ add_action('wp_footer', function () {
 
     $schema = [
         '@context'    => 'https://schema.org',
-        '@type'       => 'Product',
+        '@type'       => 'Organization',
         'name'        => SKALUM_EN_HOME_PRODUCT['name'],
         'image'       => [skalum_en_home_product_image()],
         'description' => SKALUM_EN_HOME_PRODUCT['description'],
